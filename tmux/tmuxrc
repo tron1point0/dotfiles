@@ -1,0 +1,146 @@
+unbind C-b
+set -g prefix C-a
+bind a send-prefix
+
+unbind C-c
+unbind C-o
+unbind C-z
+unbind Space
+unbind !
+unbind '"'
+unbind "#"
+unbind %
+unbind &
+unbind "'"
+unbind ,
+unbind .
+unbind 0
+unbind 1
+unbind 2
+unbind 3
+unbind 4
+unbind 5
+unbind 6
+unbind 7
+unbind 8
+unbind 9
+unbind =
+unbind ?
+unbind D
+unbind f
+unbind i
+unbind l
+unbind o
+unbind q
+unbind t
+unbind x
+unbind {
+unbind }
+unbind '~'
+unbind PPage
+unbind M-1
+unbind M-2
+unbind M-3
+unbind M-4
+unbind M-5
+unbind M-n
+unbind M-p
+unbind M-o
+unbind M-Up
+unbind M-Down
+unbind M-Left
+unbind M-Right
+unbind C-Up
+unbind C-Down
+unbind C-Left
+unbind C-Right
+
+bind 0 select-window -t 0
+bind 1 select-window -t 1
+bind 2 select-window -t 2
+bind 3 select-window -t 3
+bind 4 select-window -t 4
+bind 5 select-window -t 5
+bind 6 select-window -t 6
+bind 7 select-window -t 7
+bind 8 select-window -t 8
+bind 9 select-window -t 9
+
+bind -r , previous-window
+bind -r . next-window
+
+bind -r Left select-pane -L
+bind -r Up select-pane -U
+bind -r Down select-pane -D
+bind -r Right select-pane -R
+
+bind -r C-Left resize-pane -L
+bind -r C-Up resize-pane -U
+bind -r C-Down resize-pane -D
+bind -r C-Right resize-pane -R
+
+bind M-Left command-prompt -p "Resize left by: " "resize-pane -L %%"
+bind M-Up command-prompt -p "Resize up by: " "resize-pane -U %%"
+bind M-Down command-prompt -p "Resize down by: " "resize-pane -D %%"
+bind M-Right command-prompt -p "Resize right by: " "resize-pane -R %%"
+
+bind b break-pane -d
+bind B break-pane
+bind w choose-window
+bind j command-prompt -p "Join with: " "join-pane -s %%"
+bind s command-prompt -p "Swap with: " "swap-pane -s %%"
+bind S command-prompt -p "Swap window with: " "swap-window -s %%"
+
+bind M-0 swap-window -s 0
+bind M-1 swap-window -s 1
+bind M-2 swap-window -s 2
+bind M-3 swap-window -s 3
+bind M-4 swap-window -s 4
+bind M-5 swap-window -s 5
+bind M-6 swap-window -s 6
+bind M-7 swap-window -s 7
+bind M-8 swap-window -s 8
+bind M-9 swap-window -s 9
+
+bind n command-prompt -p "Move window to: " "move-window -t %%"
+
+bind m setw monitor-activity
+bind M command-prompt -p "Monitor for: " "setw monitor-content %%"
+
+bind < swap-pane -U
+bind > swap-pane -D
+
+bind \ confirm-before "kill-server"
+bind K confirm-before "kill-window"
+bind k confirm-before "kill-pane"
+
+bind v split-window -h
+bind h split-window -v
+
+set -g base-index 1
+
+set -g pane-active-border-fg cyan
+set -g pane-border-bg default
+set -g status-bg default
+set -g status-fg default
+
+set -g set-titles on
+setw -g automatic-rename on
+set -g status on
+set -g status-interval 1
+set -g status-justify centre
+set -g mouse-select-pane off
+set -g status-left "#[fg=green][#[bold]#H#[nobold]][#[fg=default]"
+set -g status-right "#[fg=green]][#[bold]#(cut -f 1-3 -d ' ' /proc/loadavg)#[nobold]]#[fg=cyan][#[bold]%F %H:%M %Z#[nobold]]"
+
+set default-terminal screen-256color
+
+set -g visual-activity on
+set -g visual-content on
+
+setw -g window-status-current-format "#[fg=red,bold](#[fg=white]#I:#F#W#[fg=red,bold])#[default]"
+setw -g window-status-format " #I #W #F "
+setw -g window-status-fg default
+
+new -d
+neww -a -d

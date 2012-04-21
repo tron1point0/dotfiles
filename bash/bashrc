@@ -1,0 +1,38 @@
+#!/bin/bash
+# 
+# Author: Traian Nedelea (tron1point0@gmail.com)
+# Version: 1.0
+# Last Modified: 2011-03-29
+# 
+# Change Log:
+# 
+# Allows you to use the XDG spec and plugins for your bash configs.
+
+# Use sane defaults
+[ -z $XDG_CONFIG_HOME ] && XDG_CONFIG_HOME=$HOME/.config
+export BASH_CONFIG_DIR=$XDG_CONFIG_HOME/bash
+export BASH_PLUGIN_DIR=$BASH_CONFIG_DIR/plugins
+
+# Maybe we want to reload plugins from the command line
+function load_plugin {
+	local plugin=$BASH_PLUGIN_DIR/$1
+	[ -r $plugin ] && source $plugin
+}
+function list_plugins {
+	ls $BASH_PLUGIN_DIR
+}
+function plugins {
+	case $1 in
+		-l)
+			list_plugins ;;
+		*)
+			load_plugin $1 ;;
+	esac
+}
+
+for file in $BASH_PLUGIN_DIR/*; do
+	plugins `basename $file`
+done
+
+# Last
+[ -n "$PS1" ] && type -P fortune &>/dev/null && fortune -a

@@ -1,0 +1,24 @@
+$include /etc/inputrc
+
+"\e[7~": beginning-of-line
+"\e[D": backward-word
+"\eOA": history-search-backward
+"\eOB": history-search-forward
+"\e[C": forward-word
+"\e[8~": end-of-line
+
+"\e[1;5~": backward-kill-word
+"\e[3;5~": kill-word
+
+C-t: transpose-words
+"\e[2~": overwrite-mode
+"\e[3~": forward-backward-delete-char
+
+C-l: clear-screen
+C-v: quoted-insert
+
+set completion-ignore-case on
+set enable-keypad on
+set page-completions on
+set revert-all-at-newline on
+set visible-stats on

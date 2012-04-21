@@ -1,0 +1,103 @@
+# Author: Traian Nedelea <tron1point0@gmail.com>
+# 
+# conkyrc - Conky configuration
+
+# Functionality
+background no
+cpu_avg_samples 2
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+update_interval 1.0
+double_buffer yes
+show_graph_scale no
+show_graph_range no
+use_spacer right
+
+# Size & placement
+alignment top_left
+gap_x 0
+gap_y 0
+minimum_size 220 560
+own_window yes
+own_window_type normal
+own_window_class conky-semi
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Appearance - Border
+border_width 0
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades yes
+stippled_borders 0
+
+# Appearance - Font
+use_xft yes
+xftfont Droid Sans:size=8
+xftalpha 0
+uppercase no
+short_units yes
+
+# Appearance - Color
+default_color dimgrey
+default_outline_color grey
+default_shade_color black
+own_window_argb_visual yes
+own_window_argb_value 127
+own_window_transparent yes
+own_window_colour 000000
+color0 dimgrey  #Regular text
+color1 gray     #Bright text
+color2 3AA7DD   #Bit of color
+
+TEXT
+${font Phantom:size=31}$alignc$color1${time %T}$color0${font}
+${font Phantom:size=16}$alignc${time %a %F}${font}
+
+$color0$sysname $kernel $alignr $nodename
+Intel Core2 Duo $alignr ${freq_g}GHz
+Uptime $alignr $uptime
+
+$color2${hr 2}$color0
+
+MASTER${tab 50 0}$color1$mixer$color0
+${mixerbar}
+
+$color2${hr 2}$color0
+
+CPU ${tab 50 0} $color1${cpu}%$color0 $alignr $color1${acpitemp}°C$color0
+${cpubar}
+${cpugraph cpu0 20,105}$alignr${cpugraph cpu1 20,105}
+
+PROCESS ($color1${running_processes}$color0/$color1${processes}$color0) $alignr CPU %
+${top name 1}$alignr${top cpu 1}%
+${top name 2}$alignr${top cpu 2}%
+${top name 3}$alignr${top cpu 3}%
+
+$color2${hr 2}$color0
+
+MEM ${tab 50 0} $color1$memperc% $alignr ${mem}$color0/$color1${memmax}$color0
+$membar
+SWAP ${tab 50 0} $color1$swapperc% $alignr ${swap}$color0/$color1${swapmax}$color0
+$swapbar
+
+PROCESS $alignr MEM %
+${top_mem name 1} $alignr${top_mem mem 1}%
+${top_mem name 2} $alignr${top_mem mem 2}%
+${top_mem name 3} $alignr${top_mem mem 3}%
+
+$color2${hr 2}$color0
+
+/ ${tab 50 0} $color1${fs_used_perc /}% $alignr ${fs_used /}$color0/$color1${fs_size /}$color0
+${fs_bar /}
+/home ${tab 50 0} $color1${fs_used_perc /home}% $alignr ${fs_used /home}$color0/$color1${fs_size /home}$color0
+${fs_bar /home}
+
+$color2${hr 2}$color0
+
+$gw_iface $alignr $color1$gw_ip$color0
+UP $color1$upspeed$color0 - $color1$totalup$color0 $alignr DN $color1$downspeed$color0 - $color1$totaldown$color0
+${upspeedgraph 20,105}$alignr${downspeedgraph 20,105}

@@ -1,0 +1,61 @@
+#!/bin/bash
+# 
+# Author: Traian Nedelea <tron1point0@gmail.com>
+# 
+# xinitrc - called by startx for login stuff
+# 
+# TODO: Test this shit.
+
+# Setup
+if [ ! -x /usr/bin/which ]; then
+    function which {
+        eval "ls {${PATH//:/,}}/autocutsel -f 2>/dev/null"
+    }
+fi
+
+function can {
+    which $1
+}
+
+function try {
+    can $1 && $*
+}
+
+[ -z "$XDG_CONFIG_HOME" ] && \
+    export CONFIG=$HOME/.config || \
+    export CONFIG=$XDG_CONFIG_HOME
+
+# Input
+try setxkbmap dvorak \
+    -option 'compose:ralt' \
+    -option 'ctrl:swapcaps' \
+    -option 'terminate:ctrl_alt_bksp'
+
+# Graphical
+RES=$CONFIG/xorg/xresources [ -r $RES ] && try xrdb -merge $RES &
+try xsetroot -cursor_name left_ptr &
+if can feh; then
+    [ -r $CONFIG/feh/fehbg ] && source $CONFIG/feh/fehbg
+    [ -r $HOME/.fehbg ] && source $HOME/.fehbg
+fi
+
+# Apps
+try autocutsel &
+try jackd --no-realtime --no-mlock --port-max 256 --driver alsa \
+    --duplex --hwmeter --hwmon --inchannels 2 --outchannels 2 &
+try conky &
+try xscreensaver -no-splash &
+
+# Window Manager
+LOG_DIR=$HOME/.log
+LOG_FILE=$LOG_DIR/xorg.log
+[ ! -d $LOG_DIR ] && mkdir -p $LOG_DIR
+
+try xrandr --output VGA1 --left-of DVI1 &
+try xrdb -m $HOME/.config/xorg/xresources &
+
+can enlightenment_start && exec enlightenment_start &> $LOG_FILE
+can compiz && exec compiz ccp &> $LOG_FILE
+can fluxbox && exec fluxbox &> $LOG_FILE
+can twm && exec twm &> $LOG_FILE
+can xterm && exec xterm &> $LOG_FILE
