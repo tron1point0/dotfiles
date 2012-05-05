@@ -54,8 +54,8 @@ LOG_FILE=$LOG_DIR/xorg.log
 
 try xrandr --output VGA1 --left-of DVI1 &
 
-can enlightenment_start && exec enlightenment_start &> $LOG_FILE
 can compiz && exec compiz ccp &> $LOG_FILE
+can enlightenment_start && exec enlightenment_start &> $LOG_FILE
 can fluxbox && exec fluxbox &> $LOG_FILE
 try cairo-compmgr &
 can xmonad && exec xmonad &> $LOG_FILE
