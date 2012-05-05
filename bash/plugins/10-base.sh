@@ -25,7 +25,7 @@ fi
 alias open='xdg-open'
 
 function can {
-    which $1 >/dev/null && return 0
+    which $1 &>/dev/null && return 0
     return 1
 }
 
