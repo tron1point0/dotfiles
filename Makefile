@@ -1,10 +1,24 @@
 dirs = $(shell git ls-tree HEAD -d --name-only)
-export LN = ln
-export LNFLAGS = -s
+links = $(addprefix $(HOME)/.,$(notdir $(basename $(wildcard ./*/*.symlink))))
+configdirs = $(patsubst %,$(XDG_CONFIG_HOME)/%,$(dirs))
+LN = ln
+LNFLAGS = -sbT
+export LN
+export LNFLAGS
 
-install: $(patsubst %,$(XDG_CONFIG_HOME)/%,$(dirs))
+vpath %.symlink $(subst ' ',:,$(configdirs))
+
+.PHONY: install
+
+install: $(configdirs) $(links)
 	
 
 $(XDG_CONFIG_HOME)/%: %
+	[ ! -L $@ ] && mv $@ $@.dotsave || true
 	$(LN) $(LNFLAGS) $(PWD)/$< $@
-	@[ -r $@/Makefile ] && cd $@ && $(MAKE) || true
+
+$(HOME)/.%: %.symlink
+	$(LN) $(LNFLAGS) $< $@
+
+$(XDG_CONFIG_HOME):
+	install -d $@
