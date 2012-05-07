@@ -20,5 +20,6 @@ C-v: quoted-insert
 set completion-ignore-case on
 set enable-keypad on
 set page-completions on
+set show-all-if-unmodified on
 set revert-all-at-newline on
 set visible-stats on
