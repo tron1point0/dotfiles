@@ -1,2 +1,5 @@
 bash/history
 vim/viminfo
+xmonad/*
+!xmonad/xmonad.hs
+!xmonad/xmobar.hs
