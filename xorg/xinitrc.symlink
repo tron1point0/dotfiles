@@ -32,7 +32,7 @@ try setxkbmap dvorak \
     -option 'terminate:ctrl_alt_bksp'
 
 # Graphical
-RES=$CONFIG/xorg/xresources [ -r $RES ] && try xrdb -merge $RES &
+RES=$CONFIG/xorg/xresources [ -r $RES ] && xrdb -merge $RES &
 try xsetroot -cursor_name left_ptr &
 if can feh; then
     [ -r $CONFIG/feh/fehbg ] && source $CONFIG/feh/fehbg
