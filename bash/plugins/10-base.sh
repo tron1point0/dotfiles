@@ -6,7 +6,7 @@ alias ls='ls -v --color'
 [ -x "/usr/bin/axel" ] && \
     alias axel='axel -a'
 [ -x "/usr/bin/tmux" ] && \
-    alias screen='tmux -f $XDG_CONFIG_HOME/tmux/tmuxrc attach'
+    alias screen='tmux attach'
 
 # Change base
 function base {
