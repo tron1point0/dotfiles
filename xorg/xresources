@@ -28,7 +28,7 @@ URxvt.depth:        32
 URxvt.background:   rgba:0000/0000/0000/dddd
 URxvt.blurRadius:   20x20
 URxvt.foreground:   grey
-URxvt.font:         xft:Ubuntu Mono:size=11:antialias=false
+URxvt.font:         xft:Ubuntu Mono:size=10:antialias=false
 URxvt.scrollBar:    False
 URxvt.visualBell:   True
 URxvt.perl-ext:     default,url-select

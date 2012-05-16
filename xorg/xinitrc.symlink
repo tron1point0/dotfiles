@@ -21,9 +21,7 @@ function try {
     can $1 && $*
 }
 
-[ -z "$XDG_CONFIG_HOME" ] && \
-    export CONFIG=$HOME/.config || \
-    export CONFIG=$XDG_CONFIG_HOME
+[ -x "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME=$HOME/.config
 
 # Input
 try setxkbmap dvorak \
@@ -32,17 +30,17 @@ try setxkbmap dvorak \
     -option 'terminate:ctrl_alt_bksp'
 
 # Graphical
-RES=$CONFIG/xorg/xresources [ -r $RES ] && xrdb -merge $RES &
-try xsetroot -cursor_name left_ptr &
+try xsetroot -cursor_name left_ptr
 if can feh; then
-    [ -r $CONFIG/feh/fehbg ] && source $CONFIG/feh/fehbg
+    [ -r $XDG_CONFIG_HOME/feh/fehbg ] && source $XDG_CONFIG_HOME/feh/fehbg
     [ -r $HOME/.fehbg ] && source $HOME/.fehbg
 fi
+RES=$XDG_CONFIG_HOME/xorg/xresources [ -r "$RES" ] && xrdb "$RES"
 
 # Apps
 try autocutsel &
-try jackd --no-realtime --no-mlock --port-max 256 --driver alsa \
-    --duplex --hwmeter --hwmon --inchannels 2 --outchannels 2 &
+#try jackd --no-realtime --no-mlock --port-max 256 --driver alsa \
+#    --duplex --hwmeter --hwmon --inchannels 2 --outchannels 2 &
 try conky &
 try xscreensaver -no-splash &
 try dropboxd &
