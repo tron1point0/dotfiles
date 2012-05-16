@@ -1,3 +1,13 @@
+-- Dependencies:
+--
+-- xmobar installed with cabal and compiled with utf8, xft, iwlib, and alsa
+-- support:
+--
+--     cabal install xmobar --flags="with_utf8 with_xft with_iwlib with_alsa"
+--
+-- dmenu with the http://tools.suckless.org/dmenu/patches/xft patch
+-- Ubuntu & DejaVu Sans fonts
+
 import XMonad
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutHints
@@ -30,7 +40,7 @@ main = do
         Full,
     manageHook = manageDocks <+> manageHook defaultConfig,
     logHook = dynamicLogString xmobarPP {
-            ppCurrent = xmobarColor "yellow" "" . wrap "[" "]",
+            ppCurrent = xmobarColor "yellow" "#0F0F0F" . wrap "[" "]",
             ppHidden = xmobarColor "tan" "" . wrap "|" "|",
             ppHiddenNoWindows = xmobarColor "grey" "" . wrap " " " ",
             ppUrgent = xmobarColor "red" "" . wrap "!" "!",
@@ -39,7 +49,7 @@ main = do
             ppTitle = xmobarColor "lightgreen" "" . shorten 50
         } >>= xmonadPropLog
 } `additionalKeysP` [
-    ("M-<F2>", spawn "dmenu_run"),
+    ("M-<F2>", spawn "dmenu_run -fn 'Ubuntu Mono-11'"),
     ("M-x", xmonadPrompt defaultXPConfig),
     ("<XF86AudioRaiseVolume>", spawn "amixer sset Master 1+"),
     ("<XF86AudioMute>", spawn "amixer sset Master toggle"),

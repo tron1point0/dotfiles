@@ -1,7 +1,7 @@
 Config {
-    font = "xft:DejaVu Sans-11",
+    font = "xft:DejaVu Sans-9",
     position = Bottom,
-    template = "%XMonadLog% }{ <fc=#96FFA4>♫ %default:Master%</fc> ❙ %KAUS% ❰ <fc=lightblue>%date%</fc> ❱ ",
+    template = "%XMonadLog% }{ ❙ <fc=#96FFA4>♫ %default:Master%</fc> ❙ %KAUS% ❰ <fc=lightblue>%date%</fc> ❱ ",
     commands = [
         Run Volume "default" "Master" [
             "-t", "<volume> <status>",
