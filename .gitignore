@@ -1,5 +1,6 @@
 bash/history
 vim/viminfo
+vim/.netrwhist
 xmonad/*
 !xmonad/xmonad.hs
 !xmonad/xmobar.hs
