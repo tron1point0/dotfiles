@@ -9,6 +9,7 @@
 -- Ubuntu & DejaVu Sans fonts
 
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.DwmStyle
@@ -51,6 +52,8 @@ main = do
 } `additionalKeysP` [
     ("M-<F2>", spawn "dmenu_run -fn 'Ubuntu Mono-11'"),
     ("M-x", xmonadPrompt defaultXPConfig),
+    ("M-<R>", nextWS),
+    ("M-<L>", prevWS),
     ("<XF86AudioRaiseVolume>", spawn "amixer sset Master 1+"),
     ("<XF86AudioMute>", spawn "amixer sset Master toggle"),
     ("<XF86AudioLowerVolume>", spawn "amixer sset Master 1-")
