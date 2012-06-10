@@ -1,37 +1,39 @@
 #!/bin/bash
 
-alias ls='ls -v --color'
-[ `ls --version | sed -n '/ls/ s/[^0-9]//gp'` -ge 810 ] && \
-    alias ls='ls -v --color --group-directories-first'
-[ -x "/usr/bin/axel" ] && \
-    alias axel='axel -a'
-[ -x "/usr/bin/tmux" ] && \
-    alias screen='tmux attach'
-
-# Change base
-function base {
-    base=`upper $1`
-    num=`lower $1`
-    echo "obase=$base; $num" | bc
+function whish {
+    local args="$(expr "$1" : '^-\([as]\{1,2\}\)$')"
+    local search=${2:-$1}
+    local found=($(for i in ${PATH//:/ }; do [ -x "$i/$search" ] && echo "$i/$search";done))
+    if [ ${#found} ]; then
+        expr "$args" : '.*s.*' >/dev/null && return 0
+        expr "$args" : '.*a.*' >/dev/null && for i in ${found[*]}; do echo $i; done && return 0
+        echo "${found[0]}" && return 0
+    fi
+    return 1
 }
-
-# Check for ability
-if [ ! -x /usr/bin/which ]; then
-    function which {
-        eval "ls {${PATH//:/,}}/autocutsel -f 2>/dev/null"
-    }
-fi
-
-alias open='xdg-open'
+whish -s which || alias which=whish
 
 function can {
-    which $1 &>/dev/null && return 0
-    return 1
+    which -s $1
 }
 
 function try {
     can $1 && $*
 }
+
+function add_to_path {
+    expr $PATH : '.*'$1'.*' >/dev/null && export PATH=$1:$PATH
+}
+
+can brew && add_to_path "$(brew --prefix coreutils)/libexec/gnubin"
+
+alias ls='ls -v --color'
+ls --help | grep [-][-]group-directories-first \
+    | column -t | cut -f1 1>/dev/null && \
+    alias ls='ls -v --color --group-directories-first'
+can axel && alias axel='axel -a'
+can tmux && alias screen='tmux attach'
+can xdg-open && alias open='xdg-open'
 
 # Change case
 function upper {
@@ -42,11 +44,14 @@ function lower {
     echo $1 | tr "[:upper:]" "[:lower:]"
 }
 
-function calc {
-    echo "$*" | bc
-}
+if can bc ; then
+    function base {
+        base=`upper $1`
+        num=`lower $2`
+        echo "obase=$base; $num" | bc
+    }
+    function calc {
+        echo "$*" | bc
+    }
+fi
 
-# For those machines where /bin/groups doesn't work
-function groups {
-    grep $USER /etc/group | cut -d ':' -f 1 | xargs
-}
