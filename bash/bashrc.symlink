@@ -9,7 +9,7 @@
 # Allows you to use the XDG spec and plugins for your bash configs.
 
 # Use sane defaults
-[ -z $XDG_CONFIG_HOME ] && XDG_CONFIG_HOME=$HOME/.config
+[ -z $XDG_CONFIG_HOME ] && export XDG_CONFIG_HOME=$HOME/.config
 export BASH_CONFIG_DIR=$XDG_CONFIG_HOME/bash
 export BASH_PLUGIN_DIR=$BASH_CONFIG_DIR/plugins
 
