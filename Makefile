@@ -13,7 +13,7 @@ vpath %.symlink $(subst ' ',:,$(configdirs))
 install: $(configdirs) $(links)
 	
 
-$(XDG_CONFIG_HOME)/%: %
+$(XDG_CONFIG_HOME)/%: % | $(XDG_CONFIG_HOME)
 	[ ! -L $@ ] && mv $@ $@.dotsave || true
 	$(LN) $(LNFLAGS) $(PWD)/$< $@
 
