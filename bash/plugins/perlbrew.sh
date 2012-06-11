@@ -10,4 +10,4 @@ else
     }
 fi
 
-can setup-bash-complete && source <(setup-bash-complete)
+which -s setup-bash-complete && source <(setup-bash-complete)

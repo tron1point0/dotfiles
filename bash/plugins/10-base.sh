@@ -14,7 +14,7 @@ function whish {
 whish -s which || alias which=whish
 
 function can {
-    which -s $1
+    whish -s $1
 }
 
 function try {
