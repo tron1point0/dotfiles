@@ -10,4 +10,4 @@ else
     }
 fi
 
-which -s setup-bash-complete && source <(setup-bash-complete)
+whish -s setup-bash-complete && source <(setup-bash-complete)
