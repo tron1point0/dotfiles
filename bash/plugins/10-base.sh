@@ -4,7 +4,7 @@ function whish {
     local args="$(expr "$1" : '^-\([as]\{1,2\}\)$')"
     local search=${2:-$1}
     local found=($(for i in ${PATH//:/ }; do [ -x "$i/$search" ] && echo "$i/$search";done))
-    if [ ${#found} ]; then
+    if [ -n "$found" ]; then
         expr "$args" : '.*s.*' >/dev/null && return 0
         expr "$args" : '.*a.*' >/dev/null && for i in ${found[*]}; do echo $i; done && return 0
         echo "${found[0]}" && return 0
