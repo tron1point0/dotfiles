@@ -11,3 +11,4 @@ for i in $colors; do
 	let j++
 done
 export CLEAR="[0;00m"
+unset j
