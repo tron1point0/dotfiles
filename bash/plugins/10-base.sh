@@ -1,31 +1,83 @@
 #!/bin/bash
 
+function map { local a; while read a ; do eval "$* $a" ; done ; }
+function filter { local a; while read a ; do eval "$* $a" && echo $a ; done ; }
+function append { local s=$1; shift 1;echo $*$s ; }
+function first { local a; while read a ; do eval "$* $a" && return 0 ; done ; }
+function tokens { for t in $@; do echo $t ; done ; }
+function untokens {
+    local str
+    read str
+    while read l; do str="$str${FS:- }$l";done
+    echo $str
+}
+function reverse {
+    local i=0
+    local arr a
+    while read a; do arr[$i]=$a && i=$(($i+1)); done
+    while [ $i -gt 0 ]; do i=$(($i-1)) && echo ${arr[$i]}; done
+}
+function all {
+    local a
+    local ret=0
+    while read a ; do eval "$* $a" || ret=1 ; done
+    return $ret
+}
+function any {
+    local a
+    local ret=1
+    while read a ; do eval "$* $a" && ret=0 ; done
+    return $ret
+}
+
 function whish {
-    local args="$(expr "$1" : '^-\([as]\{1,2\}\)$')"
-    local search=${2:-$1}
-    local found=($(for i in ${PATH//:/ }; do [ -x "$i/$search" ] && echo "$i/$search";done))
-    if [ -n "$found" ]; then
-        expr "$args" : '.*s.*' >/dev/null && return 0
-        expr "$args" : '.*a.*' >/dev/null && for i in ${found[*]}; do echo $i; done && return 0
-        echo "${found[0]}" && return 0
+    local args=
+    [ ! "${1#-[as]}" ] && args=$1 && shift 1
+    if [ "$args" = '-h' -o -z "$*" ]; then
+        cat <<HELP
+USAGE: which [-ahs] program...
+OPTIONS:
+    -a  Show all matches
+    -s  Silent
+HELP
+        return 0
     fi
-    return 1
+    function execp { [ -x "$1" ] && echo $1 ; }
+    local fn='first execp'
+    [ "$args" = '-a' ] && fn='any execp'
+    [ "$args" = '-s' ] && fn='first execp >/dev/null'
+    function check { (IFS=:;tokens $PATH ) | map append /$1 | $fn ; }
+    tokens $@ | all check
 }
-whish -s which || alias which=whish
+function can { whish -s $1 ; }
+function try { can $1 && $* ; }
+can which || alias which=whish
 
-function can {
-    whish -s $1
+function path {
+    local action=$1
+    shift 1
+    case $action in
+    -a)
+        path -r "$@"
+        export PATH=$(tokens $@ | ( FS=: untokens )):$PATH
+    ;;
+    -r)
+        for p in "$@"; do
+            export PATH=$( ( IFS=: tokens $PATH ) | filter test $p != | ( FS=: untokens ))
+        done
+    ;;
+    *)
+        cat <<HELP
+USAGE: path -ar [paths...]
+OPTIONS:
+    -a  Add to PATH
+        If paths... already exist in PATH, they are brought to the front
+    -r  Remove from PATH
+HELP
+    esac
 }
 
-function try {
-    can $1 && $*
-}
-
-function add_to_path {
-    expr $PATH : '.*'$1'.*' >/dev/null && export PATH=$1:$PATH
-}
-
-can brew && add_to_path "$(brew --prefix coreutils)/libexec/gnubin"
+can brew && path -a "$(brew --prefix coreutils)/libexec/gnubin"
 
 alias ls='ls -v --color'
 ls --help | grep [-][-]group-directories-first \
