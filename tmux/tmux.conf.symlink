@@ -130,8 +130,8 @@ set -g status on
 set -g status-interval 1
 set -g status-justify centre
 set -g mouse-select-pane off
-set -g status-left "#[fg=green][#[bold]#H#[nobold]][#[fg=default]"
-set -g status-right "#[fg=green]][#[bold]#(cut -f 1-3 -d ' ' /proc/loadavg)#[nobold]]#[fg=cyan][#[bold]%F %H:%M %Z#[nobold]]"
+set -g status-left "#[fg=green][#[bold]#h#[nobold]][#[fg=default]"
+set -g status-right "#[fg=green]]#[fg=cyan][#[bold]%F %H:%M %Z#[nobold]]"
 
 set default-terminal screen-256color
 
