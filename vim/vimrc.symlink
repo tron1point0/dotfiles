@@ -64,11 +64,24 @@ cnoremap <Right> <Space><BS><Right>
 " File browser
 let netrw_browse_split=4
 
+" For MiniBufExpl
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplUseSingleClick = 1
+let g:statusLineText = "Buffers"
+let g:miniBufExplSplitBelow = 0
+let g:miniBufExplForceSyntaxEnable = 1
+noremap t, :MBEbp<CR>
+noremap t. :MBEbn<CR>
+
 " -- Appearance --
 
 " Text display
-set t_Co=256
-colorscheme wombat256
+if match($TERM,'256')
+    set t_Co=256
+    colorscheme wombat256
+else
+    colorscheme wombat
+endif
 syntax on
 set number
 set numberwidth=5
