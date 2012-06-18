@@ -42,12 +42,16 @@ OPTIONS:
 HELP
         return 0
     fi
-    function execp { [ -x "$1" ] && echo $1 ; }
     local fn='first execp'
     [ "$args" = '-a' ] && fn='any execp'
     [ "$args" = '-s' ] && fn='first execp >/dev/null'
+    function execp { [ -x "$1" ] && echo $1 ; }
     function check { (IFS=:;tokens $PATH ) | map append /$1 | $fn ; }
     tokens $@ | all check
+    local rv=$?
+    unset -f execp
+    unset -f check
+    return $rv
 }
 function can { whish -s $1 ; }
 function try { can $1 && $* ; }
