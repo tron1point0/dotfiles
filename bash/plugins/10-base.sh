@@ -30,67 +30,6 @@ function any {
     return $ret
 }
 
-function whish {
-    local args=
-    [ ! "${1#-[as]}" ] && args=$1 && shift 1
-    if [ "$args" = '-h' -o -z "$*" ]; then
-        cat <<HELP
-USAGE: which [-ahs] program...
-OPTIONS:
-    -a  Show all matches
-    -s  Silent
-HELP
-        return 0
-    fi
-    local fn='first execp'
-    [ "$args" = '-a' ] && fn='any execp'
-    [ "$args" = '-s' ] && fn='first execp >/dev/null'
-    function execp { [ -x "$1" ] && echo $1 ; }
-    function check { (IFS=:;tokens $PATH ) | map append /$1 | $fn ; }
-    tokens $@ | all check
-    local rv=$?
-    unset -f execp
-    unset -f check
-    return $rv
-}
-function can { whish -s $1 ; }
-function try { can $1 && $* ; }
-can which || alias which=whish
-
-function path {
-    local action=$1
-    shift 1
-    case $action in
-    -a)
-        path -r "$@"
-        export PATH=$(tokens $@ | ( FS=: untokens )):$PATH
-    ;;
-    -r)
-        for p in "$@"; do
-            export PATH=$( ( IFS=: tokens $PATH ) | filter test $p != | ( FS=: untokens ))
-        done
-    ;;
-    *)
-        cat <<HELP
-USAGE: path -ar [paths...]
-OPTIONS:
-    -a  Add to PATH
-        If paths... already exist in PATH, they are brought to the front
-    -r  Remove from PATH
-HELP
-    esac
-}
-
-can brew && path -a "$(brew --prefix coreutils)/libexec/gnubin"
-
-alias ls='ls -v --color'
-ls --help | grep [-][-]group-directories-first \
-    | column -t | cut -f1 1>/dev/null && \
-    alias ls='ls -v --color --group-directories-first'
-can axel && alias axel='axel -a'
-can tmux && alias screen='tmux attach'
-can xdg-open && alias open='xdg-open'
-
 # Change case
 function upper {
     echo $1 | tr "[:lower:]" "[:upper:]"
@@ -99,15 +38,4 @@ function upper {
 function lower {
     echo $1 | tr "[:upper:]" "[:lower:]"
 }
-
-if can bc ; then
-    function base {
-        base=`upper $1`
-        num=`lower $2`
-        echo "obase=$base; $num" | bc
-    }
-    function calc {
-        echo "$*" | bc
-    }
-fi
 
