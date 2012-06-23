@@ -133,7 +133,7 @@ set -g mouse-select-pane off
 set -g status-left "#[fg=green][#[bold]#h#[nobold]][#[fg=default]"
 set -g status-right "#[fg=green]]#[fg=cyan][#[bold]%F %H:%M %Z#[nobold]]"
 
-set default-terminal screen-256color
+set -g default-terminal screen-256color
 
 set -g visual-activity on
 set -g visual-content on
