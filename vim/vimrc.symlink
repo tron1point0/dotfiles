@@ -3,7 +3,7 @@
 " vimrc - vim configuration settings
 
 " -- Variables --
-exe 'set runtimepath='.$XDG_CONFIG_HOME.'/vim,/usr/share/vim/vimfiles,'.$VIMRUNTIME
+exe 'set runtimepath='.$XDG_CONFIG_HOME.'/vim,/usr/share/vim/vimfiles,'.$VIMRUNTIME.','.$XDG_CONFIG_HOME.'/vim/after'
 
 " -- Functionality --
 
@@ -30,11 +30,17 @@ set incsearch
 
 " Key mappings
 set pastetoggle=<F3>
-nmap     <silent> <Space>    za:nohlsearch<CR>
-vmap     <silent> cc         :w !xsel -i<CR><CR>
-nmap     cc         :silent .w !xsel -i<CR>
-vmap     cp         :silent r !xsel<CR>
-nmap     cp         :silent r !xsel<CR>
+nmap             <Space>    za
+nmap    <silent> /<BS>      :nohlsearch<CR>
+vmap    <silent> cc         :w !xsel -i<CR><CR>
+nmap    <silent> cc         :.w !xsel -i<CR>
+vmap    <silent> cp         :r !xsel<CR>
+nmap    <silent> cp         :r !xsel<CR>
+noremap          t,         :MBEbp<CR>
+noremap          t.         :MBEbn<CR>
+cnoremap         <Left>     <Space><BS><Left>
+cnoremap         <Right>    <Space><BS><Right>
+inoremap         <C-Space>  <C-R>=snipMate#ShowAvailableSnips()<CR>
 
 " Splitting
 set splitright
@@ -58,8 +64,6 @@ endif
 set wildmenu
 set wildmode=full
 set wildchar=<Tab>
-cnoremap <Left> <Space><BS><Left>
-cnoremap <Right> <Space><BS><Right>
 
 " File browser
 let netrw_browse_split=4
@@ -70,26 +74,23 @@ let g:miniBufExplUseSingleClick = 1
 let g:statusLineText = "Buffers"
 let g:miniBufExplSplitBelow = 0
 let g:miniBufExplForceSyntaxEnable = 1
-noremap t, :MBEbp<CR>
-noremap t. :MBEbn<CR>
+set hidden
 
 " -- Appearance --
 
 " Text display
-if match($TERM,'256')
+if match($TERM,'256')!=-1
     set t_Co=256
     colorscheme wombat256
-else
-    colorscheme wombat
 endif
 syntax on
 set number
 set numberwidth=5
 set showmatch
 set linebreak
-set showbreak=>
+set showbreak=↵
 set list
-set listchars=tab:>-,trail:.
+set listchars=tab:⇥\ ,trail:─,precedes:❮,extends:❯
 set spell
 set display=lastline
 
@@ -102,7 +103,7 @@ set nowrap
 
 " Status line
 set laststatus=2
-set statusline=[%F]\%([%M%R]%)%=[%c,%l\ of\ %L]
+set statusline=[%F]%y%([%M%R]%)%=[%c,%l\ of\ %L]
 set showcmd
 set noruler
 set cursorline

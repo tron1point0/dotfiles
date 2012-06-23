@@ -6,3 +6,4 @@ set guifont=Monaco:h12
 " For minibufexpl
 noremap <D-]> :MBEbn<CR>
 noremap <D-[> :MBEbp<CR>
+noremap <D-w> :bc<CR>
