@@ -19,7 +19,7 @@ function prompt_part {
     echo "\[$2\][\[$3\]$1\[$2\]]\[$CLEAR\]"
 }
 
-wheel=$(groups | grep -oP '\b(wheel|admin|staff)\b')
+wheel=$(groups | grep -o '\b\(wheel\|admin\|staff\)\b')
 color=$BROWN
 l_color=$L_BROWN
 [ -n "$wheel" ] && color=$GREEN && l_color=$L_GREEN
