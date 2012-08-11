@@ -4,3 +4,4 @@
     co = commit -am
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lal = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	unstage = reset HEAD --
