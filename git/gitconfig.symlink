@@ -2,6 +2,7 @@
     ui = auto
 [alias]
     co = commit -am
+    ls = ls-tree --name-only HEAD -t
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lal = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	unstage = reset HEAD --

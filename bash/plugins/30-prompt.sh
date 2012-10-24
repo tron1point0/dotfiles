@@ -13,7 +13,7 @@ function reset_term {
 }
 
 PROMPT_COMMAND='append_history ; reset_term'
-PROMPT_DIRTRIM=3
+PROMPT_DIRTRIM=2
 
 function prompt_part {
     echo "\[$2\][\[$3\]$1\[$2\]]\[$CLEAR\]"
