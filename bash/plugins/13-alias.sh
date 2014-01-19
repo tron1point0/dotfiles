@@ -1,6 +1,7 @@
 #!/bin/bash
 
 can brew && path -a "$(brew --prefix coreutils)/libexec/gnubin"
+can brew && FS=: modify_env -a add -v MANPATH -- /usr/local/opt/coreutils/libexec/gnuman
 
 alias ls='ls -v --color'
 ls --help | grep [-][-]group-directories-first \
