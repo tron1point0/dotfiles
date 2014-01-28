@@ -7,3 +7,6 @@ set guifont=Monaco:h12
 noremap <D-]> :MBEbn<CR>
 noremap <D-[> :MBEbp<CR>
 noremap <D-w> :bc<CR>
+
+" For CtrlP
+noremap <D-e> :CtrlP<CR>
