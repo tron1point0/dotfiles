@@ -23,7 +23,8 @@ HELP
     unset -f check
     return $rv
 }
-function can { whish -s $1 ; }
+
+whish -s which || alias which=whish
+function can { which -s $1 ; }
 function try { can $1 && $* ; }
-can which || alias which=whish
 

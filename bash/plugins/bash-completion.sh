@@ -11,3 +11,6 @@
 
 [ -r /usr/share/git-core/git-completion.bash ] && \
 	source /usr/share/git-core/git-completion.bash
+
+[ -r /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash

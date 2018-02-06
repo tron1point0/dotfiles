@@ -1,8 +1,25 @@
 [color]
-    ui = auto
+    ui = true
 [alias]
     co = commit -am
     ls = ls-tree --name-only HEAD -t
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lal = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	unstage = reset HEAD --
+    ll = log --graph --pretty='tformat:%C(auto)%h%Creset %aN %C(green)%ar%Creset%C(auto)%+d%Creset%n%w(80,4,4)%s' --all
+    branch-log = log --graph --decorate --pretty=oneline --abbrev-commit --no-merges ^master
+    branch-diff = diff --no-merges ^master
+    branch-files = diff --stat --no-merges ^master
+    branch-ll = log --no-merges --graph --pretty='tformat:%C(auto)%h%Creset %aN %C(green)%ar%Creset%C(auto)%+d%Creset%n%w(80,4,4)%s' ^master
+    unstage = reset HEAD --
+    staged = diff --cached
+    numstat = log --pretty=tformat: --no-merges --numstat
+[core]
+	excludesfile = /Users/tron/.gitignore_global
+[push]
+    default = simple
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

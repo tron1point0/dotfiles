@@ -3,6 +3,10 @@ colorscheme wombat
 set guioptions=aeimg
 set guifont=Monaco:h12
 
+" For 80-character gutter
+set colorcolumn=80
+highlight ColorColumn guibg=#2D2D2D
+
 " For minibufexpl
 noremap <D-]> :MBEbn<CR>
 noremap <D-[> :MBEbp<CR>
