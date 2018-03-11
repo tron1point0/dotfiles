@@ -3,12 +3,16 @@
 function modify_env {
     local ACTION=
     local VAR=
+    local E=
+    local F=
+    local VALUE=()
     local SELF=${FUNCNAME[0]}
+    local IFS=:
     local OPTIND
     local OPTARG
     local OPTERR
-    local USAGE
 
+    local USAGE
     read -r -d '' USAGE <<HELP
 USAGE: $SELF -a action -v variable [-- elements...]
 OPTIONS:
@@ -29,8 +33,8 @@ ACTIONS:
         Show all the elements of the list in variable.
 
 ENVIRONMENT:
-    FS
-        $SELF uses bash's field separator, FS, to split and join the list.
+    IFS
+        $SELF uses bash's field separator, IFS, to split and join the list.
 HELP
 
     while getopts a:v:s: OPT ; do
@@ -42,20 +46,40 @@ HELP
     shift $(( $OPTIND - 1 ))
 
     if [ -z "$VAR" ] ; then echo "$USAGE" && return 1 ; fi
+    VALUE=("${!VAR}")
+
     case "$ACTION" in
         add)
-            $SELF -a del -v "$VAR" -- "$@" && \
-            export $VAR=$(tokens $@ | untokens):${!VAR} && \
-            return 0 ;;
+            $SELF -a del -v "$VAR" -- "$@"
+            VALUE=("$@" "${VALUE[@]}")
+            ;;
         del)
             for E in "$@"; do
-                export $VAR=$( (IFS=$FS tokens ${!VAR}) | filter test "$E" != | untokens)
-            done && return 0 ;;
-        list) tokens $(IFS=$FS ; echo ${!VAR}) && return 0 ;;
+                __del_env "$E"
+            done
+            ;;
+        list)
+            for E in "${VALUE[@]}" ; do
+                echo $E
+            done
+            return 0
+            ;;
         *)
             echo "$USAGE" && return 1 ;;
     esac
-    return 1
+
+    declare -g $VAR="${VALUE[*]}"
+    return 0
+}
+
+function __del_env {
+    local val=$1
+    local tmp=()
+    local e=
+    for e in "${!VAR[@]}" ; do
+        [ "$e" = "$val" ] && tmp+=($e)
+    done
+    VALUE=("${tmp[@]}")
 }
 
 function path {
@@ -70,7 +94,6 @@ OPTIONS:
 HELP
     local action=$1
     shift 1
-    local FS=:
     case $action in
     -a)
         modify_env -a add -v PATH -- "$@" && return $? ;;

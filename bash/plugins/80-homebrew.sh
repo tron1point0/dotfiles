@@ -1,8 +1,13 @@
 #!/bin/bash
 
 if can brew ; then
-    path -a "$(brew --prefix coreutils)/libexec/gnubin"
-    FS=: modify_env -a add -v MANPATH -- /usr/local/opt/coreutils/libexec/gnuman
-    path -a "/usr/local/bin"
-    path -a "/usr/local/sbin"
+    declare -x COREUTILS="/usr/local/opt/coreutils"
+    path -a "$COREUTILS/libexec/gnubin"
+    modify_env -a add -v MANPATH -- "$COREUTILS/libexec/gnuman"
+    unset -v COREUTILS
+    path -a '/usr/local/bin'
+    path -a '/usr/local/sbin'
 fi
+
+true
+

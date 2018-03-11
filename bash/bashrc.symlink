@@ -2,18 +2,34 @@
 # 
 # Author: Traian Nedelea (tron1point0@gmail.com)
 # Version: 1.0
-# Last Modified: 2011-03-29
+# Last Modified: 2018-03-11
 # 
 # Change Log:
 # 
 # Allows you to use the XDG spec and plugins for your bash configs.
 
 # Use sane defaults
-[ -z $XDG_CONFIG_HOME ] && export XDG_CONFIG_HOME=$HOME/.config
-export BASH_CONFIG_DIR=$XDG_CONFIG_HOME/bash
-export BASH_PLUGIN_DIR=$BASH_CONFIG_DIR/plugins
+[ -z $XDG_CONFIG_HOME ] && export XDG_CONFIG_HOME="$HOME/.config"
+declare +x BASH_CONFIG_DIR="$XDG_CONFIG_HOME/bash"
+declare +x BASH_PLUGIN_DIR="$BASH_CONFIG_DIR/plugins"
 
-source <(cat $BASH_PLUGIN_DIR/*)
+declare -x -a UNSET_AFTER_LOAD=(unset_after)
+
+function unset_after {
+    UNSET_AFTER_LOAD+=("$@")
+}
+
+source <(cat "$BASH_PLUGIN_DIR/"*)
 
 # Last
 [ -n "$PS1" ] && type -P fortune &>/dev/null && fortune -a
+
+declare -x SYM
+for SYM in "${UNSET_AFTER_LOAD[@]}" ; do
+    unset "$SYM"
+done
+unset -v SYM
+unset -v UNSET_AFTER_LOAD
+
+true
+

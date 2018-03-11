@@ -1,3 +1,6 @@
 #!/bin/bash
 
-[ -r $HOME/Projects/fink/bin/init.sh ] && source $HOME/Projects/fink/bin/init.sh
+try_source $HOME/Projects/fink/bin/init.sh
+
+true
+

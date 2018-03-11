@@ -19,3 +19,4 @@ if can pacman ; then
     }' | awk -F '\t' '{printf("%-40s %-18s %s\n",$1,$2,$3)}'
     }
 fi
+
