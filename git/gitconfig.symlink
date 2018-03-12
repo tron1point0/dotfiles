@@ -14,7 +14,7 @@
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
 [core]
-	excludesfile = /Users/tron/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [push]
     default = simple
 [difftool "sourcetree"]

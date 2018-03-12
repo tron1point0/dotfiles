@@ -12,7 +12,7 @@ ensure_dir "$XDG_CONFIG_HOME"
 export XDG_CACHE_HOME="$HOME/.cache"
 ensure_dir "$XDG_CACHE_HOME"
 
-declare +x INPUTRC="$BASH_CONFIG_DIR/inputrc"
+declare +x INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 declare +x HISTFILE="$XDG_DATA_HOME/bash/history"
 ensure_parent_dir "$HISTFILE"
 declare +x HISTCONTROL=erasedups

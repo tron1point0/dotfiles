@@ -25,11 +25,11 @@ for P in "${BIN_PATHS[@]}" ; do
 done
 
 for P in "${CD_PATHS[@]}" ; do
-    [ -d "$P" ] && modify_env -v CDPATH -a add "$P"
+    [ -d "$P" ] && modify_env -a add -v CDPATH "$P"
 done
 
 for P in "${IGNORE_EXTENSIONS[@]}" ; do
-    [ -d "$P" ] && modify_env -v FIGNORE -a add "$P"
+    [ -d "$P" ] && modify_env -a add -v FIGNORE "$P"
 done
 
 unset -v P

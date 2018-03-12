@@ -24,5 +24,7 @@ export LESS_TERMCAP_me=$'\e[0m'             # reset section title
 export LESS_TERMCAP_se=$'\e[0m'             # reset highlight/modeline
 export LESS_TERMCAP_ue=$'\e[0m'             # reset code/literal
 
+can lesspipe.sh && export LESSOPEN='|lesspipe.sh %s'
+
 true
 

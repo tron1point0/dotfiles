@@ -10,19 +10,20 @@
 
 # Use sane defaults
 [ -z $XDG_CONFIG_HOME ] && export XDG_CONFIG_HOME="$HOME/.config"
-declare +x BASH_CONFIG_DIR="$XDG_CONFIG_HOME/bash"
-declare +x BASH_PLUGIN_DIR="$BASH_CONFIG_DIR/plugins"
 
-declare -x -a UNSET_AFTER_LOAD=(unset_after)
+UNSET_AFTER_LOAD=(unset_after)
 
 function unset_after {
     UNSET_AFTER_LOAD+=("$@")
 }
 
-source <(cat "$BASH_PLUGIN_DIR/"*)
+for F in "$XDG_CONFIG_HOME"/bash/plugins/* ; do
+    source "$F"
+done
+unset -v F
 
 # Last
-[ -n "$PS1" ] && type -P fortune &>/dev/null && fortune -a
+[ -n "$PS1" ] && can fortune && fortune -a
 
 declare -x SYM
 for SYM in "${UNSET_AFTER_LOAD[@]}" ; do

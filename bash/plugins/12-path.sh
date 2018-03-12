@@ -1,13 +1,14 @@
 #!/bin/bash
 
+unset -v IFS    # Gets default value if unset
+
 function modify_env {
     local ACTION=
     local VAR=
     local E=
-    local F=
-    local VALUE=()
     local SELF=${FUNCNAME[0]}
-    local IFS=:
+    local IFS=${IFS:-:}
+    local OPT
     local OPTIND
     local OPTARG
     local OPTERR
@@ -45,21 +46,29 @@ HELP
     done
     shift $(( $OPTIND - 1 ))
 
-    if [ -z "$VAR" ] ; then echo "$USAGE" && return 1 ; fi
-    VALUE=("${!VAR}")
+    [ -z "$VAR" ] && echo "$USAGE" && return 1
 
     case "$ACTION" in
         add)
-            $SELF -a del -v "$VAR" -- "$@"
-            VALUE=("$@" "${VALUE[@]}")
+            for E in "$@" ; do
+                local TEMP="$IFS${!VAR}$IFS"
+                TEMP="${TEMP//$IFS${E//\//\\/}$IFS/$IFS}"
+                TEMP="${TEMP:${#IFS}:-${#IFS}}"
+                declare -g $VAR="$E$IFS$TEMP"
+            done
+            return 0
             ;;
         del)
             for E in "$@"; do
-                __del_env "$E"
+                local TEMP="$IFS${!VAR}$IFS"
+                TEMP="${TEMP//$IFS${E//\//\\/}$IFS/$IFS}"
+                TEMP="${TEMP:${#IFS}:-${#IFS}}"
+                declare -g $VAR="$TEMP"
             done
+            return 0
             ;;
         list)
-            for E in "${VALUE[@]}" ; do
+            for E in ${!VAR} ; do
                 echo $E
             done
             return 0
@@ -68,18 +77,7 @@ HELP
             echo "$USAGE" && return 1 ;;
     esac
 
-    declare -g $VAR="${VALUE[*]}"
     return 0
-}
-
-function __del_env {
-    local val=$1
-    local tmp=()
-    local e=
-    for e in "${!VAR[@]}" ; do
-        [ "$e" = "$val" ] && tmp+=($e)
-    done
-    VALUE=("${tmp[@]}")
 }
 
 function path {
