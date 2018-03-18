@@ -14,3 +14,7 @@ noremap <D-w> :bc<CR>
 
 " For CtrlP
 noremap <D-e> :CtrlP<CR>
+
+" System clipboard integration
+set clipboard=unnamed
+
