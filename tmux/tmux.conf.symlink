@@ -1,59 +1,7 @@
-unbind C-b
+unbind -a -T prefix
+
 set -g prefix C-a
 bind a send-prefix
-
-unbind C-c
-unbind C-o
-unbind C-z
-unbind Space
-unbind !
-unbind '"'
-unbind "#"
-unbind %
-unbind &
-unbind "'"
-unbind ,
-unbind .
-unbind 0
-unbind 1
-unbind 2
-unbind 3
-unbind 4
-unbind 5
-unbind 6
-unbind 7
-unbind 8
-unbind 9
-unbind =
-unbind ?
-unbind D
-unbind f
-unbind i
-unbind l
-unbind o
-unbind q
-unbind t
-unbind x
-unbind {
-unbind }
-unbind '~'
-unbind PPage
-unbind M-1
-unbind M-2
-unbind M-3
-unbind M-4
-unbind M-5
-unbind M-n
-unbind M-p
-unbind M-o
-unbind M-Up
-unbind M-Down
-unbind M-Left
-unbind M-Right
-unbind C-Up
-unbind C-Down
-unbind C-Left
-unbind C-Right
 
 bind 0 select-window -t 0
 bind 1 select-window -t 1
@@ -66,31 +14,6 @@ bind 7 select-window -t 7
 bind 8 select-window -t 8
 bind 9 select-window -t 9
 
-bind -r , previous-window
-bind -r . next-window
-
-bind -r Left select-pane -L
-bind -r Up select-pane -U
-bind -r Down select-pane -D
-bind -r Right select-pane -R
-
-bind -r C-Left resize-pane -L
-bind -r C-Up resize-pane -U
-bind -r C-Down resize-pane -D
-bind -r C-Right resize-pane -R
-
-bind M-Left command-prompt -p "Resize left by: " "resize-pane -L %%"
-bind M-Up command-prompt -p "Resize up by: " "resize-pane -U %%"
-bind M-Down command-prompt -p "Resize down by: " "resize-pane -D %%"
-bind M-Right command-prompt -p "Resize right by: " "resize-pane -R %%"
-
-bind b break-pane -d
-bind B break-pane
-bind w choose-window
-bind j command-prompt -p "Join with: " "join-pane -s %%"
-bind s command-prompt -p "Swap with: " "swap-pane -s %%"
-bind S command-prompt -p "Swap window with: " "swap-window -s %%"
-
 bind M-0 swap-window -s 0
 bind M-1 swap-window -s 1
 bind M-2 swap-window -s 2
@@ -102,45 +25,97 @@ bind M-7 swap-window -s 7
 bind M-8 swap-window -s 8
 bind M-9 swap-window -s 9
 
-bind n command-prompt -p "Move window to: " "move-window -t %%"
+bind : command-prompt
 
-bind m setw monitor-activity
-bind M command-prompt -p "Monitor for: " "setw monitor-content %%"
-
-bind < swap-pane -U
-bind > swap-pane -D
-
-bind \ confirm-before "kill-server"
-bind K confirm-before "kill-window"
-bind k confirm-before "kill-pane"
+bind c new-window -a
+bind d detach-client
 
 bind v split-window -h
 bind h split-window -v
 
+bind b break-pane -t:+1
+bind j join-pane -t:-1
+
+bind m select-pane -m
+bind M select-pane -M
+
+bind . setw monitor-bell on
+bind > setw monitor-bell off
+bind , setw monitor-activity on
+bind < setw monitor-activity off
+bind "'" setw monitor-silence 15
+bind '"' setw monitor-silence 0
+
+bind / copy-mode
+bind = paste-buffer
+
+bind q confirm-before "kill-session"
+bind w confirm-before "kill-pane"
+
+bind -r [ previous-window
+bind -r { previous-window -a
+bind -r ] next-window
+bind -r } next-window -a
+bind -r M-[ swap-window -t:-1
+bind -r M-] swap-window -t:+1
+
+bind -r Left select-pane -L
+bind -r Up select-pane -U
+bind -r Down select-pane -D
+bind -r Right select-pane -R
+
+bind -r C-Left resize-pane -L
+bind -r C-Up resize-pane -U
+bind -r C-Down resize-pane -D
+bind -r C-Right resize-pane -R
+
+bind -r C-S-Left resize-pane -L 5
+bind -r C-S-Up resize-pane -U 5
+bind -r C-S-Down resize-pane -D 5
+bind -r C-S-Right resize-pane -R 5
+
+bind -r M-Left swap-pane -t:{left-of}
+bind -r M-Up swap-pane -t:{up-of}
+bind -r M-Down swap-pane -t:{down-of}
+bind -r M-Right swap-pane -t:{right-of}
+
 set -g base-index 1
 
-set -g pane-active-border-fg cyan
-set -g pane-border-bg default
-set -g status-bg default
-set -g status-fg default
+set -g activity-action any
+set -g bell-action any
+set -g silence-action any
 
-set -g set-titles on
-setw -g automatic-rename on
-set -g status on
-set -g status-interval 1
-set -g status-justify centre
-set -g mouse-select-pane off
-set -g status-left "#[fg=green][#[bold]#h#[nobold]][#[fg=default]"
-set -g status-right "#[fg=green]]#[fg=cyan][#[bold]%F %H:%M %Z#[nobold]]"
+set -g visual-activity both
+set -g visual-bell both
+set -g visual-silence both
+
+set -g focus-events on
+set -g mouse on
 
 set -g default-terminal screen-256color
 
-set -g visual-activity on
-set -g visual-content on
+set -g pane-active-border-fg cyan
+set -g pane-border-bg default
 
-setw -g window-status-current-format "#[fg=red,bold](#[fg=white]#I:#F#W#[fg=red,bold])#[default]"
-setw -g window-status-format " #I #W #F "
-setw -g window-status-fg default
+set -g set-titles on
+set -g renumber-windows on
+setw -g automatic-rename on
 
-new -d
-neww -a -d
+set -g status on
+set -g status-bg default
+set -g status-fg default
+set -g status-justify left
+set -g status-left "#{?session_alerts,#[fg=brightred]#{session_alerts}#[default] ,}"
+set -g status-right "#[fg=colour7]#(echo $USER)#[fg=colour240]@#[fg=colour7]#h #[fg=colour033]%R"
+
+setw -g clock-mode-style 24
+setw -g clock-mode-colour colour033
+
+setw -g window-status-format " #[fg=colour240]#I#{pane_mode}#{?window_flags,#{?#{==:#{window_flags},-},#[fg=colour011],#[fg=colour009]}#{window_flags}#[fg=default],․}#[fg=colour007]#{=16:pane_title}#[default] "
+setw -g window-status-current-format "#[fg=colour240,bold]❰#I#{pane_mode}#[fg=colour214]#F#[fg=colour007]#{=16:pane_title}#[fg=colour240,bg=default]❱#[default]"
+
+if "[ -x /usr/local/bin/bash ]" "set -g default-shell /usr/local/bin/bash"
+if "[ -x /bin/bash-static ]" "set -g default-shell /bin/bash-static"
+
+if "tmux has-session" "" "new -d ; neww -a -d"
+
