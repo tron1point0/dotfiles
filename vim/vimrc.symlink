@@ -68,7 +68,14 @@ set wildmode=full
 set wildchar=<Tab>
 
 " File browser
-let netrw_browse_split=4
+let g:netrw_browse_split=4  " Open in last window
+let g:netrw_liststyle=1     " Long
+let g:netrw_sizestyle="H"   " Human-readable, base 1024
+let g:netrw_winsize=25      " 25%
+let g:netrw_wiw=16          " Minimum width
+let g:netrw_hide=1          " Show only non-hidden
+let g:netrw_special_syntax=1 "Highlight special files
+
 
 " For MiniBufExpl
 let g:miniBufExplMapCTabSwitchBufs = 1
