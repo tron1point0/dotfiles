@@ -41,6 +41,12 @@ function __update_prompt {
         rightstatus="$PS1"
     fi
 
+    if [ -n "$VIRTUAL_ENV" ] ; then
+        rightstatus=$'\[\e[38;5;240m\]❲\
+\[\e[38;5;6m\]'${VIRTUAL_ENV##*/}$'\[\e[38;5;240m\]\
+❳\[\e[0m\]'$rightstatus
+    fi
+
     rightstatus="${rightstatus@P}"
     local bare="$(echo "$rightstatus" | sed $'s/\001[^\002]*\002//g')"
 
