@@ -54,7 +54,7 @@ function __update_prompt {
     rightstatus="\e[${start}G$rightstatus"
 
     PS1=${exitstatus}'\
-\[\e]2;'$(basename $PWD)'\a\]\
+\[\e]2;'$(basename "$PWD")'\a\]\
 \[\e7'${rightstatus}'\e8\]\
 \[\e[38;5;240m\]⎧\
 \[\e[1;38;5;33m\]\w\n\
