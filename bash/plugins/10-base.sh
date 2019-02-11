@@ -9,11 +9,15 @@ function try {
 }
 
 function try_source {
-    [[ -r "$1" ]] && source "$1"
+    for arg in "$@" ; do
+        [[ -r "$arg" ]] && source "$arg"
+    done
 }
 
 function ensure_dir {
-    [[ -d "$1" ]] || mkdir -p "$1"
+    for arg in "$@" ; do
+        [[ -d "$arg" ]] || mkdir -p "$arg"
+    done
 }
 
 function ensure_parent_dir {
