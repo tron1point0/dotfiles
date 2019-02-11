@@ -125,37 +125,39 @@ function __git_prompt() {
     fi
 
     local local_status
-    if [[ -v show_counts ]] ; then
-        # TODO: Nested function to do this?
+
+    # TODO: Nested function to generate these?
+    if [[ -v merging ]] ; then
         # Bright red
-        [[ -v merging ]] && local_status="${local_status}\[\e[38;5;9m\]‼${merging}"
+        local_status="${local_status}\[\e[38;5;9m\]‼"
+        [[ -v show_counts ]] && local_status="${local_status}${merging}"
+    fi
 
+    if [[ -v worktree ]] ; then
         # Dark red
-        [[ -v worktree ]] && local_status="${local_status}\[\e[38;5;1m\]✱${worktree}"
+        local_status="${local_status}\[\e[38;5;1m\]✱"
+        [[ -v show_counts ]] && local_status="${local_status}${worktree}"
+    fi
 
+    if [[ -v index ]] ; then
         # Dark green
-        [[ -v index ]] && local_status="${local_status}\[\e[38;5;2m\]✚${index}"
+        local_status="${local_status}\[\e[38;5;2m\]✚"
+        [[ -v show_counts ]] && local_status="${local_status}${index}"
+    fi
 
+    if [[ -v untracked ]] ; then
         # Bright yellow
-        [[ -v untracked ]] && local_status="${local_status}\[\e[38;5;3m\]✖${untracked}"
+        local_status="${local_status}\[\e[38;5;3m\]✖"
+        [[ -v show_counts ]] && local_status="${local_status}${untracked}"
+    fi
 
-        # Dark blue # TODO: Stash
-        [[ -v stash ]] && local_status="${local_status}\[\e[38;5;4m\]⚑${stash}"
-    else
-        # Bright red
-        [[ -v merging ]] && local_status="${local_status}\[\e[38;5;9m\]‼"
-
-        # Dark red
-        [[ -v worktree ]] && local_status="${local_status}\[\e[38;5;1m\]✱"
-
-        # Dark green
-        [[ -v index ]] && local_status="${local_status}\[\e[38;5;2m\]✚"
-
-        # Bright yellow
-        [[ -v untracked ]] && local_status="${local_status}\[\e[38;5;3m\]✖"
-
-        # Dark blue # TODO: Stash
-        [[ -v stash ]] && local_status="${local_status}\[\e[38;5;4m\]⚑"
+    if parent-search .git/refs/stash >/dev/null ; then
+        # Bright magenta
+        local_status="${local_status}\[\e[38;5;13m\]⚑"
+        if [[ -v show_counts ]] ; then
+            # TODO: Stash counts
+            local_status="${local_status}${stash}"
+        fi
     fi
 
     [[ -v local_status ]] && local_status=" ${local_status}"
