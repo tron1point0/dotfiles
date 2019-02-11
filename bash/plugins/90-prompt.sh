@@ -16,45 +16,57 @@ function __update_prompt {
 
     # Exit status
     local exitstatus=
-    if [ $ret != 0 ] ; then
+    if [[ "$ret" != 0 ]] ; then
         ret="$(printf '▲ %03d ▲' "$ret")"
         local offset=$(( (COLUMNS - ${#ret} - 2) / 2 ))
-        exitstatus=$" \e[38;5;9m✘\e[${offset}C\e[4m$ret\e[24m\e[${offset}C✘\e[0m\n"
+        exitstatus=" \e[38;5;9m✘\e[${offset}C\e[4m$ret\e[24m\e[${offset}C✘\e[0m\n"
     fi
 
     # Right status
-    local user_color=$'\e[38;5;11m'  # Yellow with no sudo
-    [ -n "$HAS_SUDO" ] && user_color=$'\e[38;5;7m'   # Grey with sudo
-    [ -w /etc/passwd ] && user_color=$'\e[38;5;9m'   # Red if rootish
-    local rightstatus='\
+    local user_color='\e[38;5;11m'  # Yellow with no sudo
+    [[ "$HAS_SUDO" ]] && user_color='\e[38;5;7m'   # Grey with sudo
+    [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'   # Red if rootish
+    local rightstatus=" \
 \[${user_color}\]\u\[\e[38;5;240m\]@\[\e[38;5;7m\]\h \
-\[\e[38;5;33m\]\A'
+\[\e[38;5;33m\]\A"
 
-    if command -v __git_ps1 >/dev/null ; then
-        local GIT_PS1_SHOWDIRTYSTATE=1
-        local GIT_PS1_SHOWSTASHSTATE=1
-        local GIT_PS1_SHOWUNTRACKEDFILES=1
-        local GIT_PS1_SHOWUPSTREAM=auto
-        local GIT_PS1_SHOWCOLORHINTS=1
+    if command -v __git_prompt >/dev/null ; then
+        rightstatus=" $(__git_prompt)$rightstatus"
+    elif command -v __git_ps1 >/dev/null ; then
+        if parent-search .git >/dev/null ; then
+            local GIT_PS1_SHOWDIRTYSTATE=1
+            local GIT_PS1_SHOWSTASHSTATE=1
+            local GIT_PS1_SHOWUNTRACKEDFILES=1
+            local GIT_PS1_SHOWUPSTREAM=auto
+            local GIT_PS1_SHOWCOLORHINTS=1
 
-        __git_ps1 '' " $rightstatus"
-        rightstatus="$PS1"
+            __git_ps1 '' " $rightstatus"
+            rightstatus="$PS1"
+        fi
     fi
 
-    if [ -n "$VIRTUAL_ENV" ] ; then
-        rightstatus=$'\[\e[38;5;240m\]❲\
-\[\e[38;5;6m\]'${VIRTUAL_ENV##*/}$'\[\e[38;5;240m\]\
-❳\[\e[0m\]'$rightstatus
+    if command -v pyenv >/dev/null ; then
+        if parent-search .python-version >/dev/null ; then
+            [[ "$PYENV_VIRTUAL_ENV" ]] || eval "$(pyenv sh-activate --quiet)"
+        else
+            [[ "$PYENV_VIRTUAL_ENV" ]] && eval "$(pyenv sh-deactivate --quiet)"
+        fi
+    fi
+
+    if [[ "$VIRTUAL_ENV" ]] ; then
+        rightstatus=" \[\e[38;5;240m\]❲\
+\[\e[38;5;6m\]${VIRTUAL_ENV##*/}\[\e[38;5;240m\]\
+❳\[\e[0m\]$rightstatus"
     fi
 
     rightstatus="${rightstatus@P}"
-    local bare="$(echo "$rightstatus" | sed $'s/\001[^\002]*\002//g')"
+    local bare="$(sed $'s/\001[^\002]*\002//g' <<< "$rightstatus")"
 
     local start=$(($COLUMNS - ${#bare} + 1))
     rightstatus="\e[${start}G$rightstatus"
 
     PS1=${exitstatus}'\
-\[\e]2;'$(basename "$PWD")'\a\]\
+\[\e]2;'${PWD##*/}'\a\]\
 \[\e7'${rightstatus}'\e8\]\
 \[\e[38;5;240m\]⎧\
 \[\e[1;38;5;33m\]\w\n\
@@ -75,4 +87,3 @@ PS0='\[\e]2;$(history 1 | cut -c8-)\a\]'
 shopt -s checkwinsize   # Update LINES and COLUMNS after every command
 
 true
-

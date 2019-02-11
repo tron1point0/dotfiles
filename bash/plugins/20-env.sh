@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export EDITOR=vim
-export BROWSER=elinks
+can vim && export EDITOR=vim
+can elinks && export BROWSER=elinks
 can google-chrome && export BROWSER=google-chrome
-export PAGER=less
+can less && export PAGER=less
 
 export XDG_DATA_HOME="$HOME/.local/share"
 ensure_dir "$XDG_DATA_HOME"

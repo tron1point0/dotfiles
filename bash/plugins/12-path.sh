@@ -2,7 +2,7 @@
 
 unset -v IFS    # Gets default value if unset
 
-function modify_env {
+function modify-env {
     local ACTION=
     local VAR=
     local E=
@@ -46,7 +46,7 @@ HELP
     done
     shift $(( $OPTIND - 1 ))
 
-    [ -z "$VAR" ] && echo "$USAGE" && return 1
+    [[ -z "$VAR" ]] && echo "$USAGE" && return 1
 
     case "$ACTION" in
         add)
@@ -94,14 +94,15 @@ HELP
     shift 1
     case $action in
     -a)
-        modify_env -a add -v PATH -- "$@" && return $? ;;
+        modify-env -a add -v PATH -- "$@" && return $? ;;
     -r)
-        modify_env -a del -v PATH -- "$@" && return $? ;;
+        modify-env -a del -v PATH -- "$@" && return $? ;;
     -l)
-        modify_env -a list -v PATH && return $? ;;
+        modify-env -a list -v PATH && return $? ;;
     *)
         echo "$USAGE" && return 1
     esac
     return 1
 }
 
+true

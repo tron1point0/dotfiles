@@ -9,4 +9,3 @@ can tmux && alias screen='tmux attach'
 can xdg-open && alias open='xdg-open'
 
 true
-

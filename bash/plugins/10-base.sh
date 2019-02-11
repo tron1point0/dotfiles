@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function can {
-    type "$1" >&/dev/null
+    command -v "$1" >/dev/null
 }
 
 function try {
@@ -9,11 +9,11 @@ function try {
 }
 
 function try_source {
-    [ -r "$1" ] && source "$1"
+    [[ -r "$1" ]] && source "$1"
 }
 
 function ensure_dir {
-    [ -d "$1" ] || mkdir -p "$1"
+    [[ -d "$1" ]] || mkdir -p "$1"
 }
 
 function ensure_parent_dir {
@@ -23,4 +23,3 @@ function ensure_parent_dir {
 unset_after can try try_source ensure_dir ensure_parent_dir
 
 true
-

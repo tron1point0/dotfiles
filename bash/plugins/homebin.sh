@@ -21,15 +21,15 @@ declare -x -a IGNORE_EXTENSIONS=(
 declare -x P
 
 for P in "${BIN_PATHS[@]}" ; do
-    [ -d "$P" ] && path -a "$P"
+    [[ -d "$P" ]] && path -a "$P"
 done
 
 for P in "${CD_PATHS[@]}" ; do
-    [ -d "$P" ] && modify_env -a add -v CDPATH "$P"
+    [[ -d "$P" ]] && modify-env -a add -v CDPATH "$P"
 done
 
 for P in "${IGNORE_EXTENSIONS[@]}" ; do
-    [ -d "$P" ] && modify_env -a add -v FIGNORE "$P"
+    [[ -d "$P" ]] && modify-env -a add -v FIGNORE "$P"
 done
 
 unset -v P
