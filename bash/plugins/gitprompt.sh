@@ -79,47 +79,39 @@ function __git_prompt() {
         branch_name="(${oid:0:8}…)"
         branch_color='\e[38;5;1m'      # Dark red
     else
+        branch_name="${branch}"
         if [[ "$upstream" == "$branch" ]] ; then
-            branch_name="${branch}"
+            # Branch is tracking upstream branch of the same name
             branch_color='\e[38;5;2m'  # Dark green
+        elif [[ "$upstream" ]] ; then
+            # Branch is tracking upstream branched named differently
+            branch_name="${branch_name}…${upstream}"
+            branch_color='\e[38;5;5m'  # Dark magenta
         else
-            branch_name="${branch}…${upstream}"
+            # Branch is local only
             branch_color='\e[38;5;3m'  # Dark yellow
         fi
     fi
 
     local branch_info="\[${branch_color}\]${branch_name}"
     
-    local upstream_status
+    local upstream_status="\[\e[38;5;15m\]"  # Bright grey
     if [[ -v show_counts ]] ; then
         if [[ -v upstream ]] ; then
-            if [[ "$ahead" == 0 && "$behind" == 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]⇋"
-            fi
-            if [[ "$ahead" > 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]↿${ahead}︎"
-            fi
-            if [[ "$behind" > 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]⇂${behind}"
-            fi
+            [[ "$ahead" == 0 && "$behind" == 0 ]] && upstream_status="${upstream_status}⇋"
+            [[ "$ahead" > 0 ]] && upstream_status="${upstream_status}↿${ahead}"
+            [[ "$behind" > 0 ]] && upstream_status="${upstream_status}⇂${behind}"
         fi
     else
         if [[ -v upstream ]] ; then
             if [[ "$ahead" == 0 && "$behind" == 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]⇋"
+                upstream_status="${upstream_status}⇋"
             elif [[ "$ahead" > 0 && "$behind" > 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]⥮"
+                upstream_status="${upstream_status}⥮"
             elif [[ "$ahead" > 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]↿"
+                upstream_status="${upstream_status}↿"
             elif [[ "$behind" > 0 ]] ; then
-                # Bright grey
-                upstream_status="${upstream_status}\[\e[38;5;15m\]⇂"
+                upstream_status="${upstream_status}⇂"
             fi
         fi
     fi
