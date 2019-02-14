@@ -1,10 +1,23 @@
 #!/bin/bash
 
-# Load pyenv automatically by appending
-# the following to ~/.bash_profile:
-can pyenv && eval "$(pyenv init -)"
+# Much faster overrides for pyenv's default shell manipulations
 
-# To enable auto-activation add to your profile:
-# (Handled by 90-prompt.sh)
-# can pyenv-virtualenv-init && eval "$(pyenv virtualenv-init -)"
+if can pyenv ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PYENV_SHELL=bash
 
+    function __pyenv_prompt {
+        local version_file="$(parent-search .python-version)"
+
+        if [[ -r "$version_file" ]] ; then
+            if [[ ! -v VIRTUAL_ENV ]] ; then
+                local python_version
+                read python_version < "$version_file"
+                local activate="$PYENV_ROOT/versions/$python_version/bin/activate"
+                [[ -r "$activate" ]] && source "$activate"
+            fi
+        else
+            [[ -v VIRTUAL_ENV ]] && command -v deactivate >/dev/null && deactivate
+        fi
+    }
+fi

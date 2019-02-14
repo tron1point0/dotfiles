@@ -45,15 +45,11 @@ function __update_prompt {
         fi
     fi
 
-    if command -v pyenv >/dev/null ; then
-        if parent-search .python-version >/dev/null ; then
-            [[ "$PYENV_VIRTUAL_ENV" ]] || eval "$(pyenv sh-activate --quiet)"
-        else
-            [[ "$PYENV_VIRTUAL_ENV" ]] && eval "$(pyenv sh-deactivate --quiet)"
-        fi
+    if command -v __pyenv_prompt >/dev/null ; then
+        __pyenv_prompt
     fi
 
-    if [[ "$VIRTUAL_ENV" ]] ; then
+    if [[ -v VIRTUAL_ENV ]] ; then
         rightstatus=" \[\e[38;5;240m\]❲\
 \[\e[38;5;6m\]${VIRTUAL_ENV##*/}\[\e[38;5;240m\]\
 ❳\[\e[0m\]$rightstatus"
