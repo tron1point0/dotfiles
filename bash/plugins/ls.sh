@@ -140,3 +140,6 @@ export LS_COLORS=
 for key in "${!types[@]}" ; do
     LS_COLORS="$key=${types[$key]}:$LS_COLORS"
 done
+
+unset key
+unset types
