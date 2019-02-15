@@ -24,7 +24,7 @@ function __update_prompt {
 
     # Right status
     local user_color='\e[38;5;11m'  # Yellow with no sudo
-    [[ "$HAS_SUDO" ]] && user_color='\e[38;5;7m'   # Grey with sudo
+    [[ -v HAS_SUDO ]] && user_color='\e[38;5;7m'   # Grey with sudo
     [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'   # Red if rootish
     local rightstatus=" \
 \[${user_color}\]\u\[\e[38;5;240m\]@\[\e[38;5;7m\]\h \
@@ -69,7 +69,9 @@ function __update_prompt {
 \[\e[0;38;5;240m\]⎩\[\e[0m\]\$ '
 }
 
-declare +x HAS_SUDO="$(expr "$(groups)" : '\b\(wheel\|admin\|staff\|sudo\)\b')"
+for g in $(groups) ; do
+    [[ "$g" = wheel || "$g" = admin || "$g" = staff || "$g" = sudo ]] && declare +x HAS_SUDO=1 && break
+done
 
 PROMPT_COMMAND='__update_prompt ; __append_history ; reset_term'
 PROMPT_DIRTRIM=4
