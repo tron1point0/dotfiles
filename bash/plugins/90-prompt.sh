@@ -23,11 +23,14 @@ function __update_prompt {
     fi
 
     # Right status
-    local user_color='\e[38;5;11m'  # Yellow with no sudo
-    [[ -v HAS_SUDO ]] && user_color='\e[38;5;7m'   # Grey with sudo
-    [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'   # Red if rootish
+    local user_color='\e[38;5;11m'                      # Yellow with no sudo
+    [[ -v HAS_SUDO ]] && user_color='\e[38;5;7m'        # Grey with sudo
+    [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'     # Red if rootish
+
+    local host_color='\e[38;5;7m'
+    [[ -v SSH_TTY ]] && host_color='\e[1;38;5;15m'      # Bold if in SSH connection
     local rightstatus=" \
-\[${user_color}\]\u\[\e[38;5;240m\]@\[\e[38;5;7m\]\h \
+\[${user_color}\]\u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[0m\] \
 \[\e[38;5;33m\]\A"
 
     if command -v __git_prompt >/dev/null ; then
