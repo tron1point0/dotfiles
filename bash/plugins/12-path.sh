@@ -80,6 +80,53 @@ HELP
     return 0
 }
 
+function __modify-env-completion {
+    local command="$1"
+    local curr_word="$2"
+    local prev_word="$3"
+
+    # Are we currently specifying an argument's value?
+
+    case "$prev_word" in
+        -a) COMPREPLY=($(compgen -W 'add del list' -- "$curr_word")) ; return ;;
+        -v) COMPREPLY=($(compgen -A variable -- "$curr_word")) ; return ;;
+    esac
+
+    # Which arguments are already specified?
+
+    local action
+    local var
+    local -A missing=(['-a']=1 ['-v']=1)
+
+    local i
+    for i in "${!COMP_WORDS[@]}" ; do
+        case "${COMP_WORDS[$i]}" in
+            -a) action="${COMP_WORDS[((i + 1))]}"
+                [[ -n "$action" ]] && unset missing['-a'] ;;
+            -v) var="${COMP_WORDS[((i + 1))]}"
+                [[ -n "$var" ]] && unset missing['-v'] ;;
+        esac
+    done
+
+    # Complete with the missing argument first
+
+    [[ ${#missing[@]} > 0 ]] && \
+        COMPREPLY=($(compgen -W "${!missing[*]}" -- "$curr_word")) && \
+        return
+
+    # We know what to do and with which var
+
+    case "$action" in
+        del)
+            COMPREPLY=($(compgen -C 'modify-env -a list -v '"$var" -- "$curr_word" 2>/dev/null))
+            return ;;
+        add) COMPREPLY=($(compgen -A directory -A file -- "$curr_word")) ; return ;;
+        list) COMPREPLY=() ; return ;;
+    esac
+}
+
+complete -F __modify-env-completion modify-env
+
 function path {
     local USAGE
     read -r -d '' USAGE <<HELP
@@ -104,5 +151,17 @@ HELP
     esac
     return 1
 }
+
+function __path-completion {
+    case "$3" in
+        -r) COMPREPLY=($(compgen -C 'path -l' -- "$2" 2>/dev/null)) ; return ;;
+        -a) COMPREPLY=($(compgen -df -- "$2")) ; return ;;
+        -l) COMPREPLY=() ; return ;;
+    esac
+
+    COMPREPLY=($(compgen -W '-r -a -l' -- "$2"))
+}
+
+complete -F __path-completion path
 
 true
