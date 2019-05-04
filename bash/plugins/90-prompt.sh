@@ -64,12 +64,12 @@ function __update_prompt {
     local start=$(($COLUMNS - ${#bare} + 1))
     rightstatus="\e[${start}G$rightstatus"
 
-    PS1=${exitstatus}'\
-\[\e]2;'${PWD##*/}'\a\]\
-\[\e7'${rightstatus}'\e8\]\
+    PS1=${exitstatus}"\
+\[\e]2;${PWD##*/}\a\]\
+\[\e7${rightstatus}\e8\]\
 \[\e[38;5;240m\]⎧\
 \[\e[1;38;5;33m\]\w\n\
-\[\e[0;38;5;240m\]⎩\[\e[0m\]\$ '
+\[\e[0;38;5;240m\]⎩\[\e[0m\]\$ "
 }
 
 for g in $(groups) ; do
