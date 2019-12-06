@@ -59,7 +59,7 @@ function __update_prompt {
     fi
 
     rightstatus="${rightstatus@P}"
-    local bare="$(sed $'s/\001[^\002]*\002//g' <<< "$rightstatus")"
+    local bare="${rightstatus//$'\001'*([^$'\002'])$'\002'}"
 
     local start=$(($COLUMNS - ${#bare} + 1))
     rightstatus="\e[${start}G$rightstatus"
