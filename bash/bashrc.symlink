@@ -11,26 +11,28 @@
 # Use sane defaults
 [ -z $XDG_CONFIG_HOME ] && export XDG_CONFIG_HOME="$HOME/.config"
 
-UNSET_AFTER_LOAD=(unset_after)
+if [ "$BASH_VERSINFO" -gt 3 ] ; then
+    UNSET_AFTER_LOAD=(unset_after)
 
-function unset_after {
-    UNSET_AFTER_LOAD+=("$@")
-}
+    function unset_after {
+        UNSET_AFTER_LOAD+=("$@")
+    }
 
-for F in "$XDG_CONFIG_HOME"/bash/plugins/* ; do
-    source "$F"
-done
-unset -v F
+    for F in "$XDG_CONFIG_HOME"/bash/plugins/* ; do
+        source "$F"
+    done
+    unset -v F
 
-# Last
-[ -n "$PS1" ] && can fortune && fortune -a
+    # Last
+    [ -n "$PS1" ] && can fortune && fortune -a
 
-declare -x SYM
-for SYM in "${UNSET_AFTER_LOAD[@]}" ; do
-    unset "$SYM"
-done
-unset -v SYM
-unset -v UNSET_AFTER_LOAD
+    declare -x SYM
+    for SYM in "${UNSET_AFTER_LOAD[@]}" ; do
+        unset "$SYM"
+    done
+    unset -v SYM
+    unset -v UNSET_AFTER_LOAD
+fi
 
 true
 
