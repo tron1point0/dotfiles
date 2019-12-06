@@ -75,6 +75,7 @@ function __update_prompt {
 for g in $(groups) ; do
     [[ "$g" = wheel || "$g" = admin || "$g" = staff || "$g" = sudo ]] && declare +x HAS_SUDO=1 && break
 done
+unset g
 
 PROMPT_COMMAND='__update_prompt ; __append_history ; reset_term'
 PROMPT_DIRTRIM=4

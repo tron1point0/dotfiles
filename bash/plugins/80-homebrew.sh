@@ -20,6 +20,7 @@ if can brew ; then
     path -a '/usr/local/bin'
     path -a '/usr/local/sbin'
 
+    unset pkg
     unset add_gnubin_package
     unset -v GNUBIN_PACKAGES
     unset -v BREWPREFIX

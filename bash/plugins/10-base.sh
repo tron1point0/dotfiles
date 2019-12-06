@@ -9,12 +9,14 @@ function try {
 }
 
 function try_source {
+    local arg
     for arg in "$@" ; do
         [[ -r "$arg" ]] && source "$arg"
     done
 }
 
 function ensure_dir {
+    local arg
     for arg in "$@" ; do
         [[ -d "$arg" ]] || mkdir -p "$arg"
     done
