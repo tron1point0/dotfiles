@@ -12,8 +12,8 @@ set autoindent
 set smartindent
 set preserveindent
 set tabstop=4
-set shiftwidth=4
-set expandtab ts=4 sw=4 ai
+set shiftwidth=0  " So that it uses `tabstop` value
+set expandtab
 filetype indent on
 filetype plugin on
 
