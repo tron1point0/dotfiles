@@ -78,12 +78,13 @@ let g:netrw_special_syntax=1 "Highlight special files
 
 
 " For MiniBufExpl
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplUseSingleClick = 1
-let g:statusLineText = "Buffers"
-let g:miniBufExplSplitBelow = 0
-let g:miniBufExplForceSyntaxEnable = 1
-set hidden
+let g:miniBufExplBRSplit = 0        " Split to the top/left
+let g:minibufExplHideWhenDiff = 1   " Don't open for diffs
+let g:miniBufExplTabWrap = 1        " Don't split tab names across lines
+let g:miniBufExplCycleAround = 1    " Tabbing through buffers cycles
+let g:miniBufExplUseSingleClick = 1 " Switch tabs with one mouse click
+let g:miniBufExplStatusLineText = "Buffers"
+set hidden  " Allow opening new buffers with `e` from an edited buffer
 
 " -- Appearance --
 
@@ -92,6 +93,7 @@ if match($TERM,'256')!=-1
     set t_Co=256
     colorscheme wombat256
 endif
+
 syntax on
 set number
 set numberwidth=5
