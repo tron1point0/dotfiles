@@ -1,13 +1,11 @@
 #!/bin/bash
 
-unset -v IFS    # Gets default value if unset
-
 function modify-env {
     local ACTION=
     local VAR=
     local E=
     local SELF=${FUNCNAME[0]}
-    local IFS=${IFS:-:}
+    [[ "${#IFS}" -gt 1 ]] && local IFS=:
     local OPT
     local OPTIND
     local OPTARG
