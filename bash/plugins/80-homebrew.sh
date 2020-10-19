@@ -5,6 +5,7 @@ if can brew ; then
     GNUBIN_PACKAGES=(
         coreutils
         inetutils
+        make
     )
 
     function add_gnubin_package {
