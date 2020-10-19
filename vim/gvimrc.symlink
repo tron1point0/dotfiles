@@ -1,6 +1,7 @@
 " Text display
 colorscheme wombat
 set guioptions=aeimg
+set macligatures
 set guifont=Fira\ Code\ Retina:h12,Monaco:h12
 set linespace=2
 
