@@ -1,5 +1,6 @@
 #!/bin/bash
 
+function __generate_ls_colors() {
 # Use https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
 declare -A types
 types=(
@@ -136,10 +137,15 @@ types=(
 ["*.xspf"]="36"
 )
 
-export LS_COLORS=
+declare -a buf
+local key
 for key in "${!types[@]}" ; do
-    LS_COLORS="$key=${types[$key]}:$LS_COLORS"
+    buf+=("${key}=${types[$key]}")
 done
 
-unset key
-unset types
+local IFS=:
+echo "${buf[*]}"
+}
+
+export LS_COLORS="$(__generate_ls_colors)"
+
