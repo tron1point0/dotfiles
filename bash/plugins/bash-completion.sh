@@ -10,7 +10,4 @@ try_source /usr/share/bash-completion/bash_completion
 # This also loads /usr/local/share/bash-completion
 try_source /usr/local/etc/profile.d/bash_completion.sh
 
-# From individual apps (OSX)
-try_source /usr/local/etc/bash_completion.d/*
-
 true
