@@ -14,7 +14,7 @@
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/gitignore
 [push]
     default = simple
 [pull]
