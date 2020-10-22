@@ -23,7 +23,7 @@ function ensure_dir {
 }
 
 function ensure_parent_dir {
-    ensure_dir "$(dirname "$1")"
+    ensure_dir "${1%/*}"
 }
 
 unset_after can try try_source ensure_dir ensure_parent_dir
