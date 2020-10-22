@@ -19,7 +19,13 @@ if [ "$BASH_VERSINFO" -gt 3 ] ; then
     }
 
     for F in "$XDG_CONFIG_HOME"/bash/plugins/* ; do
-        source "$F"
+        if [ -o functrace ] ; then
+            TIMEFORMAT=$'%lR'
+            echo -ne "$(basename $F)\t"
+            time source "$F"
+        else
+            source "$F"
+        fi
     done
     unset -v F
 
