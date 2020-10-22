@@ -10,16 +10,20 @@
     branch-diff = diff --no-merges ^master
     branch-files = diff --stat --no-merges ^master
     branch-ll = log --no-merges --graph --pretty='tformat:%C(auto)%h%Creset %aN %C(green)%ar%Creset%C(auto)%+d%Creset%n%w(80,4,4)%s' ^master
-    unstage = reset HEAD --
+    unstage = restore --staged --
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
 [core]
 	excludesfile = ~/.gitignore_global
 [push]
     default = simple
+[pull]
+    rebase = false
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
 	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[include]
+	path = ~/.gitconfig.local
