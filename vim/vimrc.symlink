@@ -32,15 +32,12 @@ set incsearch
 set pastetoggle=<F3>
 nmap             <Space>    za
 nmap    <silent> /<BS>      :nohlsearch<CR>
-vmap    <silent> cc         :w !xsel -i<CR><CR>
-nmap    <silent> cc         :.w !xsel -i<CR>
-vmap    <silent> cp         :r !xsel<CR>
-nmap    <silent> cp         :r !xsel<CR>
-noremap          t,         :MBEbp<CR>
-noremap          t.         :MBEbn<CR>
-cnoremap         <Left>     <Space><BS><Left>
-cnoremap         <Right>    <Space><BS><Right>
-inoremap         <C-Space>  <C-R>=snipMate#ShowAvailableSnips()<CR>
+
+" Moving whole lines up & down
+nnoremap <S-A-Up>     :m -2<CR>
+nnoremap <S-A-Down>   :m +<CR>
+vnoremap <S-A-Up>     :m '<-2<CR>gv
+vnoremap <S-A-Down>   :m '>+1<CR>gv
 
 " Splitting
 set splitright
