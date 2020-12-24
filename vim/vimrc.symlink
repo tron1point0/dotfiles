@@ -1,5 +1,5 @@
 " Author: Traian Nedelea <tron1point0@gmail.com>
-" 
+"
 " vimrc - vim configuration settings
 
 " -- Variables --
@@ -67,25 +67,6 @@ set wildmenu
 set wildmode=full
 set wildchar=<Tab>
 
-" File browser
-let g:netrw_browse_split=4  " Open in last window
-let g:netrw_liststyle=1     " Long
-let g:netrw_sizestyle="H"   " Human-readable, base 1024
-let g:netrw_winsize=25      " 25%
-let g:netrw_wiw=16          " Minimum width
-let g:netrw_hide=1          " Show only non-hidden
-let g:netrw_special_syntax=1 "Highlight special files
-
-
-" For MiniBufExpl
-let g:miniBufExplBRSplit = 0        " Split to the top/left
-let g:minibufExplHideWhenDiff = 1   " Don't open for diffs
-let g:miniBufExplTabWrap = 1        " Don't split tab names across lines
-let g:miniBufExplCycleAround = 1    " Tabbing through buffers cycles
-let g:miniBufExplUseSingleClick = 1 " Switch tabs with one mouse click
-let g:miniBufExplStatusLineText = "Buffers"
-set hidden  " Allow opening new buffers with `e` from an edited buffer
-
 " -- Appearance --
 
 " Text display
@@ -126,3 +107,27 @@ set cursorline
 
 " Whole window
 set vb t_vb=
+
+" -- Plugins --
+
+" For File browser
+let g:netrw_browse_split=4  " Open in last window
+let g:netrw_liststyle=1     " Long
+let g:netrw_sizestyle="H"   " Human-readable, base 1024
+let g:netrw_winsize=25      " 25%
+let g:netrw_wiw=16          " Minimum width
+let g:netrw_hide=1          " Show only non-hidden
+let g:netrw_special_syntax=1 "Highlight special files
+
+" For Airline
+" Skip displaying standard values
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline_skip_empty_sections = 1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+" For Ctrl-P
+let g:ctrlp_working_path_mode = 'ra'
+

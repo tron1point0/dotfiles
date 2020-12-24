@@ -1,6 +1,6 @@
 " Text display
 colorscheme wombat
-set guioptions=aeimg
+set guioptions=aimg
 set macligatures
 set guifont=Fira\ Code\ Retina:h12,Monaco:h12
 set linespace=2
@@ -9,9 +9,9 @@ set linespace=2
 set colorcolumn=80
 highlight ColorColumn guibg=#2D2D2D
 
-" For minibufexpl
-noremap <D-]> :MBEbn<CR>
-noremap <D-[> :MBEbp<CR>
+" For buffer navigation
+noremap <D-]> :bn<CR>
+noremap <D-[> :bp<CR>
 noremap <D-w> :bc<CR>
 
 " For CtrlP
@@ -19,4 +19,21 @@ noremap <D-e> :CtrlP<CR>
 
 " System clipboard integration
 set clipboard=unnamed
+
+" Use powerline symbols in GUI
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰ '
+let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.dirty='⚡'
+
+" Same for the tabline
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 
