@@ -3,7 +3,9 @@
 " vimrc - vim configuration settings
 
 " -- Variables --
-exe 'set runtimepath='.$XDG_CONFIG_HOME.'/vim,/usr/share/vim/vimfiles,'.$VIMRUNTIME.','.$XDG_CONFIG_HOME.'/vim/after'
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+set packpath^=$XDG_CONFIG_HOME/vim
 
 " -- Functionality --
 
@@ -55,8 +57,8 @@ set modelines=5
 
 " Window title
 if $TERM=='screen'
-	exe 'set title titlestring=vim:%t%(\ %m%)'
-	exe 'set title t_ts=]2;%t\\'
+	set title titlestring=vim:%t%(\ %m%)
+	set title t_ts=]2;%t\\
 endif
 
 " Wild menu (tab completion)
@@ -97,7 +99,7 @@ set nowrap
 
 " Status line
 set laststatus=2
-set statusline=[%F]%y%([%M%R]%)%=[%c,%l\ of\ %L]
+set statusline=%(%w%q[%n]\ %)%f\ %([%M%R%H]%)\ %=%y[%p%%\ %l/%L:%c]
 set showcmd
 set noruler
 set cursorline
@@ -127,4 +129,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " For Ctrl-P
 let g:ctrlp_working_path_mode = 'ra'
+
+" For signifiy
+set updatetime=250
 
