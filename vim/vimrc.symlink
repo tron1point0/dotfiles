@@ -71,7 +71,7 @@ set wildchar=<Tab>
 " Text display
 if match($TERM,'256')!=-1
     set t_Co=256
-    colorscheme wombat256
+    colorscheme wombat256mod
 endif
 
 syntax on

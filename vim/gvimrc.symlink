@@ -1,5 +1,5 @@
 " Text display
-colorscheme wombat
+colorscheme wombat256mod
 set guioptions=aimg
 set macligatures
 set guifont=Fira\ Code\ Retina:h12,Monaco:h12
