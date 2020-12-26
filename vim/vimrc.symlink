@@ -32,7 +32,7 @@ set incsearch
 
 " Key mappings
 set pastetoggle=<F3>
-nmap             <Space>    za
+" Clear search highlight
 nmap    <silent> /<BS>      :nohlsearch<CR>
 
 " Moving whole lines up & down
@@ -69,10 +69,8 @@ set wildchar=<Tab>
 " -- Appearance --
 
 " Text display
-if match($TERM,'256')!=-1
-    set t_Co=256
-    colorscheme wombat256mod
-endif
+set background=dark
+colorscheme one
 
 syntax on
 set number
@@ -119,6 +117,7 @@ let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
 " For Airline
+let g:airline_theme='one'
 " Skip displaying standard values
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
@@ -132,4 +131,9 @@ let g:ctrlp_working_path_mode = 'ra'
 
 " For signifiy
 set updatetime=250
+let g:signify_sign_show_count = 1
+" Show changes in hunk under cursor
+nmap zh :SignifyHunkDiff<CR>
+" Undo hunk under cursor (reset to HEAD)
+nmap zu :SignifyHunkUndo<CR>
 

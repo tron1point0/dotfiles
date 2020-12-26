@@ -7,3 +7,6 @@
 [submodule "vim/pack/dist/start/vim-signify"]
 	path = vim/pack/dist/start/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule "vim/pack/dist/start/vim-one"]
+	path = vim/pack/dist/start/vim-one
+	url = https://github.com/rakr/vim-one.git
