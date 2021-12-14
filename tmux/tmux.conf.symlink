@@ -52,10 +52,10 @@ bind = paste-buffer
 bind q confirm-before "kill-session"
 bind w confirm-before "kill-pane"
 
-bind -r [ previous-window
-bind -r { previous-window -a
-bind -r ] next-window
-bind -r } next-window -a
+bind -r '[' previous-window
+bind -r '{' previous-window -a
+bind -r ']' next-window
+bind -r '}' next-window -a
 bind -r M-[ swap-window -t:-1
 bind -r M-] swap-window -t:+1
 
@@ -74,11 +74,6 @@ bind -r C-S-Up resize-pane -U 5
 bind -r C-S-Down resize-pane -D 5
 bind -r C-S-Right resize-pane -R 5
 
-bind -r M-Left swap-pane -t:{left-of}
-bind -r M-Up swap-pane -t:{up-of}
-bind -r M-Down swap-pane -t:{down-of}
-bind -r M-Right swap-pane -t:{right-of}
-
 set -g base-index 1
 
 set -g activity-action any
@@ -94,16 +89,15 @@ set -g mouse on
 
 set -g default-terminal screen-256color
 
-set -g pane-active-border-fg cyan
-set -g pane-border-bg default
+set -g pane-active-border-style fg=cyan
+set -g pane-border-style bg=default
 
 set -g set-titles on
 set -g renumber-windows on
 setw -g automatic-rename on
 
 set -g status on
-set -g status-bg default
-set -g status-fg default
+set -g status-style bg=default,fg=default
 set -g status-justify left
 set -g status-left "#{?session_alerts,#[fg=brightred]#{session_alerts}#[default] ,}"
 set -g status-right "#[fg=colour7]#(echo $USER)#[fg=colour240]@#[fg=colour7]#h #[fg=colour033]%R"
