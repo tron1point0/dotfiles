@@ -70,8 +70,9 @@ set wildchar=<Tab>
 " -- Appearance --
 
 " Text display
-set background=dark
 colorscheme one
+set background=dark
+set termguicolors
 
 syntax on
 set number

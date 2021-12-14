@@ -7,5 +7,6 @@ ls --help | grep [-][-]group-directories-first \
 can axel && alias axel='axel -a'
 can tmux && alias screen='tmux attach'
 can xdg-open && alias open='xdg-open'
+can nvim && alias vim=nvim
 
 true
