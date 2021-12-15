@@ -1,8 +1,12 @@
 #!/bin/bash
 
 can vim && export EDITOR=vim
+can nvim && export EDITOR=nvim
+
 can elinks && export BROWSER=elinks
 can google-chrome && export BROWSER=google-chrome
+can firefox && export BROWSER=firefox
+
 can less && export PAGER=less
 
 export XDG_DATA_HOME="$HOME/.local/share"
