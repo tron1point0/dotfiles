@@ -1,6 +1,16 @@
 font:
-  family: Fira Mono
-  style: Retina
+  normal:
+    family: Fira Code
+    style: Retina
+  bold:
+    family: Fira Code
+    style: Bold
+  italic:
+    family: Menlo
+    style: Italic
+  bold_italic:
+    family: Menlo
+    style: Bold Italic
   size: 14.0
   offset:
     x: 0
