@@ -42,8 +42,12 @@ nnoremap <S-A-Down>   :m +<CR>
 vnoremap <S-A-Up>     :m '<-2<CR>gv
 vnoremap <S-A-Down>   :m '>+1<CR>gv
 
-" Delete word backwards
-inoremap <M-Backspace> <ESC>dbi
+" Some emacs-like bindings
+inoremap <M-Backspace>  <ESC> dbi
+inoremap <M-Left>       <ESC>bi
+inoremap <M-Right>      <ESC> wi
+nnoremap <M-Left>       b
+nnoremap <M-Right>      w
 
 " Splitting
 set splitright
@@ -59,12 +63,6 @@ set backspace=indent,eol,start
 set modeline
 set modelines=5
 
-" Window title
-if $TERM=='screen'
-    set title titlestring=vim:%t%(\ %m%)
-    set title t_ts=]2;%t\\
-endif
-
 " Wild menu (tab completion)
 set wildmenu
 set wildmode=full
@@ -73,9 +71,14 @@ set wildchar=<Tab>
 " -- Appearance --
 
 " Text display
-colorscheme one
 set background=dark
-set termguicolors
+if $TERM=~"256color" || $TERM=~"true-color"
+    colorscheme one
+    set termguicolors
+    " 80-character gutter
+    set colorcolumn=80
+    highlight ColorColumn guibg=#2D2D2D
+endif
 
 syntax on
 set number
