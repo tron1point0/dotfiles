@@ -73,6 +73,7 @@ set wildchar=<Tab>
 " Text display
 set background=dark
 if $TERM=~"256color" || $TERM=~"true-color"
+    let g:one_allow_italics = 1
     colorscheme one
     set termguicolors
     " 80-character gutter
