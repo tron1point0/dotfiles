@@ -88,11 +88,11 @@ set showmatch
 set linebreak
 set showbreak=↵
 set list
-set listchars=tab:⇥\ 
-set listchars+=trail:─
+set listchars=tab:⎯⎯⇥
+set listchars+=trail:•
 set listchars+=precedes:❮
 set listchars+=extends:❯
-set listchars+=nbsp:‥
+set listchars+=nbsp:…
 set listchars+=conceal:⁞
 set spell
 set display=lastline
