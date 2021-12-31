@@ -124,6 +124,8 @@ set clipboard=unnamed
 
 " Enable :find to do the same thing as Ctrl-P
 set path+=**
+nnoremap <C-p> :find 
+inoremap <C-p> <ESC>:find 
 
 " For tag browsing
 command! MakeTags !ctags -R .
