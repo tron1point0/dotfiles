@@ -130,7 +130,8 @@ command! MakeTags !ctags -R .
 
 " For File browser
 let g:netrw_browse_split=4  " Open in last window
-let g:netrw_liststyle=1     " Long
+let g:netrw_liststyle=3     " Tree
+let g:netrw_altv=1          " Open splits to the right
 let g:netrw_sizestyle="H"   " Human-readable, base 1024
 let g:netrw_winsize=25      " 25%
 let g:netrw_wiw=16          " Minimum width
