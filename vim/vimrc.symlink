@@ -43,9 +43,9 @@ vnoremap <S-A-Up>     :m '<-2<CR>gv
 vnoremap <S-A-Down>   :m '>+1<CR>gv
 
 " Some emacs-like bindings
-inoremap <M-Backspace>  <ESC> dbi
-inoremap <M-Left>       <ESC>bi
-inoremap <M-Right>      <ESC> wi
+inoremap <M-Backspace>  <C-w>
+inoremap <M-Left>       <C-o>b
+inoremap <M-Right>      <C-o>w
 nnoremap <M-Left>       b
 nnoremap <M-Right>      w
 
