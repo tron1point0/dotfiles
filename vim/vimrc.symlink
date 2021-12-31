@@ -83,7 +83,7 @@ endif
 
 syntax on
 set number
-set numberwidth=5
+"set relativenumber
 set showmatch
 set linebreak
 set showbreak=↵
@@ -105,8 +105,11 @@ set winwidth=80
 set nowrap
 
 " Status line
-set laststatus=2
-set statusline=%(%w%q[%n]\ %)%f\ %([%M%R%H]%)\ %=%y[%p%%\ %l/%L:%c]
+" Don't re-define the statusline if airline exists
+if !exists('g:airline_symbols')
+    set laststatus=2
+    set statusline=%(%w%q[%n]\ %)%f\ %([%M%R%H]%)\ %=%y[%p%%\ %l/%L:%c]
+endif
 set showcmd
 set noruler
 set cursorline
@@ -118,6 +121,12 @@ set vb t_vb=
 set clipboard=unnamed
 
 " -- Plugins --
+
+" Enable :find to do the same thing as Ctrl-P
+set path+=**
+
+" For tag browsing
+command! MakeTags !ctags -R .
 
 " For File browser
 let g:netrw_browse_split=4  " Open in last window
@@ -159,9 +168,6 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-
-" For Ctrl-P
-let g:ctrlp_working_path_mode = 'ra'
 
 " For signifiy
 set updatetime=250
