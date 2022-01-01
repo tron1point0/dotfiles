@@ -4,7 +4,7 @@ let g:one_allow_italics = 1
 colorscheme one
 set guioptions=aimg
 set macligatures
-set guifont=Fira\ Code\ Retina:h12,Monaco:h12
+set guifont=Fira\ Code:h14,Monaco:h14
 set linespace=2
 
 " For 80-character gutter
@@ -14,8 +14,5 @@ highlight ColorColumn guibg=#2D2D2D
 " For buffer navigation
 noremap <D-]> :bn<CR>
 noremap <D-[> :bp<CR>
-noremap <D-w> :bc<CR>
-
-" For CtrlP
-noremap <D-e> :CtrlP<CR>
+noremap <D-w> :bd<CR>
 
