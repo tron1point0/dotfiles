@@ -50,6 +50,8 @@ set hidden          " Allow leaving edited buffer without writing it
 noremap <M-]> :bn<CR>
 noremap <M-[> :bp<CR>
 noremap <M-w> :bd<CR>
+noremap <M-PageUp> :bp<CR>
+noremap <M-PageDown> :bn<CR>
 " For buffer navigation on OSX - these are the same as the M- bindings above
 if has('mac')
     noremap ‘ :bn<CR>
