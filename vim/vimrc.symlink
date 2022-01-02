@@ -96,7 +96,7 @@ set showmatch
 set linebreak
 set showbreak=↵
 set list
-set listchars=tab:⎯⎯⇥
+set listchars=tab:——⇥
 set listchars+=trail:•
 set listchars+=precedes:❮
 set listchars+=extends:❯
