@@ -1,3 +1,3 @@
-set runtimepath^=~/.config/vim runtimepath+=~/.config/vim/after
+set runtimepath^=$XDG_CONFIG_HOME/vim runtimepath+=$XDG_CONFIG_HOME/vim/after
 let &packpath = &runtimepath
-source ~/.config/vim/vimrc.symlink
+source $XDG_CONFIG_HOME/vim/vimrc.symlink
