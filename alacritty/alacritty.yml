@@ -1,3 +1,6 @@
+window:
+  dynamic_padding: true
+
 font:
   normal:
     family: Fira Code
