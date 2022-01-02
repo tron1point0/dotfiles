@@ -139,9 +139,9 @@ let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
 " For NERDTree
-nnoremap <C-n> :NERDTreeFocus<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap gn :NERDTreeFocus<CR>
+nnoremap gg :NERDTreeToggle<CR>
+nnoremap gc :NERDTreeFind<CR>
 
 " For Airline
 let g:airline_theme='one'
