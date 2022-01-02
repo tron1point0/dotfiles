@@ -36,13 +36,9 @@ set mouse=a             " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      :nohlsearch<CR>
-
-" Moving whole lines up & down
-nnoremap <S-A-Up>     :m -2<CR>
-nnoremap <S-A-Down>   :m +<CR>
-vnoremap <S-A-Up>     :m '<-2<CR>gv
-vnoremap <S-A-Down>   :m '>+1<CR>gv
-
+" Reselect text indented with > and < so it can repeat
+vnoremap > >gv
+vnoremap < <gv
 " Some emacs-like bindings
 inoremap <M-Backspace>  <C-w>
 inoremap <M-Left>       <C-o>b
@@ -123,11 +119,14 @@ set clipboard=unnamed
 
 " -- Plugins --
 
+
 " For Ctrl-P
 let g:ctrlp_working_path_mode = 'wa'
 
+
 " For tag browsing
 command! MakeTags !ctags -R .
+
 
 " For File browser
 let g:netrw_browse_split=4  " Open in last window
@@ -139,10 +138,12 @@ let g:netrw_wiw=16          " Minimum width
 let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
+
 " For NERDTree
 nnoremap <leader>nn :NERDTreeFocus<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nc :NERDTreeFind<CR>
+
 
 " For Airline
 let g:airline_theme='one'
@@ -176,6 +177,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
+
 " For signifiy
 set updatetime=250
 let g:signify_sign_show_count = 1
@@ -190,4 +192,15 @@ nnoremap <leader>su :SignifyHunkUndo<CR>
 " Jump to next/previous hunk
 nmap <leader>sn <plug>(signify-next-hunk)
 nmap <leader>sp <plug>(signify-previous-hunk)
+
+
+" For Schlepp
+nnoremap <S-A-Up>     :m -2<CR>
+nnoremap <S-A-Down>   :m +<CR>
+
+vmap <S-A-Up>        <Plug>SchleppUp
+vmap <S-A-Down>      <Plug>SchleppDown
+vmap <S-A-Left>      <Plug>SchleppLeft
+vmap <S-A-Right>     <Plug>SchleppRight
+vmap D               <Plug>SchleppDup
 

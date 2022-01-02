@@ -16,3 +16,6 @@
 [submodule "vim/pack/dist/start/nerdtree-git-plugin"]
 	path = vim/pack/dist/start/nerdtree-git-plugin
 	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "vim/pack/dist/start/vim-schlepp"]
+	path = vim/pack/dist/start/vim-schlepp
+	url = https://github.com/zirrostig/vim-schlepp.git
