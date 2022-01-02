@@ -31,7 +31,8 @@ set hlsearch
 set incsearch
 
 " Key mappings
-set mouse=a
+let mapleader = ","     " Bind comma to <leader>
+set mouse=a             " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      :nohlsearch<CR>
@@ -139,9 +140,9 @@ let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
 " For NERDTree
-nnoremap gn :NERDTreeFocus<CR>
-nnoremap gg :NERDTreeToggle<CR>
-nnoremap gc :NERDTreeFind<CR>
+nnoremap <leader>nn :NERDTreeFocus<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nc :NERDTreeFind<CR>
 
 " For Airline
 let g:airline_theme='one'
@@ -178,8 +179,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 " For signifiy
 set updatetime=250
 let g:signify_sign_show_count = 1
+" Show diff of whole file
+nnoremap <leader>sd :SignifyDiff<CR>
+" Fold file to show only changed hunks
+nnoremap <leader>sf :SignifyFold<CR>
 " Show changes in hunk under cursor
-nmap zh :SignifyHunkDiff<CR>
+nnoremap <leader>sh :SignifyHunkDiff<CR>
 " Undo hunk under cursor (reset to HEAD)
-nmap zu :SignifyHunkUndo<CR>
+nnoremap <leader>su :SignifyHunkUndo<CR>
+" Jump to next/previous hunk
+nmap <leader>sn <plug>(signify-next-hunk)
+nmap <leader>sp <plug>(signify-previous-hunk)
 
