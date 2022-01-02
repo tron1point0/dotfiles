@@ -45,6 +45,16 @@ inoremap <M-Left>       <C-o>b
 inoremap <M-Right>      <C-o>w
 nnoremap <M-Left>       b
 nnoremap <M-Right>      w
+" For buffer navigation
+noremap <M-]> :bn<CR>
+noremap <M-[> :bp<CR>
+noremap <M-w> :bd<CR>
+" For buffer navigation on OSX - these are the same as the M- bindings above
+if has('macunix')
+    noremap ‘ :bn<CR>
+    noremap “ :bp<CR>
+    noremap ∑ :bd<CR>
+endif
 
 " Splitting
 set splitright

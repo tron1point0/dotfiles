@@ -2,8 +2,10 @@
 set background=dark
 let g:one_allow_italics = 1
 colorscheme one
-set guioptions=aimg
-set macligatures
+set guioptions=ai
+if has('macunix')
+    set macligatures
+endif
 set guifont=Fira\ Code:h14,Monaco:h14
 set linespace=2
 
