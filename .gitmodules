@@ -19,3 +19,6 @@
 [submodule "vim/pack/dist/start/vim-schlepp"]
 	path = vim/pack/dist/start/vim-schlepp
 	url = https://github.com/zirrostig/vim-schlepp.git
+[submodule "vim/pack/dist/start/supertab"]
+	path = vim/pack/dist/start/supertab
+	url = https://github.com/ervandew/supertab.git
