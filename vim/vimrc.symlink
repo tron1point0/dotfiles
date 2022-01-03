@@ -35,7 +35,7 @@ let mapleader = ","     " Bind comma to <leader>
 set mouse=a             " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
-nmap    <silent> /<BS>      :nohlsearch<CR>
+nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
 " Reselect text indented with > and < so it can repeat
 vnoremap > >gv
 vnoremap < <gv
@@ -47,16 +47,16 @@ nnoremap <M-Left>       b
 nnoremap <M-Right>      w
 " For buffer navigation
 set hidden          " Allow leaving edited buffer without writing it
-noremap <M-]> :bn<CR>
-noremap <M-[> :bp<CR>
-noremap <M-w> :bd<CR>
-noremap <M-PageUp> :bp<CR>
-noremap <M-PageDown> :bn<CR>
+noremap <M-]> <Cmd>bn<CR>
+noremap <M-[> <Cmd>bp<CR>
+noremap <M-w> <Cmd>bd<CR>
+noremap <M-PageUp> <Cmd>bp<CR>
+noremap <M-PageDown> <Cmd>bn<CR>
 " For buffer navigation on OSX - these are the same as the M- bindings above
 if has('mac')
-    noremap ‘ :bn<CR>
-    noremap “ :bp<CR>
-    noremap ∑ :bd<CR>
+    noremap ‘ <Cmd>bn<CR>
+    noremap “ <Cmd>bp<CR>
+    noremap ∑ <Cmd>bd<CR>
 endif
 
 " Splitting
@@ -153,9 +153,9 @@ let g:netrw_special_syntax=1 "Highlight special files
 
 
 " For NERDTree
-nnoremap <leader>nn :NERDTreeFocus<CR>
-nnoremap <leader>nt :NERDTreeToggle<CR>
-nnoremap <leader>nc :NERDTreeFind<CR>
+nnoremap <leader>nn <Cmd>NERDTreeFocus<CR>
+nnoremap <leader>nt <Cmd>NERDTreeToggle<CR>
+nnoremap <leader>nc <Cmd>NERDTreeFind<CR>
 
 
 " For Airline
@@ -195,21 +195,21 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 set updatetime=250
 let g:signify_sign_show_count = 1
 " Show diff of whole file
-nnoremap <leader>sd :SignifyDiff<CR>
+nnoremap <leader>sd <Cmd>SignifyDiff<CR>
 " Fold file to show only changed hunks
-nnoremap <leader>sf :SignifyFold<CR>
+nnoremap <leader>sf <Cmd>SignifyFold<CR>
 " Show changes in hunk under cursor
-nnoremap <leader>sh :SignifyHunkDiff<CR>
+nnoremap <leader>sh <Cmd>SignifyHunkDiff<CR>
 " Undo hunk under cursor (reset to HEAD)
-nnoremap <leader>su :SignifyHunkUndo<CR>
+nnoremap <leader>su <Cmd>SignifyHunkUndo<CR>
 " Jump to next/previous hunk
 nmap <leader>sn <plug>(signify-next-hunk)
 nmap <leader>sp <plug>(signify-previous-hunk)
 
 
 " For Schlepp
-nnoremap <S-A-Up>     :m -2<CR>
-nnoremap <S-A-Down>   :m +<CR>
+nnoremap <S-A-Up>     <Cmd>m -2<CR>
+nnoremap <S-A-Down>   <Cmd>m +<CR>
 
 vmap <S-A-Up>        <Plug>SchleppUp
 vmap <S-A-Down>      <Plug>SchleppDown
