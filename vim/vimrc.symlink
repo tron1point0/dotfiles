@@ -58,6 +58,8 @@ if has('mac')
     noremap “ <Cmd>bp<CR>
     noremap ∑ <Cmd>bd<CR>
 endif
+" Show vim help for word under cursor
+nnoremap <leader>h "zyiw:help <C-r>z<CR>
 
 " Splitting
 set splitright
