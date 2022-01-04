@@ -31,3 +31,9 @@
 [submodule "vim/pack/dist/start/tcomment_vim"]
 	path = vim/pack/dist/start/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "nvim/pack/dist/start/nvim-lspconfig"]
+	path = nvim/pack/dist/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "nvim/pack/dist/start/coq_nvim"]
+	path = nvim/pack/dist/start/coq_nvim
+	url = https://github.com/ms-jpq/coq_nvim.git
