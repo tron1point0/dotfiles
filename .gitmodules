@@ -28,3 +28,6 @@
 [submodule "vim/pack/dist/start/vim-repeat"]
 	path = vim/pack/dist/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "vim/pack/dist/start/tcomment_vim"]
+	path = vim/pack/dist/start/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim.git
