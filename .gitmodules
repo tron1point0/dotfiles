@@ -37,3 +37,6 @@
 [submodule "nvim/pack/dist/start/coq_nvim"]
 	path = nvim/pack/dist/start/coq_nvim
 	url = https://github.com/ms-jpq/coq_nvim.git
+[submodule "nvim/pack/dist/start/coq.artifacts"]
+	path = nvim/pack/dist/start/coq.artifacts
+	url = https://github.com/ms-jpq/coq.artifacts.git
