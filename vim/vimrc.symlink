@@ -20,9 +20,7 @@ filetype indent on
 filetype plugin on
 
 " Code folding
-set foldcolumn=0
-set foldmethod=indent
-set foldlevel=100
+set foldmethod=marker
 
 " Searching
 set ignorecase
@@ -92,8 +90,8 @@ if $TERM=~"256color" || $TERM=~"true-color"
     let g:one_allow_italics = 1
     colorscheme one
     set termguicolors
-    " 80-character gutter
-    set colorcolumn=+1
+    " 80 and 120 character gutters (based on textwidth)
+    set colorcolumn=+1,+41
     highlight ColorColumn guibg=#2D2D2D
 endif
 

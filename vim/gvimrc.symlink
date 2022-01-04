@@ -9,10 +9,6 @@ endif
 set guifont=Fira\ Code:h14,Monaco:h14
 set linespace=2
 
-" For 80-character gutter
-set colorcolumn=80
-highlight ColorColumn guibg=#2D2D2D
-
 " For buffer navigation
 noremap <D-]> :bn<CR>
 noremap <D-[> :bp<CR>
