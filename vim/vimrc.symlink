@@ -76,6 +76,7 @@ set modelines=5
 set wildmenu
 set wildmode=full
 set wildchar=<Tab>
+set wildignore+=__pycache__,*.pyc,*~
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
@@ -133,18 +134,19 @@ set vb t_vb=
 " System clipboard integration
 set clipboard=unnamed
 
-" -- Plugins --
-
-
-" For Ctrl-P
-let g:ctrlp_working_path_mode = 'wa'
-
-
 " For tag browsing
 command! MakeTags !ctags -R .
 
+" --- Plugins --
 
-" For File browser
+" {{{ --- Ctrl-P ---
+
+let g:ctrlp_working_path_mode = 'wa'
+
+" }}}
+
+" {{{ --- netrw ---
+
 let g:netrw_browse_split=4  " Open in last window
 let g:netrw_liststyle=3     " Tree
 let g:netrw_altv=1          " Open splits to the right
@@ -154,14 +156,20 @@ let g:netrw_wiw=16          " Minimum width
 let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
+" }}}
 
-" For NERDTree
+" {{{ --- NERDTree ---
+
 nnoremap <leader>nn <Cmd>NERDTreeFocus<CR>
 nnoremap <leader>nt <Cmd>NERDTreeToggle<CR>
 nnoremap <leader>nc <Cmd>NERDTreeFind<CR>
 
+let g:NERDTreeRespectWildIgnore = 1
 
-" For Airline
+" }}}
+
+" {{{ --- Airline ---
+
 let g:airline_theme='one'
 
 " Use powerline symbols in GUI
@@ -193,8 +201,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
+" }}}
 
-" For signifiy
+" {{{ --- signifiy ---
+
 set updatetime=250
 let g:signify_sign_show_count = 1
 " Show diff of whole file
@@ -209,8 +219,10 @@ nnoremap <leader>su <Cmd>SignifyHunkUndo<CR>
 nmap <leader>sn <plug>(signify-next-hunk)
 nmap <leader>sp <plug>(signify-previous-hunk)
 
+" }}}
 
-" For Schlepp
+" {{{ --- Schlepp ---
+
 nnoremap <S-A-Up>     <Cmd>m -2<CR>
 nnoremap <S-A-Down>   <Cmd>m +<CR>
 
@@ -219,4 +231,8 @@ vmap <S-A-Down>      <Plug>SchleppDown
 vmap <S-A-Left>      <Plug>SchleppLeft
 vmap <S-A-Right>     <Plug>SchleppRight
 vmap D               <Plug>SchleppDup
+
+" }}}
+
+" --- END Plugins ---
 
