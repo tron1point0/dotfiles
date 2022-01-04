@@ -42,6 +42,11 @@ endif
 " For tag browsing
 command! MakeTags !ctags -R .
 
+" Bind the typos
+command Q q
+command W w
+command WQ wq
+
 " --- END Custom Bindings --- }}}
 " {{{ --- Indentation ---
 
