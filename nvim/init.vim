@@ -6,7 +6,6 @@ let &packpath = &runtimepath
 source $XDG_CONFIG_HOME/vim/vimrc.symlink
 
 " }}}
-
 " {{{ --- Autocompletion ---
 
 " Automatically start COQ server
@@ -16,7 +15,6 @@ let g:coq_settings['display.icons.mode'] = 'none'
 let g:coq_settings['display.preview.border'] = ["","",""," ","","",""," "]
 
 " }}}
-
 " {{{ --- Language Server Config ---
 
 " Stolen from https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
@@ -64,10 +62,15 @@ end
 -- map buffer local keybindings when the language server attaches
 local servers = {
     -- 'pylsp',
-    'jedi_language_server',
-    'bashls',
-    'groovyls',
-    -- from vscode-langserver-extracted
+    'jedi_language_server',     -- pip3 install jedi-language-server
+    'bashls',                   -- brew install bash-language-server
+    'groovyls',                 -- ???
+    'yamlls',                   -- brew install yaml-language-server
+    'vimls',                    -- npm i -g vim-language-server
+    'texlab',                   -- brew install texlab
+    'sumneko_lua',              -- brew install lua-language-server
+    -- 'perlpls',                  -- cpanm Perl::LanguageServer
+    -- npm i -g code-langserver-extracted
     'cssls',
     'html',
     'jsonls',
