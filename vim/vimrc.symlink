@@ -2,33 +2,13 @@
 "
 " vimrc - vim configuration settings
 
-" -- Variables --
+" {{{ --- Make vim use sane paths for things ---
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath+=$XDG_CONFIG_HOME/vim/after
 set packpath^=$XDG_CONFIG_HOME/vim
+" }}}
+" {{{ --- Custom Bindings ---
 
-" -- Functionality --
-
-" Indentation
-set autoindent
-set smartindent
-set preserveindent
-set tabstop=4
-set shiftwidth=0  " So that it uses `tabstop` value
-set expandtab
-filetype indent on
-filetype plugin on
-
-" Code folding
-set foldmethod=marker
-
-" Searching
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-
-" Key mappings
 let mapleader = ","     " Bind comma to <leader>
 set mouse=a             " Enable mouse bindings in all modes
 set pastetoggle=<F3>
@@ -57,33 +37,23 @@ if has('mac')
     noremap ∑ <Cmd>bd<CR>
 endif
 
-" Splitting
-set splitright
-set splitbelow
-set diffopt=filler,vertical
+" For tag browsing
+command! MakeTags !ctags -R .
 
-" Backup
-set nobackup
+" --- END Custom Bindings --- }}}
+" {{{ --- Indentation ---
 
-" Other
-set scrolloff=5
-set sidescrolloff=5
-set backspace=indent,eol,start
-set modeline
-set modelines=5
+set autoindent
+set smartindent
+set preserveindent
+set tabstop=4
+set shiftwidth=0  " So that it uses `tabstop` value
+set expandtab
+filetype indent on
+filetype plugin on
 
-" Wild menu (tab completion)
-set wildmenu
-set wildmode=full
-set wildchar=<Tab>
-set wildignore+=__pycache__,*.pyc,*~
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-" Avoid showing message extra message when using completion
-set shortmess+=c
-
-" -- Appearance --
+" --- END Indentation --- }}}
+" {{{ --- Appearance ---
 
 " Text display
 set background=dark
@@ -128,14 +98,54 @@ set showcmd
 set noruler
 set cursorline
 
-" Whole window
+" --- END Appearance --- }}}
+"{{{ --- Autocompletion ---
+
+" Wild menu (tab completion)
+set wildmenu
+set wildmode=full
+set wildchar=<Tab>
+set wildignore+=__pycache__,*.pyc,*~
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+" --- END Autocompletion }}}
+" {{{ --- Random Settings ---
+
+" Code folding
+set foldmethod=marker
+
+" Searching
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" Splitting
+set splitright
+set splitbelow
+set diffopt=filler,vertical
+
+" Backup
+set nobackup
+
+" Other
+set scrolloff=5
+set sidescrolloff=5
+set backspace=indent,eol,start
+set modeline
+set modelines=5
+
+" Use visual bell instead of beeping
 set vb t_vb=
 
 " System clipboard integration
 set clipboard=unnamed
 
-" For tag browsing
-command! MakeTags !ctags -R .
+" }}}
 
 " --- Plugins --
 
@@ -144,7 +154,6 @@ command! MakeTags !ctags -R .
 let g:ctrlp_working_path_mode = 'wa'
 
 " }}}
-
 " {{{ --- netrw ---
 
 let g:netrw_browse_split=4  " Open in last window
@@ -157,7 +166,6 @@ let g:netrw_hide=1          " Show only non-hidden
 let g:netrw_special_syntax=1 "Highlight special files
 
 " }}}
-
 " {{{ --- NERDTree ---
 
 nnoremap <leader>nn <Cmd>NERDTreeFocus<CR>
@@ -167,7 +175,6 @@ nnoremap <leader>nc <Cmd>NERDTreeFind<CR>
 let g:NERDTreeRespectWildIgnore = 1
 
 " }}}
-
 " {{{ --- Airline ---
 
 let g:airline_theme='one'
@@ -202,7 +209,6 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " }}}
-
 " {{{ --- signifiy ---
 
 set updatetime=250
@@ -220,7 +226,6 @@ nmap <leader>sn <plug>(signify-next-hunk)
 nmap <leader>sp <plug>(signify-previous-hunk)
 
 " }}}
-
 " {{{ --- Schlepp ---
 
 nnoremap <S-A-Up>     <Cmd>m -2<CR>
