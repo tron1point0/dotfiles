@@ -14,6 +14,8 @@ set mouse=a             " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
+" Clear quickfix list with ,l
+nnoremap <leader>l <cmd>call setqflist([])<cr><cmd>ccl<cr>
 " Reselect text indented with > and < so it can repeat
 vnoremap > >gv
 vnoremap < <gv
