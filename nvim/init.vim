@@ -65,6 +65,13 @@ end
 local servers = {
     -- 'pylsp',
     'jedi_language_server',
+    'bashls',
+    'groovyls',
+    -- from vscode-langserver-extracted
+    'cssls',
+    'html',
+    'jsonls',
+    'eslint',
 }
 for _, server in ipairs(servers) do
   lsp[server].setup {
