@@ -2,6 +2,7 @@ unbind -a -T prefix
 
 set -g prefix C-a
 bind a send-prefix
+set-option -sg escape-time 10
 
 bind 0 select-window -t 0
 bind 1 select-window -t 1

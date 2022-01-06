@@ -9,8 +9,9 @@ set packpath^=$XDG_CONFIG_HOME/vim
 " }}}
 " {{{ --- Custom Bindings ---
 
-let mapleader = ","     " Bind comma to <leader>
-set mouse=a             " Enable mouse bindings in all modes
+let mapleader = ","         " Bind comma to <leader>
+let maplocalleader = ","    " And the same to <localleader>
+set mouse=a                 " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
@@ -221,16 +222,16 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 set updatetime=250
 let g:signify_sign_show_count = 1
 " Show diff of whole file
-nnoremap <leader>sd <Cmd>SignifyDiff<CR>
+nnoremap <leader>cd <Cmd>SignifyDiff<CR>
 " Fold file to show only changed hunks
-nnoremap <leader>sf <Cmd>SignifyFold<CR>
+nnoremap <leader>cf <Cmd>SignifyFold<CR>
 " Show changes in hunk under cursor
-nnoremap <leader>sh <Cmd>SignifyHunkDiff<CR>
+nnoremap <leader>ch <Cmd>SignifyHunkDiff<CR>
 " Undo hunk under cursor (reset to HEAD)
-nnoremap <leader>su <Cmd>SignifyHunkUndo<CR>
+nnoremap <leader>cu <Cmd>SignifyHunkUndo<CR>
 " Jump to next/previous hunk
-nmap <leader>sn <plug>(signify-next-hunk)
-nmap <leader>sp <plug>(signify-previous-hunk)
+nmap <leader>cn <plug>(signify-next-hunk)
+nmap <leader>cp <plug>(signify-prev-hunk)
 
 " }}}
 " {{{ --- Schlepp ---
