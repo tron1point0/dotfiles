@@ -16,16 +16,19 @@ set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
 " Clear quickfix list with ,l
-nnoremap <leader>l <cmd>call setqflist([])<cr><cmd>ccl<cr>
+nnoremap <leader>l <Cmd>call setqflist([])<CR><Cmd>ccl<CR>
 " Reselect text indented with > and < so it can repeat
 vnoremap > >gv
 vnoremap < <gv
-" Some emacs-like bindings
+" Some emacs-like bindings in insert mode
 inoremap <M-Backspace>  <C-w>
 inoremap <M-Left>       <C-o>b
 inoremap <M-Right>      <C-o>w
-nnoremap <M-Left>       b
-nnoremap <M-Right>      w
+" Move between splits with M-Arrows
+nnoremap <M-Left>       <C-w><Left>
+nnoremap <M-Up>         <C-w><Up>
+nnoremap <M-Right>      <C-w><Right>
+nnoremap <M-Down>       <C-w><Down>
 " For buffer navigation
 set hidden          " Allow leaving edited buffer without writing it
 noremap <M-]> <Cmd>bn<CR>
@@ -44,21 +47,21 @@ endif
 command! MakeTags !ctags -R .
 
 " Bind the typos
-command Q q
-command W w
-command WQ wq
+command! Q q
+command! W w
+command! WQ wq
 
 " --- END Custom Bindings --- }}}
 " {{{ --- Indentation ---
 
-set autoindent
-set smartindent
-set preserveindent
-set tabstop=4
-set shiftwidth=0  " So that it uses `tabstop` value
-set expandtab
-filetype indent on
-filetype plugin on
+set autoindent          " Copy indent from last line when starting new line
+set smartindent         " Try to indent appropriately when starting new line
+set preserveindent      " Keep existing indent chars as much as possible
+set tabstop=4           " Number of spaces per tab character
+set shiftwidth=0        " So that it uses `tabstop` value
+set expandtab           " Insert spaces instead of tabs by default
+filetype indent on      " Load per-filetype indent rules
+filetype plugin on      " Load per-filetype plugins
 
 " --- END Indentation --- }}}
 " {{{ --- Appearance ---
@@ -74,27 +77,27 @@ if $TERM=~"256color" || $TERM=~"true-color"
     highlight ColorColumn guibg=#2D2D2D
 endif
 
-syntax on
-set number
-"set relativenumber
-set showmatch
-set linebreak
+syntax on               " Enable syntax highlighting
+set number              " Enable line numbering
+" set relativenumber      " Number lines by offset from cursor line
+set showmatch           " Highlight matching brackets
+set linebreak           " Wrap long lines at word boundaries
 set showbreak=↵
-set list
+set list                " Show non-printing characters
 set listchars=tab:——⇥
 set listchars+=trail:•
 set listchars+=precedes:❮
 set listchars+=extends:❯
 set listchars+=nbsp:…
 set listchars+=conceal:⁞
-set spell
-set display=lastline
+set spell               " Enable spell checking
+set display=lastline    " Show as much as possible of the last line
 
 " Window size
-set equalalways
-set textwidth=79
-set winminwidth=10
-set nowrap
+set equalalways         " Try to keep windows the same size
+set textwidth=79        " Automatically break lines in insert mode
+set winminwidth=10      " Minimum width of a window
+set nowrap              " Don't force wrap lines
 
 " Status line
 " Don't re-define the statusline if airline exists
@@ -109,10 +112,10 @@ set cursorline
 " --- END Appearance --- }}}
 "{{{ --- Autocompletion ---
 
-" Wild menu (tab completion)
-set wildmenu
-set wildmode=full
-set wildchar=<Tab>
+" Tab completion in command mode
+set wildmenu        " Enable enhanced tab completion for commands
+set wildmode=full   " Complete the next full match (and show the menu)
+set wildchar=<Tab>  " Use <tab> to trigger completion
 set wildignore+=__pycache__,*.pyc,*~
 
 " Set completeopt to have a better completion experience
@@ -123,35 +126,32 @@ set shortmess+=c
 " --- END Autocompletion }}}
 " {{{ --- Random Settings ---
 
-" Code folding
+" Code folding - default by markers
+" Different filetypes get their own foldmethods if needed
 set foldmethod=marker
 
 " Searching
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
+set ignorecase      " Case-insensitive searching with /
+set smartcase       " But make it case-sensitive if upcase chars exist
+set hlsearch        " Highlight search results
+set incsearch       " Search incrementally
 
 " Splitting
-set splitright
-set splitbelow
+set splitright      " Put the new pane to the right for vsplits
+set splitbelow      " Put the new pane below for hsplits
 set diffopt=filler,vertical
 
 " Backup
 set nobackup
 
 " Other
-set scrolloff=5
-set sidescrolloff=5
-set backspace=indent,eol,start
-set modeline
-set modelines=5
-
-" Use visual bell instead of beeping
-set vb t_vb=
-
-" System clipboard integration
-set clipboard=unnamed
+set scrolloff=5         " Keep at least 5 lines visible above/below cursor
+set sidescrolloff=5     " Keep at least 5 chars visible left/right of cursor
+set backspace=indent,eol,start  " Backspace over anything in insert mode
+set modeline            " Check lines in every file for vim commands
+set modelines=5         " Check this many lines at the top and bottom
+set vb                  " Use visual bell instead of beeping
+set clipboard=unnamed   " System clipboard integration
 
 " }}}
 
@@ -159,27 +159,30 @@ set clipboard=unnamed
 
 " {{{ --- Ctrl-P ---
 
+" Start search from CWD or the nearest ancestor that contains a `.git`, etc.
 let g:ctrlp_working_path_mode = 'wa'
 
 " }}}
 " {{{ --- netrw ---
 
-let g:netrw_browse_split=4  " Open in last window
-let g:netrw_liststyle=3     " Tree
-let g:netrw_altv=1          " Open splits to the right
-let g:netrw_sizestyle="H"   " Human-readable, base 1024
-let g:netrw_winsize=25      " 25%
-let g:netrw_wiw=16          " Minimum width
-let g:netrw_hide=1          " Show only non-hidden
-let g:netrw_special_syntax=1 "Highlight special files
+let g:netrw_browse_split=4      " Open in last window
+let g:netrw_liststyle=3         " Tree
+let g:netrw_altv=1              " Open splits to the right
+let g:netrw_sizestyle="H"       " Human-readable, base 1024
+let g:netrw_winsize=25          " 25%
+let g:netrw_wiw=16              " Minimum width
+let g:netrw_hide=1              " Show only non-hidden
+let g:netrw_special_syntax=1    " Highlight special files
 
 " }}}
 " {{{ --- NERDTree ---
 
+" Keybinds
 nnoremap <leader>nn <Cmd>NERDTreeFocus<CR>
 nnoremap <leader>nt <Cmd>NERDTreeToggle<CR>
 nnoremap <leader>nc <Cmd>NERDTreeFind<CR>
 
+" Don't show files that match the `wildignore` setting in NERDTree
 let g:NERDTreeRespectWildIgnore = 1
 
 " }}}
@@ -188,30 +191,19 @@ let g:NERDTreeRespectWildIgnore = 1
 let g:airline_theme='one'
 
 " Use powerline symbols in GUI
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+let g:airline_symbols.colnr = ':'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.dirty='⚡'
-
-" Same for the tabline
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
 
 " Skip displaying standard values
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
 
+" Enable bufferline if we have more than one buffer
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
@@ -236,9 +228,11 @@ nmap <leader>cp <plug>(signify-prev-hunk)
 " }}}
 " {{{ --- Schlepp ---
 
+" Move lines up and down
 nnoremap <S-A-Up>     <Cmd>m -2<CR>
 nnoremap <S-A-Down>   <Cmd>m +<CR>
 
+" Move whole blocks around
 vmap <S-A-Up>        <Plug>SchleppUp
 vmap <S-A-Down>      <Plug>SchleppDown
 vmap <S-A-Left>      <Plug>SchleppLeft
