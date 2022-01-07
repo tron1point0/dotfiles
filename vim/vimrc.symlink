@@ -25,10 +25,22 @@ inoremap <M-Backspace>  <C-w>
 inoremap <M-Left>       <C-o>b
 inoremap <M-Right>      <C-o>w
 " Move between splits with M-Arrows
-nnoremap <M-Left>       <C-w><Left>
-nnoremap <M-Up>         <C-w><Up>
-nnoremap <M-Right>      <C-w><Right>
-nnoremap <M-Down>       <C-w><Down>
+nnoremap <M-Left>       <C-w>h
+nnoremap <M-Down>       <C-w>j
+nnoremap <M-Up>         <C-w>k
+nnoremap <M-Right>      <C-w>l
+" Same, but M-hjkl
+nnoremap <M-h>          <C-w>h
+nnoremap <M-j>          <C-w>j
+nnoremap <M-k>          <C-w>k
+nnoremap <M-l>          <C-w>l
+" Same, but for OSX - these are the same as the M-hjkl bindings above
+if has('mac')
+    nnoremap ˙          <C-w>h
+    nnoremap ∆          <C-w>j
+    nnoremap ˚          <C-w>k
+    nnoremap ¬          <C-w>l
+endif
 " For buffer navigation
 set hidden          " Allow leaving edited buffer without writing it
 noremap <M-]> <Cmd>bn<CR>
@@ -229,15 +241,20 @@ nmap <leader>cp <plug>(signify-prev-hunk)
 " {{{ --- Schlepp ---
 
 " Move lines up and down
-nnoremap <S-A-Up>     <Cmd>m -2<CR>
-nnoremap <S-A-Down>   <Cmd>m +<CR>
+nnoremap <S-M-Down>   <Cmd>m +<CR>
+nnoremap <S-M-Up>     <Cmd>m -2<CR>
 
 " Move whole blocks around
-vmap <S-A-Up>        <Plug>SchleppUp
-vmap <S-A-Down>      <Plug>SchleppDown
-vmap <S-A-Left>      <Plug>SchleppLeft
-vmap <S-A-Right>     <Plug>SchleppRight
-vmap D               <Plug>SchleppDup
+vmap <S-M-Left>     <Plug>SchleppLeft
+vmap <S-M-Down>     <Plug>SchleppDown
+vmap <S-M-Up>       <Plug>SchleppUp
+vmap <S-M-Right>    <Plug>SchleppRight
+vmap D              <Plug>SchleppDup
+" Same, but with C-hjkl (for weird terminal/vim combinations)
+vmap <C-h>        <Plug>SchleppLeft
+vmap <C-j>        <Plug>SchleppDown
+vmap <C-k>        <Plug>SchleppUp
+vmap <C-l>        <Plug>SchleppRight
 
 " }}}
 
