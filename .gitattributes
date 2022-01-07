@@ -1,8 +1,0 @@
-bash/*.symlink linguist-language=bash
-conky/*.symlink linguist-language=bash
-git/gitconfig.symlink linguist-language=gitconfig
-git/gitignore linguist-language=gitignore
-ranger/rc.conf linguist-language=bash
-tmux/*.symlink linguist-language=bash
-vim/*.symlink linguist-language=vim
-yaourt/*.symlink linguist-language=bash

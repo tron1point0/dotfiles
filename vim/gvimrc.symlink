@@ -14,3 +14,4 @@ noremap <D-]> :bn<CR>
 noremap <D-[> :bp<CR>
 noremap <D-w> :bd<CR>
 
+" vim: set ft=vim:
