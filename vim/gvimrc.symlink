@@ -3,15 +3,21 @@ set background=dark
 let g:one_allow_italics = 1
 colorscheme one
 set guioptions=ai
-if has('macunix')
+if has('mac') && has('macligatures')
     set macligatures
 endif
 set guifont=Fira\ Code:h14,Monaco:h14
 set linespace=2
 
-" For buffer navigation
-noremap <D-]> :bn<CR>
-noremap <D-[> :bp<CR>
-noremap <D-w> :bd<CR>
+" For specific GUI clients
+let g:neovide_input_use_logo=v:true
+let g:neovide_cursor_vfx_mode = "sonicboom"
+
+" For buffer navigation (Only valid on OSX)
+if has('mac')
+    noremap <D-]> <Cmd>bn<CR>
+    noremap <D-[> <Cmd>bp<CR>
+    noremap <D-w> <Cmd>bd<CR>
+endif
 
 " vim: set ft=vim:

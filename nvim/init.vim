@@ -6,6 +6,13 @@ let &packpath = &runtimepath
 source $XDG_CONFIG_HOME/vim/vimrc.symlink
 
 " }}}
+" {{{ --- Import GUI settings if necessary
+
+if has('gui') || (!has('ttyin') && !has('ttyout'))
+    source $XDG_CONFIG_HOME/vim/gvimrc.symlink
+endif
+
+" }}}
 " {{{ --- Autocompletion ---
 
 " Automatically start COQ server

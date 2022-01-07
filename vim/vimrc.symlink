@@ -80,8 +80,10 @@ filetype plugin on      " Load per-filetype plugins
 
 " Text display
 set background=dark
-if $TERM=~"256color" || $TERM=~"true-color"
-    let g:one_allow_italics = 1
+if $TERM=~"256color" || $TERM=~"true-color" || $TERM=~"kitty"
+    if $TERM=~"xterm" || $TERM=~"tmux"
+        let g:one_allow_italics = 1
+    endif
     colorscheme one
     set termguicolors
     " 80 and 120 character gutters (based on textwidth)
