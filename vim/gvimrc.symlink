@@ -3,11 +3,12 @@ set background=dark
 let g:one_allow_italics = 1
 colorscheme one
 set guioptions=ai
-if has('mac') && has('macligatures')
+if has('gui_macvim')
     set macligatures
 endif
-set guifont=Fira\ Code:h14,Monaco:h14
-set linespace=2
+if has('mac')
+    set guifont=FiraCode\ Nerd\ Font:h14,Fira\ Code:h14,Menlo:h14
+endif
 
 " For specific GUI clients
 let g:neovide_input_use_logo=v:true
