@@ -9,5 +9,6 @@ can tmux && alias screen='tmux attach'
 can xdg-open && alias open='xdg-open'
 can nvim && alias vim=nvim
 can exa && alias ls='exa -F --group-directories-first'
+can batman && alias man='batman'
 
 true

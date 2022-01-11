@@ -7,7 +7,7 @@ declare -x -a LESS_OPTIONS=(
     '--hilite-search'
     '--ignore-case'
     '--jump-target=.5'
-    '--status-column'
+    # '--status-column'
     '--long-prompt'
     '--RAW-CONTROL-CHARS'
     '--tabs=4'
@@ -25,6 +25,11 @@ export LESS_TERMCAP_se=$'\e[0m'             # reset highlight/modeline
 export LESS_TERMCAP_ue=$'\e[0m'             # reset code/literal
 
 can lesspipe.sh && export LESSOPEN='|lesspipe.sh %s'
+can batpipe && {
+    # TODO: Remove --status-column programmatically
+    export LESSOPEN='|batpipe %s'
+    export BATPIPE='color'
+}
 
 true
 

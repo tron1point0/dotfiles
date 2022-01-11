@@ -15,10 +15,29 @@
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
 [core]
-	excludesfile = ~/.config/git/gitignore
+    excludesfile = ~/.config/git/gitignore
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+[delta]
+    features = decorations
+# `delta` configs from https://github.com/dandavison/delta#git-config-file
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = green
+    hunk-header-style = file line-number syntax
+    line-numbers = true
 [push]
     default = simple
 [pull]
     rebase = false
 [include]
     path = ~/.gitconfig.local
+
+# vim: set ft=gitconfig:
