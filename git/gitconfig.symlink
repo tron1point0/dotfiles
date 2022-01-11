@@ -25,11 +25,10 @@
 [delta "interactive"]
     keep-plus-minus-markers = false
 [delta "decorations"]
-    commit-decoration-style = blue ol
-    commit-style = raw
+    commit-decoration-style = brightcyan ol
     file-style = omit
-    hunk-header-decoration-style = blue box
-    hunk-header-file-style = red
+    hunk-header-decoration-style = yellow ol ul
+    hunk-header-file-style = yellow
     hunk-header-line-number-style = green
     hunk-header-style = file line-number syntax
     line-numbers = true
