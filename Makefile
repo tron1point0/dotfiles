@@ -1,56 +1,50 @@
-prefix := $(firstword $(prefix) $(HOME))
+# Use a sane default for the target dir
+XDG_CONFIG_HOME ?= $(HOME)/.config
 
-# The config *dotfiles* are linked in sysconfdir
-sysconfdir := $(prefix)
+LN ?= ln
+LNFLAGS ?= -sbT
 
-# The config *directiories* are linked in datarootdir
-datarootdir := $(firstword $(XDG_CONFIG_HOME) $(prefix)/.config)
+.PHONY: all
+all:
 
-# Files with this extension will be linked in sysconfdir
-LINK_SEARCH := .symlink
+$(XDG_CONFIG_HOME):
+	mkdir -p "$@"
 
-is_directory = $(and $(wildcard $1/*),$1)
 
-find = $(and $(wildcard $1),\
-	   $(strip $(wildcard $1/$2) $(foreach file,$(wildcard $1/*),\
-	         $(call find,$(file),$2)\
-	   )))
+# $1 = target dotfile
+# $2 = source dotfile
+define homelink
+all: $(HOME)/$1
 
-# These directories will be linked in datarootdir
-dirs := $(shell git ls-tree HEAD -d --name-only)
-dir_targets := $(strip $(foreach file,$(wildcard ./*),$(call is_directory,$(file))))
+$(HOME)/$1: $2
+	$(LN) $(LNFLAGS) "$(PWD)/$$<" "$$@"
 
-link_targets := $(call find,.,$(LINK_SEARCH))
+endef
 
-linkfiles := $(shell git ls-tree -r --name-only HEAD | grep '.*.$(LINK_SEARCH)$$')
-links := $(abspath $(addprefix $(sysconfdir)/.,$(basename $(notdir $(linkfiles)))))
+# $1 = name of directory in current project
+define configlink
+all: $(XDG_CONFIG_HOME)/$1
 
-$(info $(links))
+$(XDG_CONFIG_HOME)/$1: $1 | $(XDG_CONFIG_HOME)
+	$(LN) $(LNFLAGS) "$(PWD)/$$<" "$$@"
 
-configdirs := $(patsubst %,$(datarootdir)/%,$(dirs))
-INSTALL := install
-LN := ln
-LNFLAGS := -sbT
-ifneq (,$(findstring B,$(MAKEFLAGS)))
-	LNFLAGS := -sfT
-endif
-BACKUP_NAME := .dotsave
+endef
 
-vpath %.symlink $(dir $(linkfiles))
 
-.PHONY: install force clean
-install: $(configdirs) $(links)
-clean:
-	-rm $(configdirs) $(links)
+# Files that need to be in $HOME
+$(eval $(call homelink,.vimrc            ,vim/vimrc.symlink             ))
+$(eval $(call homelink,.gvimrc           ,vim/gvimrc.symlink            ))
+$(eval $(call homelink,.toprc            ,top/toprc.symlink             ))
+$(eval $(call homelink,.conkyrc          ,conky/conkyrc.symlink         ))
+$(eval $(call homelink,.xinitrc          ,xorg/xinitrc.symlink          ))
+$(eval $(call homelink,.bashrc           ,bash/bashrc.symlink           ))
+$(eval $(call homelink,.bash_logout      ,bash/bash_logout.symlink      ))
+$(eval $(call homelink,.tmux.conf        ,tmux/tmux.conf.symlink        ))
+$(eval $(call homelink,.yaourtrc         ,yaourt/yaourtrc.symlink       ))
+$(eval $(call homelink,.gitconfig        ,git/gitconfig.symlink         ))
 
-$(datarootdir)/%: % | $(datarootdir)
-ifneq ($(shell [ -L $@ ] && echo $@),)
-	mv $@ $@$(BACKUP_NAME)
-endif
-	$(LN) $(LNFLAGS) $(PWD)/$< $@
+# Dirs that go into $XDG_CONFIG_HOME
+$(foreach d,\
+	$(shell git ls-tree HEAD -d --name-only),\
+	$(eval $(call configlink,$d)))
 
-$(sysconfdir)/.%: %$(LINK_SEARCH)
-	$(LN) $(LNFLAGS) $(PWD)/$< $@
-
-$(datarootdir):
-	install -d $@
