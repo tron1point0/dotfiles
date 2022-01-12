@@ -4,3 +4,4 @@ vim/.netrwhist
 xmonad/*
 !xmonad/xmonad.hs
 !xmonad/xmobar.hs
+lazygit/state.yml
