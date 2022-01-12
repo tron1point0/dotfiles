@@ -8,6 +8,8 @@ if has('gui_macvim')
 endif
 if has('mac')
     set guifont=FiraCode\ Nerd\ Font:h14,Fira\ Code:h14,Menlo:h14
+elseif has('linux')
+    set guifont=FiraCode\ Nerd\ Font\ 12,Ubuntu\ Mono\ 12
 endif
 
 " For specific GUI clients
