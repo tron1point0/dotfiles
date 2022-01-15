@@ -49,6 +49,7 @@ bind '"' setw monitor-silence 0
 
 bind / copy-mode
 bind = paste-buffer
+bind PageUp copy-mode -eu
 
 bind q confirm-before "kill-session"
 bind w confirm-before "kill-pane"
