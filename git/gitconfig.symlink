@@ -36,6 +36,8 @@
     default = simple
 [pull]
     rebase = false
+[merge]
+    conflictStyle = diff3
 [include]
     path = ~/.gitconfig.local
 
