@@ -6,10 +6,12 @@ set guioptions=ai
 if has('gui_macvim')
     set macligatures
 endif
-if has('mac')
+if has('mac')           " Any GUI on OSX
     set guifont=FiraCode\ Nerd\ Font:h14,Fira\ Code:h14,Menlo:h14
-elseif has('linux')
+elseif has('linux')     " GNvim/GVim on Linux
     set guifont=FiraCode\ Nerd\ Font\ 12,Ubuntu\ Mono\ 12
+elseif has('unix')      " Neovide on Linux
+    set guifont=FiraCode\ Nerd\ Font:h12
 endif
 
 " For specific GUI clients
