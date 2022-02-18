@@ -9,8 +9,8 @@ set packpath^=$XDG_CONFIG_HOME/vim
 " }}}
 " {{{ --- Custom Bindings ---
 
-let mapleader = ","         " Bind comma to <leader>
-let maplocalleader = ","    " And the same to <localleader>
+let mapleader = " "         " Bind space to <leader>
+let maplocalleader = " "    " And the same to <localleader>
 set mouse=a                 " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
