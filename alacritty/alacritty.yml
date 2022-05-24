@@ -25,9 +25,6 @@ bell:
   color: '0xffffff'
   duration: 150
 
-# Deprecated in 0.10.0, but still included here for the machines that haven't
-# been updated.
-background_opacity: 0.9
 draw_bold_text_with_bright_colors: true
 
 # From https://github.com/eendroroy/alacritty-theme
