@@ -80,7 +80,7 @@ filetype plugin on      " Load per-filetype plugins
 
 " Text display
 set background=dark
-if $TERM=~"256color" || $TERM=~"true-color" || $TERM=~"kitty"
+if $TERM=~"256color" || $TERM=~"true-color" || $TERM=~"alacritty" || $TERM=~"kitty"
     if $TERM=~"xterm" || $TERM=~"tmux"
         let g:one_allow_italics = 1
     endif
