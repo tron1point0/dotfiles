@@ -111,8 +111,7 @@ setw -g clock-mode-colour colour033
 set -g window-status-format "  #[fg=colour243]#I#{pane_mode}#{?window_flags,#{?#{==:#{window_flags},-},#[fg=colour011],#[fg=colour009]}#{window_flags}#[fg=default],․}#[fg=colour007]#{=16:pane_title}#[default]  "
 set -g window-status-current-format "#[fg=colour234,bg=colour237] #[fg=colour243,bold]#I#{pane_mode}#[fg=colour214]#F#[fg=colour007]#{=16:pane_title}#[nobold] #[fg=colour237,bg=default]#[default]"
 
-if "[ -x /usr/local/bin/bash ]" "set -g default-shell /usr/local/bin/bash"
-if "[ -x /bin/bash-static ]" "set -g default-shell /bin/bash-static"
+set -g default-shell "$SHELL"
 
 if "tmux has-session" "" "new -d ; neww -a -d"
 
