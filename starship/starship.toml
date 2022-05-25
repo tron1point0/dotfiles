@@ -2,9 +2,13 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Set the overall shape
-format = """[⎧](240)$directory$cmd_duration$fill$all\
+format = """\
+($status$cmd_duration
+)\
+[⎧](240)$directory$fill$all\
 [](fg:238)$username[@](fg:240 bg:238)$hostname[ ](bg:238 fg:33)$time$line_break\
-[⎩](240)$jobs$character"""
+[⎩](240)$jobs$character\
+"""
 
 # Disable the extra newline
 add_newline = false
@@ -43,6 +47,9 @@ style = 'bg:33 fg:15'
 
 # }}}
 # {{{ --- Optional modules ---
+
+[status]
+disabled = false
 
 [git_branch]
 style = 'yellow'    # No bold, different color
