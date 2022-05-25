@@ -1,0 +1,72 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Set the overall shape
+format = """[⎧](240)$directory$cmd_duration$fill$all\
+[](fg:238)$username[@](fg:240 bg:238)$hostname[ ](bg:238 fg:33)$time$line_break\
+[⎩](240)$jobs$character"""
+
+# Disable the extra newline
+add_newline = false
+
+# PS2 for bash, etc.
+# Should be same length as the line that contains $character
+continuation_prompt = '   '
+
+# {{{ --- Always present modules ---
+
+[fill]
+symbol = ' '
+style = 'none'
+
+[directory]
+truncate_to_repo = false
+style = 'bold 33'
+repo_root_style = 'bold 37'
+
+[username]
+show_always = true
+format = '[ $user]($style)'
+style_user = 'fg:7 bg:238'
+style_root = 'bold fg:yellow'
+
+[hostname]
+ssh_only = false
+format = '[$hostname$ssh_symbol]($style)'
+style = 'fg:7 bg:238'      # Same as style_user for username
+
+[time]
+disabled = false
+format = '[ $time ]($style)'
+time_format = '%H:%M'
+style = 'bg:33 fg:15'
+
+# }}}
+# {{{ --- Optional modules ---
+
+[git_branch]
+style = 'yellow'    # No bold, different color
+symbol = ''        # Trim whitespace
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+[docker_context]
+style = 'blue'      # Remove bold
+symbol = '🐳'       # Trim whitespace
+
+[java]
+symbol = '☕'       # Trim whitespace
+
+[perl]
+style = '149'       # Remove bold
+symbol = '🐪'       # Trim whitespace
+
+[python]
+style = 'yellow'    # Remove bold
+symbol = '🐍'       # Trim whitespace
+
+[nodejs]
+style = 'green'     # Remove bold
+symbol = ''        # Trim whitespace
+
+# }}}
+
