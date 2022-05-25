@@ -37,3 +37,6 @@
 [submodule "nvim/pack/dist/start/coq.artifacts"]
 	path = nvim/pack/dist/start/coq.artifacts
 	url = https://github.com/ms-jpq/coq.artifacts.git
+[submodule "vim/pack/dist/start/vim-fish"]
+	path = vim/pack/dist/start/vim-fish
+	url = https://github.com/dag/vim-fish.git
