@@ -100,16 +100,16 @@ set -g renumber-windows on
 setw -g automatic-rename on
 
 set -g status on
-set -g status-style bg=colour234,fg=colour231
+set -g status-style bg=colour235,fg=colour231
 set -g status-justify left
-set -g status-left "#{?session_alerts,#[bg=colour9]#[fg=colour0] #{session_alerts} #[fg=brightred]#[bg=colour078] ,#[bg=colour078]}#[fg=colour0] #S:#I.#P #[fg=colour078,bg=default]#[default] "
+set -g status-left "#{?session_alerts,#[bg=colour9]#[fg=colour0] #{session_alerts} #[fg=brightred]#[bg=colour078] ,#[bg=colour078]}#[fg=colour0] #S:#I.#P #[fg=colour078,bg=default] "
 set -g status-right "#[fg=colour238]#[bg=colour238,fg=colour7] #(echo $USER)#[fg=colour240]@#[fg=colour7]#h #[fg=colour033]#[bg=colour033,fg=colour255] %R "
 
 setw -g clock-mode-style 24
 setw -g clock-mode-colour colour033
 
-set -g window-status-format "  #[fg=colour243]#I#{pane_mode}#{?window_flags,#{?#{==:#{window_flags},-},#[fg=colour011],#[fg=colour009]}#{window_flags}#[fg=default],․}#[fg=colour007]#{=16:pane_title}#[default]  "
-set -g window-status-current-format "#[fg=colour234,bg=colour237] #[fg=colour243,bold]#I#{pane_mode}#[fg=colour214]#F#[fg=colour007]#{=16:pane_title}#[nobold] #[fg=colour237,bg=default]#[default]"
+set -g window-status-format "  #[fg=colour243]#I#{pane_mode}#{?window_flags,#{?#{==:#{window_flags},-},#[fg=colour011],#[fg=colour009]}#{window_flags}#[fg=default],․}#[fg=colour007]#{=16:pane_title}  "
+set -g window-status-current-format "#[fg=colour235,bg=black] #[fg=colour243,bold]#I#{pane_mode}#[fg=colour214]#F#[fg=colour007]#{=16:pane_title}#[nobold] #[fg=colour235]"
 
 set -g default-shell "$SHELL"
 
