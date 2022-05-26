@@ -30,8 +30,10 @@ function __update_prompt {
     local host_color='\e[38;5;7m'
     [[ -v SSH_TTY ]] && host_color='\e[1;38;5;15m'      # Bold if in SSH connection
     local rightstatus=" \
-\[${user_color}\]\u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[0m\] \
-\[\e[38;5;33m\]\A"
+\[\e[38;5;238m\]\[\e[48;5;238m${user_color}\] \
+\u\[\e[38;5;240m\]@\[${host_color}\]\h \
+\[\e[38;5;33m\]\[\e[48;5;33m\] \
+\[\e[38;5;15m\]\A \[\e[0m\]"
 
     if command -v __git_prompt >/dev/null ; then
         rightstatus=" $(__git_prompt)$rightstatus"
