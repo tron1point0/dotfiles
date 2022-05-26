@@ -31,7 +31,7 @@ function __update_prompt {
     [[ -v SSH_TTY ]] && host_color='\e[1;38;5;15m'      # Bold if in SSH connection
     local rightstatus=" \
 \[\e[38;5;238m\]\[\e[48;5;238m${user_color}\] \
-\u\[\e[38;5;240m\]@\[${host_color}\]\h \
+\u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[22m\] \
 \[\e[38;5;33m\]\[\e[48;5;33m\] \
 \[\e[38;5;15m\]\A \[\e[0m\]"
 
