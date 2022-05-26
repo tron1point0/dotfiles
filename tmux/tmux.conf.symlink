@@ -96,8 +96,8 @@ set -g mouse on
 set -g default-terminal tmux-256color
 set -ga terminal-overrides ",xterm-256color*:Tc"
 
-set -g pane-active-border-style fg=cyan
-set -g pane-border-style bg=default
+set -g pane-active-border-style fg=colour078
+set -g pane-border-style fg=colour238,bg=default
 
 set -g set-titles on
 set -g renumber-windows on
@@ -113,7 +113,7 @@ setw -g clock-mode-style 24
 setw -g clock-mode-colour colour033
 
 set -g window-status-format "  #[fg=colour240]#I#{pane_mode}#{?window_flags,#{?#{==:#{window_flags},-},#[fg=colour011],#[fg=colour009]}#{window_flags},․}#[fg=colour241]#{=16:pane_title}  "
-set -g window-status-current-format "#[fg=colour235,bg=black] #[fg=colour243,bold]#I#{pane_mode}#[fg=colour214]#F#[fg=colour007]#{=16:pane_title}#[nobold] #[fg=colour235]"
+set -g window-status-current-format "#[fg=colour235,bg=black] #[fg=colour243]#I#{pane_mode}#[fg=colour214]#F#[fg=default]#{=16:pane_title} #[fg=colour235]"
 
 set -g default-shell "$SHELL"
 
