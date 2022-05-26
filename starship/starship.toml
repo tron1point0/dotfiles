@@ -25,6 +25,7 @@ style = 'none'
 
 [directory]
 truncate_to_repo = false
+truncation_symbol = '…/'
 style = 'bold 33'
 repo_root_style = 'bold 37'
 
@@ -50,6 +51,9 @@ style = 'bg:33 fg:15'
 
 [status]
 disabled = false
+format = '[$symbol $status]($style)'
+pipestatus = true
+map_symbol = true
 
 [git_branch]
 style = 'yellow'    # No bold, different color
