@@ -58,8 +58,12 @@ bind -r '[' previous-window
 bind -r '{' previous-window -a
 bind -r ']' next-window
 bind -r '}' next-window -a
-bind -r M-[ swap-window -t:-1
-bind -r M-] swap-window -t:+1
+
+bind -r M-[ swap-window -d -t:-1
+bind -r M-] swap-window -d -t:+1
+# Same, but for OSX
+bind -r '“' swap-window -d -t:-1
+bind -r '‘' swap-window -d -t:+1
 
 bind -r Left select-pane -L
 bind -r Up select-pane -U
