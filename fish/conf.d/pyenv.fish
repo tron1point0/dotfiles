@@ -4,7 +4,9 @@
 # Depends on parent-search.fish
 
 if status is-interactive
-    set -gx PYENV_ROOT "$HOME/.pyenv"
+    if type -q pyenv
+        set -gx PYENV_ROOT "$HOME/.pyenv"
+    end
 
     function __python_env --on-variable PWD
         function __pyenv_activate -a version_file
@@ -33,8 +35,10 @@ if status is-interactive
         set -q VIRTUAL_ENV && __venv_deactivate
 
         # We're not in a venv at all
-        if parent-search .python-version | read -l file
-            __pyenv_activate "$file" && return 0
+        if type -q pyenv
+            if parent-search .python-version | read -l file
+                __pyenv_activate "$file" && return 0
+            end
         end
 
         for venv_dir in venv .venv
