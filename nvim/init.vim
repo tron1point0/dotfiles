@@ -3,7 +3,7 @@
 " Stolen from https://neovim.io/doc/user/nvim.html
 set runtimepath^=$XDG_CONFIG_HOME/vim runtimepath+=$XDG_CONFIG_HOME/vim/after
 let &packpath = &runtimepath
-source $XDG_CONFIG_HOME/vim/vimrc.symlink
+source $XDG_CONFIG_HOME/vim/vimrc
 
 " }}}
 " {{{ --- Import GUI settings if necessary

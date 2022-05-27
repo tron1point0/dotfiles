@@ -50,16 +50,17 @@ endef
 
 
 # Files that need to be in $HOME
-$(eval $(call homelink,.vimrc            ,vim/vimrc.symlink             ))
-$(eval $(call homelink,.gvimrc           ,vim/gvimrc.symlink            ))
-# $(eval $(call homelink,.toprc            ,top/toprc.symlink             ))
-# $(eval $(call homelink,.conkyrc          ,conky/conkyrc.symlink         ))
-# $(eval $(call homelink,.xinitrc          ,xorg/xinitrc.symlink          ))
-$(eval $(call homelink,.bashrc           ,bash/bashrc.symlink           ))
-$(eval $(call homelink,.bash_logout      ,bash/bash_logout.symlink      ))
-$(eval $(call homelink,.tmux.conf        ,tmux/tmux.conf.symlink        ))
-# $(eval $(call homelink,.yaourtrc         ,yaourt/yaourtrc.symlink       ))
-$(eval $(call homelink,.gitconfig        ,git/gitconfig.symlink         ))
+$(eval $(call homelink,.vimrc            ,vim/vimrc             ))
+$(eval $(call homelink,.gvimrc           ,vim/gvimrc            ))
+# $(eval $(call homelink,.toprc            ,top/toprc             ))
+# $(eval $(call homelink,.conkyrc          ,conky/conkyrc         ))
+# $(eval $(call homelink,.xinitrc          ,xorg/xinitrc          ))
+$(eval $(call homelink,.bashrc           ,bash/bashrc           ))
+$(eval $(call homelink,.bash_logout      ,bash/bash_logout      ))
+$(eval $(call homelink,.bash_profile     ,bash/bash_profile      ))
+$(eval $(call homelink,.tmux.conf        ,tmux/tmux.conf        ))
+# $(eval $(call homelink,.yaourtrc         ,yaourt/yaourtrc       ))
+$(eval $(call homelink,.gitconfig        ,git/gitconfig         ))
 
 # Dirs that go into $XDG_CONFIG_HOME
 $(foreach d,\
