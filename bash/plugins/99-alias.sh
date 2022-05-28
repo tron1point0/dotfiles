@@ -10,7 +10,7 @@ can xdg-open && alias open='xdg-open'
 can nvim && alias vim=nvim
 can exa && alias ls='exa -F --group-directories-first'
 # The ubuntu package only installs "batcat", but not "bat"
-can bat || can batcat && alias bat='batcat'
+can bat || { can batcat && alias bat='batcat' ; }
 can batman && alias man='batman'
 
 true
