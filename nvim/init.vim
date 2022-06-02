@@ -68,8 +68,8 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-    -- 'pylsp',
-    'jedi_language_server',     -- pip3 install jedi-language-server
+    'pylsp',                    -- pip3 install python-lsp-server[all]
+    -- 'jedi_language_server',     -- pip3 install jedi-language-server
     'bashls',                   -- brew install bash-language-server
     'groovyls',                 -- ???
     'yamlls',                   -- brew install yaml-language-server
