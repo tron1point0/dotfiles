@@ -40,3 +40,6 @@
 [submodule "vim/pack/dist/start/vim-fish"]
 	path = vim/pack/dist/start/vim-fish
 	url = https://github.com/dag/vim-fish.git
+[submodule "vim/pack/dist/start/vim-unimpaired"]
+	path = vim/pack/dist/start/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
