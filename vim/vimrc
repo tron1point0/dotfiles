@@ -240,7 +240,7 @@ nmap <leader>cn <plug>(signify-next-hunk)
 nmap <leader>cp <plug>(signify-prev-hunk)
 " Same, but like unimpaired
 nmap ]c <plug>(signify-next-hunk)
-nmap [c <plug>(signify-next-hunk)
+nmap [c <plug>(signify-prev-hunk)
 
 " }}}
 " {{{ --- Schlepp ---
