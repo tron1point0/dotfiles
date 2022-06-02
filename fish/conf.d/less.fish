@@ -2,7 +2,7 @@
 
 if status is-interactive
     set -gx LESSHISTFILE "$XDG_DATA_HOME/less/lesshst"
-    set -gx LESS "--hilite-search --ignore-case --jump-target=.5 --long-prompt --RAW-CONTROL-CHARS --tabs=4 --shift=.3"
+    set -gx LESS "--mouse --hilite-search --ignore-case --jump-target=.5 --long-prompt --RAW-CONTROL-CHARS --tabs=4 --shift=.3"
 
     set -gx LESS_TERMCAP_md \e"[38;5;9m"        # section titles
     set -gx LESS_TERMCAP_us \e"[38;5;10m"       # code/literal
