@@ -9,7 +9,7 @@ source $XDG_CONFIG_HOME/vim/vimrc
 " {{{ --- Import GUI settings if necessary
 
 if has('gui') || (!has('ttyin') && !has('ttyout'))
-    source $XDG_CONFIG_HOME/vim/gvimrc.symlink
+    source $XDG_CONFIG_HOME/vim/gvimrc
 endif
 
 " }}}
