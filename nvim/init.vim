@@ -18,8 +18,7 @@ endif
 " Automatically start COQ server
 let g:coq_settings = {}
 let g:coq_settings.auto_start = 'shut-up'
-let g:coq_settings['display.icons.mode'] = 'none'
-let g:coq_settings['display.preview.border'] = ["","",""," ","","",""," "]
+let g:coq_settings['display.preview.border'] = [["╭","NormalFloat"],["─","NormalFloat"],["╮","NormalFloat"],["│","NormalFloat"],["╯","NormalFloat"],["─","NormalFloat"],["╰","NormalFloat"],["│","NormalFloat"]]
 
 " }}}
 " {{{ --- Language Server Config ---
@@ -68,28 +67,29 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-    'pylsp',                    -- pip3 install python-lsp-server[all]
-    -- 'jedi_language_server',     -- pip3 install jedi-language-server
-    'bashls',                   -- brew install bash-language-server
-    'groovyls',                 -- ???
-    'yamlls',                   -- brew install yaml-language-server
     'vimls',                    -- npm i -g vim-language-server
+    'bashls',                   -- brew install bash-language-server
+
     'texlab',                   -- brew install texlab
-    'sumneko_lua',              -- brew install lua-language-server
-    -- 'perlpls',                  -- cpanm Perl::LanguageServer
-    -- npm i -g code-langserver-extracted
+    'pylsp',                    -- pip3 install python-lsp-server[all]
+    -- 'perlpls',                  -- cpanm PLS
+    -- 'groovyls',                 -- ???
+    -- 'sumneko_lua',              -- brew install lua-language-server
+
     'cssls',
     'html',
+    'tsserver',
+
     'jsonls',
-    'eslint',
+    'yamlls',                   -- brew install yaml-language-server
 }
 for _, server in ipairs(servers) do
-  lsp[server].setup {
+  lsp[server].setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     }
-  }
+  })
 end
 
 END
