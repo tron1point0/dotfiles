@@ -43,3 +43,6 @@
 [submodule "vim/pack/dist/start/vim-unimpaired"]
 	path = vim/pack/dist/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "nvim/pack/dist/start/nvim-lsp-installer"]
+	path = nvim/pack/dist/start/nvim-lsp-installer
+	url = https://github.com/williamboman/nvim-lsp-installer.git
