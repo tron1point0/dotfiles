@@ -42,7 +42,7 @@ if status is-interactive
         end
 
         for venv_dir in venv .venv
-            if parent-search venv/bin/activate.fish | read -l file
+            if parent-search "$venv_dir/bin/activate.fish" | read -l file
                 __venv_activate "$file" && return 0
             end
         end
