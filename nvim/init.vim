@@ -25,71 +25,58 @@ let g:coq_settings['display.preview.border'] = [["╭","NormalFloat"],["─","No
 
 " Stolen from https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
 lua <<END
-local lsp = require 'lspconfig'
-local coq = require 'coq'
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap=true, silent=true, buffer=bufnr }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   -- Same as "goto tag", also populates jumplist
-  buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, opts)
   -- Like IntellJ
-  buf_set_keymap('n', '<C-j>', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('i', '<C-j>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.keymap.set('n', '<C-j>', vim.lsp.buf.hover, opts)
+  vim.keymap.set('i', '<C-j>', vim.lsp.buf.signature_help, opts)
 
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 
-  buf_set_keymap('n', '<leader>re', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts)
 
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  vim.keymap.set('n', '<leader>re', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
 
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = {
-    'vimls',                    -- npm i -g vim-language-server
-    'bashls',                   -- brew install bash-language-server
+-- Used in nvim/ftplugin/*.vim to load per-language LSP configs
+-- We only load them in ftplugin so we can skip the ones we're not
+-- using in the current session. This matters for some big ones like
+-- jdtls.
+function enable_lsp_config(server, settings)
+    -- FIXME: Why do we need to call setup() twice?!
+    require'lspconfig'[server].setup{}
 
-    'texlab',                   -- brew install texlab
-    'pylsp',                    -- pip3 install python-lsp-server[all]
-    -- 'perlpls',                  -- cpanm PLS
-    -- 'groovyls',                 -- ???
-    -- 'sumneko_lua',              -- brew install lua-language-server
-
-    'cssls',
-    'html',
-    'tsserver',
-
-    'jsonls',
-    'yamlls',                   -- brew install yaml-language-server
-}
-for _, server in ipairs(servers) do
-  lsp[server].setup(coq.lsp_ensure_capabilities {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  })
+    require'lspconfig'[server].setup(require'coq'.lsp_ensure_capabilities {
+        on_attach = on_attach,
+        settings = settings,
+        })
 end
 
 END
