@@ -177,6 +177,17 @@ set clipboard=unnamed   " System clipboard integration
 let g:ctrlp_working_path_mode = 'wa'
 
 " }}}
+" {{{ --- fzf fuzzy finder ---
+
+if filereadable('/usr/local/opt/fzf/plugin/fzf.vim')  " OSX, installed with brew
+    set runtimepath+=/usr/local/opt/fzf
+
+    " Replace Ctrl-P with FZF
+    let g:ctrlp_map = ''
+    nnoremap <C-p> <Cmd>FZF<CR>
+endif
+
+" }}}
 " {{{ --- netrw ---
 
 let g:netrw_browse_split=4      " Open in last window
