@@ -18,7 +18,16 @@ endif
 " Automatically start COQ server
 let g:coq_settings = {}
 let g:coq_settings.auto_start = 'shut-up'
-let g:coq_settings['display.preview.border'] = [["╭","NormalFloat"],["─","NormalFloat"],["╮","NormalFloat"],["│","NormalFloat"],["╯","NormalFloat"],["─","NormalFloat"],["╰","NormalFloat"],["│","NormalFloat"]]
+let g:coq_settings['display.preview.border'] = [
+    \ ["╭","NormalFloat"],
+    \ ["─","NormalFloat"],
+    \ ["╮","NormalFloat"],
+    \ ["│","NormalFloat"],
+    \ ["╯","NormalFloat"],
+    \ ["─","NormalFloat"],
+    \ ["╰","NormalFloat"],
+    \ ["│","NormalFloat"]
+    \ ]
 
 " }}}
 " {{{ --- Language Server Config ---
