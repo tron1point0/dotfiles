@@ -8,5 +8,4 @@ type -q vim && set -gx EDITOR vim
 type -q nvim && set -gx EDITOR nvim
 
 type -q less && set -gx PAGER less
-type -q bat && set -gx PAGER bat
 
