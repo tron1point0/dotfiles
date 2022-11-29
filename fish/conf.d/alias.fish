@@ -13,6 +13,9 @@ if status is-interactive
     type -q batcat && not type -q bat && alias bat='batcat'
     type -q batman && alias man='batman'
 
+    # The ubuntu package installs fd as fdfind
+    type -q fdfind && not type -q fd && alias fd='fdfind'
+
     type -q exa && alias ls='exa -F --group-directories-first'
 end
 
