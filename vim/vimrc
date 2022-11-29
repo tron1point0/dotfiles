@@ -179,13 +179,19 @@ let g:ctrlp_working_path_mode = 'wa'
 " }}}
 " {{{ --- fzf fuzzy finder ---
 
-if filereadable('/usr/local/opt/fzf/plugin/fzf.vim')  " OSX, installed with brew
-    set runtimepath+=/usr/local/opt/fzf
+for [query_file, load_path] in [
+\    ['/usr/local/opt/fzf/plugin/fzf.vim', '/usr/local/opt/fzf'],
+\    ['/usr/share/doc/fzf/examples/plugin/fzf.vim', '/usr/share/doc/fzf/examples'],
+\]
+    if filereadable(query_file)
+        let &runtimepath .= ',' . load_path
 
-    " Replace Ctrl-P with FZF
-    let g:ctrlp_map = ''
-    nnoremap <C-p> <Cmd>FZF<CR>
-endif
+        " Replace Ctrl-P with FZF
+        let g:ctrlp_map = ''
+        nnoremap <C-p> <Cmd>FZF<CR>
+        break
+    endif
+endfor
 
 " }}}
 " {{{ --- netrw ---
