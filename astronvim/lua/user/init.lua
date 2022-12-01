@@ -44,8 +44,6 @@ local config = {
       -- Unimpaired for changes
       ["]c"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" },
       ["[c"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" },
-      -- LSP like in IntelliJ
-      ["<C-j>"] = { vim.lsp.buf.hover, desc = "Hover LSP help" }
     },
     -- }}}
     -- {{{ Visual mode mappings
@@ -64,8 +62,6 @@ local config = {
       ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
       ["<M-Left>"] = { "<C-o>b", desc = "Move left 1 word" },
       ["<M-Right>"] = { "<C-o>w", desc = "Move right 1 word" },
-      -- LSP like in IntelliJ
-      ["<C-j>"] = { vim.lsp.buf.signature_help, desc = "Signature help" }
     }
     -- }}}
   },
