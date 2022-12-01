@@ -29,6 +29,7 @@ local config = {
   color_scheme = 'ayu',
   -- color_scheme = 'Terminal.app',
   color_schemes = {
+    -- {{{ Custom color schemes
     ['Terminal.app'] = {
       background = '#000000',
       foreground = '#b6b6b6',
@@ -53,6 +54,7 @@ local config = {
         '#e5e5e5',
       },
     }
+    -- }}}
   },
 }
 
