@@ -107,6 +107,17 @@ if vim.fn.has('gui') then
   elseif vim.fn.has('unix') then -- Neovide on linux
     vim.opt.guifont = 'FiraCode Nerd Font:h12'
   end
+
+  -- {{{ Neovide-specific settings
+
+  -- Always use the meta keys (enables <D-]> on linux)
+  vim.g.neovide_input_use_logo = true
+  -- Enable antialiasing because it's pretty
+  vim.g.neovide_cursor_antialiasing = true
+  -- Animate the change from insert mode to normal mode
+  vim.g.neovide_cursor_vfx_mode = "sonicboom"
+
+  -- }}}
 end
 
 -- }}}
