@@ -27,8 +27,8 @@ local config = {
   -- color_scheme = 'OneDark (base16)',
   -- color_scheme = 'nord',
   -- color_scheme = 'AyuDark (Gogh)',
-  color_scheme = 'ayu',
-  -- color_scheme = 'Terminal.app',
+  -- color_scheme = 'ayu',
+  color_scheme = 'Terminal.app',
   color_schemes = {
     -- {{{ Custom color schemes
     ['Terminal.app'] = {
