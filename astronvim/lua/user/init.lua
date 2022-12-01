@@ -6,11 +6,19 @@ local config = {
       colorcolumn = "+0,+40", -- Highlight textwidth col and further out
       textwidth = 80, -- Default unless set by filetype
       winminwidth = 10, -- Don't allow windows to become too small
+      list = true, -- Show nonprintable characters
+      listchars = { -- Use these characters for that
+        conceal = '⁞',
+        extends = '❯',
+        nbsp = '…',
+        precedes = '❮',
+        trail = '•',
+      },
     },
   },
 
   mappings = {
-    -- Normal mode mappings
+    -- {{{ Normal mode mappings
     n = {
       ["/<BS>"] = { "<cmd>nohlsearch<cr>", silent = true, desc = "Clear search highlight" },
       -- Move between splits with M-arrows
@@ -36,8 +44,11 @@ local config = {
       -- Unimpaired for changes
       ["]c"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" },
       ["[c"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" },
+      -- LSP like in IntelliJ
+      ["<C-j>"] = { vim.lsp.buf.hover, desc = "Hover LSP help" }
     },
-    -- Visual mode mappings
+    -- }}}
+    -- {{{ Visual mode mappings
     v = {
       -- Schlepp
       ["<S-M-Left>"] = { "<Plug>SchleppLeft", desc = "Move visual block left" },
@@ -46,16 +57,21 @@ local config = {
       ["<S-M-Right>"] = { "<Plug>SchleppRight", desc = "Move visual block right" },
       ["D"] = { "<Plug>SchleppDup", desc = "Duplicate visual block" },
     },
-    -- Insert mode mappings
+    -- }}}
+    -- {{{ Insert mode mappings
     i = {
       -- Some emacs-like bindings in insert mode
       ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
       ["<M-Left>"] = { "<C-o>b", desc = "Move left 1 word" },
       ["<M-Right>"] = { "<C-o>w", desc = "Move right 1 word" },
+      -- LSP like in IntelliJ
+      ["<C-j>"] = { vim.lsp.buf.signature_help, desc = "Signature help" }
     }
+    -- }}}
   },
 
   plugins = {
+    -- {{{ Additional basic plugins to load
     init = {
       ["zirrostig/vim-schlepp"] = {},
       ["tpope/vim-surround"] = {},
@@ -63,23 +79,40 @@ local config = {
       ["tpope/vim-unimpaired"] = {},
       ["Konstruktionist/vim-fish"] = {},
     }
+    -- }}}
   },
-
-  polish = function()
-    -- Bind the typos
-    vim.api.nvim_create_user_command('Q', function()
-      vim.cmd.q()
-    end, {})
-
-    vim.api.nvim_create_user_command('W', function()
-      vim.cmd.w()
-    end, {})
-
-    vim.api.nvim_create_user_command('WQ', function()
-      vim.cmd.q()
-      vim.cmd.w()
-    end, {})
-  end
 }
+
+-- {{{ Bind the typos
+
+vim.api.nvim_create_user_command('Q', function()
+  vim.cmd.q()
+end, {})
+
+vim.api.nvim_create_user_command('W', function()
+  vim.cmd.w()
+end, {})
+
+vim.api.nvim_create_user_command('WQ', function()
+  vim.cmd.q()
+  vim.cmd.w()
+end, {})
+
+-- }}}
+
+-- {{{ Configure gui clients
+
+if vim.fn.has('gui') then
+  -- Fonts
+  if vim.fn.has('mac') then -- Any GUI on OSX
+    vim.opt.guifont = 'FiraCode Nerd Font,Fira Code,Menlo:h14'
+  elseif vim.fn.has('linux') then -- GNvim on Linux
+    vim.opt.guifont = 'FiraCode Nerd Font 12,Ubuntu Mono 12'
+  elseif vim.fn.has('unix') then -- Neovide on linux
+    vim.opt.guifont = 'FiraCode Nerd Font:h12'
+  end
+end
+
+-- }}}
 
 return config
