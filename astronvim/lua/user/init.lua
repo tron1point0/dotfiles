@@ -10,25 +10,34 @@ local config = {
   mappings = {
     -- Normal mode mappings
     n = {
-      ["/<BS>"] = { "<cmd>nohlsearch<cr>", desc = "Clear search highlight" },
+      ["/<BS>"] = { "<cmd>nohlsearch<cr>", silent = true, desc = "Clear search highlight" },
       -- Move between splits with M-arrows
       ["<M-Left>"] = { "<C-w>h", desc = "Move to window left" },
       ["<M-Down>"] = { "<C-w>j", desc = "Move to window below" },
       ["<M-Up>"] = { "<C-w>k", desc = "Move to widnow above" },
       ["<M-Right>"] = { "<C-w>l", desc = "Move to window right" },
       -- For buffer navigation
-      ["<M-]>"] = { "<cmd>bn<CR>", desc = "Show next buffer" },
-      ["<M-[>"] = { "<cmd>bp<CR>", desc = "Show previous buffer" },
-      ["<M-w>"] = { "<cmd>bd<CR>", desc = "Delete buffer" },
+      ["<M-]>"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
+      ["<M-[>"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
+      ["<M-w>"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
+      -- Same, but for OSX
+      ["‘"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
+      ["“"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
+      ["∑"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
+      -- Same, but for OSX in a gui
+      ["<D-]>"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
+      ["<D-[>"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
+      ["<D-w>"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
       -- Schlepp-like
       ["<S-M-Down>"] = { "<cmd>m +<CR>", desc = "Move line 1 down" },
       ["<S-M-Up>"] = { "<cmd>m -2<CR>", desc = "Move line 1 up" },
     },
     -- Visual mode mappings
     v = {
+      -- Keep selection when indenting multiple lines
       [">"] = { ">gv", desc = "Indent selected lines" },
       ["<"] = { "<gv", desc = "Dedent selected lines" },
-      -- Schlepp-like
+      -- Schlepp
       ["<S-M-Left>"] = { "<Plug>SchleppLeft", desc = "Move visual block left" },
       ["<S-M-Down>"] = { "<Plug>SchleppDown", desc = "Move visual block down" },
       ["<S-M-Up>"] = { "<Plug>SchleppUp", desc = "Move visual block up" },
