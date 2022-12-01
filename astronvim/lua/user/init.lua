@@ -39,9 +39,6 @@ local config = {
     },
     -- Visual mode mappings
     v = {
-      -- Keep selection when indenting multiple lines
-      [">"] = { ">gv", desc = "Indent selected lines" },
-      ["<"] = { "<gv", desc = "Dedent selected lines" },
       -- Schlepp
       ["<S-M-Left>"] = { "<Plug>SchleppLeft", desc = "Move visual block left" },
       ["<S-M-Down>"] = { "<Plug>SchleppDown", desc = "Move visual block down" },
