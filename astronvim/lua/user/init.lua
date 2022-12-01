@@ -5,6 +5,7 @@ local config = {
       foldmethod = "marker", -- Reset to vim default
       colorcolumn = "+0,+40", -- Highlight textwidth col and further out
       textwidth = 80, -- Default unless set by filetype
+      spell = true, -- Turn on spell checking
       winminwidth = 10, -- Don't allow windows to become too small
       list = true, -- Show nonprintable characters
       listchars = { -- Use these characters for that
