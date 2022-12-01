@@ -3,7 +3,9 @@ local config = {
     opt = {
       relativenumber = false, -- Reset to vim default
       foldmethod = "marker", -- Reset to vim default
-      pastetoggle = "<F3>",
+      colorcolumn = "+0,+40", -- Highlight textwidth col and further out
+      textwidth = 80, -- Default unless set by filetype
+      winminwidth = 10, -- Don't allow windows to become too small
     },
   },
 
@@ -31,6 +33,9 @@ local config = {
       -- Schlepp-like
       ["<S-M-Down>"] = { "<cmd>m +<CR>", desc = "Move line 1 down" },
       ["<S-M-Up>"] = { "<cmd>m -2<CR>", desc = "Move line 1 up" },
+      -- Unimpaired for changes
+      ["]c"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" },
+      ["[c"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" },
     },
     -- Visual mode mappings
     v = {
@@ -62,6 +67,22 @@ local config = {
       ["Konstruktionist/vim-fish"] = {},
     }
   },
+
+  polish = function()
+    -- Bind the typos
+    vim.api.nvim_create_user_command('Q', function()
+      vim.cmd.q()
+    end, {})
+
+    vim.api.nvim_create_user_command('W', function()
+      vim.cmd.w()
+    end, {})
+
+    vim.api.nvim_create_user_command('WQ', function()
+      vim.cmd.q()
+      vim.cmd.w()
+    end, {})
+  end
 }
 
 return config
