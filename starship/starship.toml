@@ -26,7 +26,7 @@ style = 'none'
 [directory]
 truncate_to_repo = false
 truncation_symbol = '…/'
-style = 'bold 33'
+style = 'bold blue'
 repo_root_style = 'bold 37'
 
 [username]
