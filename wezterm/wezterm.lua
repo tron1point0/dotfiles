@@ -39,6 +39,7 @@ local hostname = wezterm.hostname()
 for host, fn in pairs(overrides) do
   if hostname == host then
     fn()
+    break
   end
 end
 -- }}}
