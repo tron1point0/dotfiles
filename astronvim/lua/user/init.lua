@@ -13,6 +13,7 @@ local config = {
         extends = '❯',
         nbsp = '…',
         precedes = '❮',
+        tab = '——⇥',
         trail = '•',
       },
     },
