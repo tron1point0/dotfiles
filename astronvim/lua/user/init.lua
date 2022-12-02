@@ -111,12 +111,14 @@ if vim.fn.has('gui') then
   }
   vim.opt.guifont = table.concat(fonts, ',') .. ':' .. size
 
-  -- Always use the meta keys (enables <D-]> on linux)
-  vim.g.neovide_input_use_logo = true
-  -- Enable antialiasing because it's pretty
-  vim.g.neovide_cursor_antialiasing = true
-  -- Animate the change from insert mode to normal mode
-  vim.g.neovide_cursor_vfx_mode = "sonicboom"
+  if vim.g['neovide'] then
+    if vim.fn.has('mac') then
+      vim.g.neovide_input_use_logo = true
+      vim.g.neovide_input_macos_alt_is_meta = true
+    end
+    vim.g.neovide_cursor_antialiasing = true
+    vim.g.neovide_cursor_vfx_mode = "sonicboom"
+  end
 end
 
 -- }}}
