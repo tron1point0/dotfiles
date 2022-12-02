@@ -33,12 +33,14 @@ local config = {
   color_scheme = "Dark+",
 }
 
--- {{{ Per-host overrides
+-- Per-host overrides
 local overrides = {
   hadar = function()
     config.font_size = 12.0
   end,
 }
+
+-- {{{ Apply per-host overrides
 
 local hostname = wezterm.hostname()
 for host, fn in pairs(overrides) do
@@ -47,6 +49,7 @@ for host, fn in pairs(overrides) do
     break
   end
 end
+
 -- }}}
 
 return config
