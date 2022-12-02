@@ -6,7 +6,6 @@ local config = {
   use_resize_increments = true,
   window_background_opacity = 0.9,
   cursor_thickness = '0.1cell',
-  underline_thickness = '0.1cell',
   visual_bell = {
     fade_in_function = 'EaseIn',
     fade_in_duration_ms = 75,
