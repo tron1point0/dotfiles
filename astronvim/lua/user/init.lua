@@ -101,15 +101,15 @@ end, {})
 
 if vim.fn.has('gui') then
   -- Fonts
-  if vim.fn.has('mac') then -- Any GUI on OSX
-    vim.opt.guifont = 'FiraCode Nerd Font,Fira Code,Menlo:h14'
-  elseif vim.fn.has('linux') then -- GNvim on Linux
-    vim.opt.guifont = 'FiraCode Nerd Font 12,Ubuntu Mono 12'
-  elseif vim.fn.has('unix') then -- Neovide on linux
-    vim.opt.guifont = 'FiraCode Nerd Font:h12'
-  end
-
-  -- {{{ Neovide-specific settings
+  local size = vim.fn.has('linux') > 0 and 'h12' or 'h14'
+  local fonts = {
+    'JetBrainsMono Nerd Font',
+    'FiraCode Nerd Font',
+    'Fira Code',
+    'Liberation Mono',
+    'Menlo',
+  }
+  vim.opt.guifont = table.concat(fonts, ',') .. ':' .. size
 
   -- Always use the meta keys (enables <D-]> on linux)
   vim.g.neovide_input_use_logo = true
@@ -117,8 +117,6 @@ if vim.fn.has('gui') then
   vim.g.neovide_cursor_antialiasing = true
   -- Animate the change from insert mode to normal mode
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
-
-  -- }}}
 end
 
 -- }}}
