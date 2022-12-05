@@ -19,6 +19,18 @@ local config = {
     },
   },
 
+  plugins = {
+    init = {
+      ["tpope/vim-repeat"] = {},
+      ["tpope/vim-surround"] = {},
+      ["tpope/vim-unimpaired"] = {},
+      ["zirrostig/vim-schlepp"] = {},
+      ["Konstruktionist/vim-fish"] = {},
+      -- Disable jj/jk escape keys
+      ["max397574/better-escape.nvim"] = { disable = true },
+    },
+  },
+
   mappings = {
     -- {{{ Normal mode mappings
     n = {
@@ -46,6 +58,8 @@ local config = {
       -- Unimpaired for changes
       ["]c"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" },
       ["[c"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" },
+      -- Additional Telescope bindings
+      ["<leader>so"] = { "<cmd>Telescope vim_options<CR>", desc = "Search vim options" },
     },
     -- }}}
     -- {{{ Visual mode mappings
@@ -68,60 +82,50 @@ local config = {
     -- }}}
   },
 
-  plugins = {
-    -- {{{ Additional basic plugins to load
-    init = {
-      ["zirrostig/vim-schlepp"] = {},
-      ["tpope/vim-surround"] = {},
-      ["tpope/vim-repeat"] = {},
-      ["tpope/vim-unimpaired"] = {},
-      ["Konstruktionist/vim-fish"] = {},
-    }
+  polish = function()
+    -- {{{ Bind the typos
+
+    vim.api.nvim_create_user_command('Q', function()
+      vim.cmd.q()
+    end, {})
+
+    vim.api.nvim_create_user_command('W', function()
+      vim.cmd.w()
+    end, {})
+
+    vim.api.nvim_create_user_command('WQ', function()
+      vim.cmd.q()
+      vim.cmd.w()
+    end, {})
+
     -- }}}
-  },
-}
 
--- {{{ Bind the typos
+    -- {{{ Configure gui clients
 
-vim.api.nvim_create_user_command('Q', function()
-  vim.cmd.q()
-end, {})
+    if vim.fn.has('gui') then
+      -- Fonts
+      local size = vim.fn.has('linux') > 0 and 'h12' or 'h14'
+      local fonts = {
+        'JetBrainsMono Nerd Font',
+        'FiraCode Nerd Font',
+        'Fira Code',
+        'Liberation Mono',
+        'Menlo',
+      }
+      vim.opt.guifont = table.concat(fonts, ',') .. ':' .. size
 
-vim.api.nvim_create_user_command('W', function()
-  vim.cmd.w()
-end, {})
-
-vim.api.nvim_create_user_command('WQ', function()
-  vim.cmd.q()
-  vim.cmd.w()
-end, {})
-
--- }}}
-
--- {{{ Configure gui clients
-
-if vim.fn.has('gui') then
-  -- Fonts
-  local size = vim.fn.has('linux') > 0 and 'h12' or 'h14'
-  local fonts = {
-    'JetBrainsMono Nerd Font',
-    'FiraCode Nerd Font',
-    'Fira Code',
-    'Liberation Mono',
-    'Menlo',
-  }
-  vim.opt.guifont = table.concat(fonts, ',') .. ':' .. size
-
-  if vim.g['neovide'] then
-    if vim.fn.has('mac') then
-      vim.g.neovide_input_use_logo = true
-      vim.g.neovide_input_macos_alt_is_meta = true
+      if vim.g['neovide'] then
+        if vim.fn.has('mac') then
+          vim.g.neovide_input_use_logo = true
+          vim.g.neovide_input_macos_alt_is_meta = true
+        end
+        vim.g.neovide_cursor_antialiasing = true
+        vim.g.neovide_cursor_vfx_mode = "sonicboom"
+      end
     end
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_vfx_mode = "sonicboom"
-  end
-end
 
--- }}}
+    -- }}}
+  end
+}
 
 return config
