@@ -28,21 +28,12 @@
 [submodule "vim/pack/dist/start/tcomment_vim"]
 	path = vim/pack/dist/start/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
-[submodule "nvim/pack/dist/start/nvim-lspconfig"]
-	path = nvim/pack/dist/start/nvim-lspconfig
-	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "nvim/pack/dist/start/coq_nvim"]
-	path = nvim/pack/dist/start/coq_nvim
-	url = https://github.com/ms-jpq/coq_nvim.git
-[submodule "nvim/pack/dist/start/coq.artifacts"]
-	path = nvim/pack/dist/start/coq.artifacts
-	url = https://github.com/ms-jpq/coq.artifacts.git
 [submodule "vim/pack/dist/start/vim-fish"]
 	path = vim/pack/dist/start/vim-fish
 	url = https://github.com/dag/vim-fish.git
 [submodule "vim/pack/dist/start/vim-unimpaired"]
 	path = vim/pack/dist/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "nvim/pack/dist/start/nvim-lsp-installer"]
-	path = nvim/pack/dist/start/nvim-lsp-installer
-	url = https://github.com/williamboman/nvim-lsp-installer.git
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/AstroNvim/AstroNvim
