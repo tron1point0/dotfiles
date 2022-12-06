@@ -51,13 +51,13 @@ endef
 
 # Files that need to be in $HOME
 $(eval $(call homelink,.vimrc            ,vim/vimrc             ))
-$(eval $(call homelink,.gvimrc           ,vim/gvimrc            ))
+# $(eval $(call homelink,.gvimrc           ,vim/gvimrc            ))
 # $(eval $(call homelink,.toprc            ,top/toprc             ))
 # $(eval $(call homelink,.conkyrc          ,conky/conkyrc         ))
 # $(eval $(call homelink,.xinitrc          ,xorg/xinitrc          ))
 $(eval $(call homelink,.bashrc           ,bash/bashrc           ))
-$(eval $(call homelink,.bash_logout      ,bash/bash_logout      ))
-$(eval $(call homelink,.bash_profile     ,bash/bash_profile      ))
+# $(eval $(call homelink,.bash_logout      ,bash/bash_logout      ))
+# $(eval $(call homelink,.bash_profile     ,bash/bash_profile     ))
 $(eval $(call homelink,.tmux.conf        ,tmux/tmux.conf        ))
 # $(eval $(call homelink,.yaourtrc         ,yaourt/yaourtrc       ))
 $(eval $(call homelink,.gitconfig        ,git/gitconfig         ))
