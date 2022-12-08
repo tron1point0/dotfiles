@@ -17,5 +17,8 @@ if status is-interactive
     type -q fdfind && not type -q fd && alias fd='fdfind'
 
     type -q exa && alias ls='exa -F --group-directories-first'
+
+    # Ranger takes too long to type
+    type -q ranger && abbr -ag rr 'ranger'
 end
 
