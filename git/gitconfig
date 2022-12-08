@@ -9,6 +9,7 @@
     lpl = lol --patch
     ll = lol --stat
     last = log -1 HEAD
+    lasp = last --patch
     unstage = restore --staged --
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
