@@ -1,16 +1,14 @@
 [color]
     ui = true
 [alias]
-    co = commit -am
     ls = ls-tree --name-only HEAD -t
-    lol = log --graph --decorate --pretty=oneline --abbrev-commit
-    lpl = log --graph --decorate --pretty=medium --no-abbrev-commit --notes --patch
-    lal = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    ll = log --graph --pretty='tformat:%C(auto)%h%Creset %aN %C(green)%ar%Creset%C(auto)%+d%Creset%n%w(80,4,4)%s' --all
-    branch-log = log --graph --decorate --pretty=oneline --abbrev-commit --no-merges ^master
-    branch-diff = diff --no-merges ^master
-    branch-files = diff --stat --no-merges ^master
-    branch-ll = log --no-merges --graph --pretty='tformat:%C(auto)%h%Creset %aN %C(green)%ar%Creset%C(auto)%+d%Creset%n%w(80,4,4)%s' ^master
+    lol = log \
+        --pretty=format:'%C(yellow)%h %C(blue bold)%ad%C(reset)%C(auto)%d %C(reset)%s %C(green)[%cn]' \
+        --date=short --graph --decorate
+    lal = lol --all
+    lpl = lol --patch
+    ll = lol --stat
+    last = log -1 HEAD
     unstage = restore --staged --
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
