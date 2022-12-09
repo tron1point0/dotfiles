@@ -78,8 +78,14 @@ local config = {
     i = {
       -- Some emacs-like bindings in insert mode
       ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
-      ["<M-Left>"] = { "<C-o>b", desc = "Move left 1 word" },
-      ["<M-Right>"] = { "<C-o>w", desc = "Move right 1 word" },
+      ["<M-Left>"] = { "<C-Left>", desc = "Move left 1 word" },
+      ["<M-Right>"] = { "<C-Right>", desc = "Move right 1 word" },
+    },
+    c = {
+      -- Same, but for command mode
+      ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
+      ["<M-Left>"] = { "<C-Left>", desc = "Move left 1 word" },
+      ["<M-Right>"] = { "<C-Right>", desc = "Move right 1 word" },
     }
     -- }}}
   },
