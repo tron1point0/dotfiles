@@ -95,8 +95,6 @@ if has('termguicolors') && $TERM=~"256color"
     endif
     set termguicolors
     colorscheme one     " Colorscheme only really works with truecolor
-    " Dimmer right gutter
-    highlight ColorColumn guibg=#2D2D2D
 else
     colorscheme habamax " Not sure if this is available everywhere
 endif
