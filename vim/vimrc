@@ -13,13 +13,17 @@ let mapleader = " "
 let maplocalleader = " "
 nnoremap <silent> <leader>      <cmd>WhichKey '<Space>'<CR>
 nnoremap <silent> g             <cmd>WhichKey 'g'<CR>
+nnoremap <silent> [             <cmd>WhichKey '['<CR>
+nnoremap <silent> ]             <cmd>WhichKey ']'<CR>
 vnoremap <silent> <leader>      <cmd>WhichKeyVisual '<Space>'<CR>
 vnoremap <silent> g             <cmd>WhichKeyVisual 'g'<CR>
+vnoremap <silent> [             <cmd>WhichKeyVisual '['<CR>
+vnoremap <silent> ]             <cmd>WhichKeyVisual ']'<CR>
 
-call which_key#register('<Space>', "g:which_key_map", 'n')
-call which_key#register('<Space>', "g:which_key_map_visual", 'v')
-let g:which_key_map = {}
-let g:which_key_visual = {}
+set timeoutlen=300  " Reduce the timeout for which_key to match astrovim
+" Delay loading the which_key mapping until after vim has finished loading
+autocmd! VimEnter * call which_key#register('<Space>', 'g:which_key')
+let g:which_key = {}
 
 set mouse=a                 " Enable mouse bindings in all modes
 set pastetoggle=<F3>
@@ -28,10 +32,16 @@ nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
 
 " Clear quickfix list with ,l
 nnoremap <leader>l <Cmd>call setqflist([])<CR><Cmd>ccl<CR>
-let g:which_key_map.l = 'Clear quickfix list'
+let g:which_key.l = 'Clear quickfix list'
 
 nnoremap <leader>c <cmd>bd<CR>
-let g:which_key_map.c = 'Close buffer'
+let g:which_key.c = 'Close buffer'
+nnoremap <leader>h <cmd>nohlsearch<CR>
+let g:which_key.h = 'No highlight'
+nnoremap <leader>q <cmd>q<CR>
+let g:which_key.q = 'Quit'
+nnoremap <leader>w <cmd>w<CR>
+let g:which_key.w = 'Save'
 
 " Reselect text indented with > and < so it can repeat
 vnoremap > >gv
@@ -176,32 +186,24 @@ set clipboard=unnamed   " System clipboard integration
 
 " Start search from CWD or the nearest ancestor that contains a `.git`, etc.
 let g:ctrlp_working_path_mode = 'wa'
-
-" }}}
-" {{{ --- fzf fuzzy finder ---
-
-for [query_file, load_path] in [
-\    ['/usr/local/opt/fzf/plugin/fzf.vim', '/usr/local/opt/fzf'],
-\    ['/usr/share/doc/fzf/examples/plugin/fzf.vim', '/usr/share/doc/fzf/examples'],
-\]
-    if filereadable(query_file)
-        let &runtimepath .= ',' . load_path
-
-        " Replace Ctrl-P with FZF
-        let g:ctrlp_map = ''
-        nnoremap <C-p> <Cmd>FZF<CR>
-        break
-    endif
-endfor
+let g:which_key.f = { 'name':'+Files' }
+nnoremap <leader>ff <cmd>CtrlP<CR>
+let g:which_key.f.f = 'Find files'
+nnoremap <leader>fb <cmd>CtrlPBuffer<CR>
+let g:which_key.f.b = 'Find buffers'
+nnoremap <leader>fo <cmd>CtrlPMRU<CR>
+let g:which_key.f.o = 'Find recent files'
+nnoremap <leader>fm <cmd>CtrlPMixed<CR>
+let g:which_key.f.m = 'Find anything'
 
 " }}}
 " {{{ --- NERDTree ---
 
 " Keybinds
 nnoremap <leader>o <Cmd>NERDTreeFocus<CR>
+let g:which_key.o = 'Focus explorer'
 nnoremap <leader>e <Cmd>NERDTreeToggle<CR>
-let g:which_key_map.o = 'Focus explorer'
-let g:which_key_map.e = 'Toggle explorer'
+let g:which_key.e = 'Toggle explorer'
 
 " Don't show files that match the `wildignore` setting in NERDTree
 let g:NERDTreeRespectWildIgnore = 1
@@ -235,24 +237,24 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 set updatetime=250
 let g:signify_sign_show_count = 1
 
-let g:which_key_map.g = { 'name': '+git' }
+let g:which_key.g = { 'name': '+Git' }
 " Show diff of whole file
 nnoremap <leader>gd <Cmd>SignifyDiff<CR>
-let g:which_key_map.g.d = 'View git diff'
+let g:which_key.g.d = 'View git diff'
 " Fold file to show only changed hunks
 nnoremap <leader>gf <Cmd>SignifyFold<CR>
-let g:which_key_map.g.f = 'Fold changes'
+let g:which_key.g.f = 'Fold changes'
 " Show changes in hunk under cursor
 nnoremap <leader>gh <Cmd>SignifyHunkDiff<CR>
-let g:which_key_map.g.h = 'Show hunk diff'
+let g:which_key.g.h = 'Show hunk diff'
 " Undo hunk under cursor (reset to HEAD)
 nnoremap <leader>gu <Cmd>SignifyHunkUndo<CR>
-let g:which_key_map.g.u = 'Undo this hunk'
+let g:which_key.g.u = 'Undo this hunk'
 " Jump to next/previous hunk
 nmap <leader>gn <plug>(signify-next-hunk)
-let g:which_key_map.g.n = 'Go to next hunk'
+let g:which_key.g.n = 'Go to next hunk'
 nmap <leader>gp <plug>(signify-prev-hunk)
-let g:which_key_map.g.p = 'Go to previous hunk'
+let g:which_key.g.p = 'Go to previous hunk'
 " Same, but like unimpaired
 nmap ]c <plug>(signify-next-hunk)
 nmap [c <plug>(signify-prev-hunk)
