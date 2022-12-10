@@ -38,7 +38,7 @@ nnoremap <leader>c <cmd>bd<CR>
 let g:which_key.c = 'Close buffer'
 nnoremap <leader>h <cmd>nohlsearch<CR>
 let g:which_key.h = 'No highlight'
-nnoremap <leader>q <cmd>q<CR>
+nnoremap <leader>q <cmd>qa<CR>
 let g:which_key.q = 'Quit'
 nnoremap <leader>w <cmd>w<CR>
 let g:which_key.w = 'Save'
