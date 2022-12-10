@@ -59,24 +59,15 @@ nnoremap <M-Left>       <C-w>h
 nnoremap <M-Down>       <C-w>j
 nnoremap <M-Up>         <C-w>k
 nnoremap <M-Right>      <C-w>l
-" Same, but for OSX - these are the same as the M-hjkl bindings above
-if has('mac')
-    nnoremap ˙          <C-w>h
-    nnoremap ∆          <C-w>j
-    nnoremap ˚          <C-w>k
-    nnoremap ¬          <C-w>l
-endif
 " For buffer navigation
 set hidden          " Allow leaving edited buffer without writing it
 noremap <M-]> <Cmd>bn<CR>
 noremap <M-[> <Cmd>bp<CR>
 noremap <M-w> <Cmd>bd<CR>
 " For buffer navigation on OSX - these are the same as the M- bindings above
-if has('mac')
-    noremap ‘ <Cmd>bn<CR>
-    noremap “ <Cmd>bp<CR>
-    noremap ∑ <Cmd>bd<CR>
-endif
+noremap ‘ <Cmd>bn<CR>
+noremap “ <Cmd>bp<CR>
+noremap ∑ <Cmd>bd<CR>
 
 " Bind the typos
 command! Q q
