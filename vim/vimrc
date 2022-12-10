@@ -9,31 +9,46 @@ set packpath^=$XDG_CONFIG_HOME/vim
 " }}}
 " {{{ --- Custom Bindings ---
 
-let mapleader = " "         " Bind space to <leader>
-let maplocalleader = " "    " And the same to <localleader>
+let mapleader = " "
+let maplocalleader = " "
+nnoremap <silent> <leader>      <cmd>WhichKey '<Space>'<CR>
+nnoremap <silent> g             <cmd>WhichKey 'g'<CR>
+vnoremap <silent> <leader>      <cmd>WhichKeyVisual '<Space>'<CR>
+vnoremap <silent> g             <cmd>WhichKeyVisual 'g'<CR>
+
+call which_key#register('<Space>', "g:which_key_map", 'n')
+call which_key#register('<Space>', "g:which_key_map_visual", 'v')
+let g:which_key_map = {}
+let g:which_key_visual = {}
+
 set mouse=a                 " Enable mouse bindings in all modes
 set pastetoggle=<F3>
 " Clear search highlight
 nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
+
 " Clear quickfix list with ,l
 nnoremap <leader>l <Cmd>call setqflist([])<CR><Cmd>ccl<CR>
+let g:which_key_map.l = 'Clear quickfix list'
+
+nnoremap <leader>c <cmd>bclose<CR>
+let g:which_key_map.c = 'Close buffer'
+
 " Reselect text indented with > and < so it can repeat
 vnoremap > >gv
 vnoremap < <gv
 " Some emacs-like bindings in insert mode
 inoremap <M-Backspace>  <C-w>
-inoremap <M-Left>       <C-o>b
-inoremap <M-Right>      <C-o>w
+inoremap <M-Left>       <C-Left>
+inoremap <M-Right>      <C-Right>
+" Same, but for command mode
+cnoremap <M-Backspace>  <C-w>
+cnoremap <M-Left>       <C-Left>
+cnoremap <M-Right>      <C-Right>
 " Move between splits with M-Arrows
 nnoremap <M-Left>       <C-w>h
 nnoremap <M-Down>       <C-w>j
 nnoremap <M-Up>         <C-w>k
 nnoremap <M-Right>      <C-w>l
-" Same, but M-hjkl
-nnoremap <M-h>          <C-w>h
-nnoremap <M-j>          <C-w>j
-nnoremap <M-k>          <C-w>k
-nnoremap <M-l>          <C-w>l
 " Same, but for OSX - these are the same as the M-hjkl bindings above
 if has('mac')
     nnoremap ˙          <C-w>h
@@ -46,17 +61,12 @@ set hidden          " Allow leaving edited buffer without writing it
 noremap <M-]> <Cmd>bn<CR>
 noremap <M-[> <Cmd>bp<CR>
 noremap <M-w> <Cmd>bd<CR>
-noremap <M-PageUp> <Cmd>bp<CR>
-noremap <M-PageDown> <Cmd>bn<CR>
 " For buffer navigation on OSX - these are the same as the M- bindings above
 if has('mac')
     noremap ‘ <Cmd>bn<CR>
     noremap “ <Cmd>bp<CR>
     noremap ∑ <Cmd>bd<CR>
 endif
-
-" For tag browsing
-command! MakeTags !ctags -R .
 
 " Bind the typos
 command! Q q
@@ -72,8 +82,6 @@ set preserveindent      " Keep existing indent chars as much as possible
 set tabstop=4           " Number of spaces per tab character
 set shiftwidth=0        " So that it uses `tabstop` value
 set expandtab           " Insert spaces instead of tabs by default
-filetype indent on      " Load per-filetype indent rules
-filetype plugin on      " Load per-filetype plugins
 
 " --- END Indentation --- }}}
 " {{{ --- Appearance ---
@@ -91,7 +99,6 @@ if $TERM=~"256color" || $TERM=~"true-color" || $TERM=~"alacritty" || $TERM=~"kit
     highlight ColorColumn guibg=#2D2D2D
 endif
 
-syntax on               " Enable syntax highlighting
 set number              " Enable line numbering
 " set relativenumber      " Number lines by offset from cursor line
 set showmatch           " Highlight matching brackets
@@ -105,7 +112,6 @@ set listchars+=extends:❯
 set listchars+=nbsp:…
 set listchars+=conceal:⁞
 set spell               " Enable spell checking
-set display=lastline    " Show as much as possible of the last line
 
 " Window size
 set equalalways         " Try to keep windows the same size
@@ -116,18 +122,15 @@ set nowrap              " Don't force wrap lines
 " Status line
 " Don't re-define the statusline if airline exists
 if !exists('g:airline_symbols')
-    set laststatus=2
     set statusline=%(%w%q[%n]\ %)%f\ %([%M%R%H]%)\ %=%y[%p%%\ %l/%L:%c]
 endif
 set showcmd
-set noruler
 set cursorline
 
 " --- END Appearance --- }}}
 "{{{ --- Autocompletion ---
 
 " Tab completion in command mode
-set wildmenu        " Enable enhanced tab completion for commands
 set wildmode=full   " Complete the next full match (and show the menu)
 set wildchar=<Tab>  " Use <tab> to trigger completion
 set wildignore+=__pycache__,*.pyc,*~
@@ -148,7 +151,6 @@ set foldmethod=marker
 set ignorecase      " Case-insensitive searching with /
 set smartcase       " But make it case-sensitive if upcase chars exist
 set hlsearch        " Highlight search results
-set incsearch       " Search incrementally
 
 " Splitting
 set splitright      " Put the new pane to the right for vsplits
@@ -161,7 +163,6 @@ set nobackup
 " Other
 set scrolloff=5         " Keep at least 5 lines visible above/below cursor
 set sidescrolloff=5     " Keep at least 5 chars visible left/right of cursor
-set backspace=indent,eol,start  " Backspace over anything in insert mode
 set modeline            " Check lines in every file for vim commands
 set modelines=5         " Check this many lines at the top and bottom
 set vb                  " Use visual bell instead of beeping
@@ -194,24 +195,13 @@ for [query_file, load_path] in [
 endfor
 
 " }}}
-" {{{ --- netrw ---
-
-let g:netrw_browse_split=4      " Open in last window
-let g:netrw_liststyle=3         " Tree
-let g:netrw_altv=1              " Open splits to the right
-let g:netrw_sizestyle="H"       " Human-readable, base 1024
-let g:netrw_winsize=25          " 25%
-let g:netrw_wiw=16              " Minimum width
-let g:netrw_hide=1              " Show only non-hidden
-let g:netrw_special_syntax=1    " Highlight special files
-
-" }}}
 " {{{ --- NERDTree ---
 
 " Keybinds
-nnoremap <leader>nn <Cmd>NERDTreeFocus<CR>
-nnoremap <leader>nt <Cmd>NERDTreeToggle<CR>
-nnoremap <leader>nc <Cmd>NERDTreeFind<CR>
+nnoremap <leader>o <Cmd>NERDTreeFocus<CR>
+nnoremap <leader>e <Cmd>NERDTreeToggle<CR>
+let g:which_key_map.o = 'Focus explorer'
+let g:which_key_map.e = 'Toggle explorer'
 
 " Don't show files that match the `wildignore` setting in NERDTree
 let g:NERDTreeRespectWildIgnore = 1
@@ -244,17 +234,25 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 set updatetime=250
 let g:signify_sign_show_count = 1
+
+let g:which_key_map.g = { 'name': '+git' }
 " Show diff of whole file
-nnoremap <leader>cd <Cmd>SignifyDiff<CR>
+nnoremap <leader>gd <Cmd>SignifyDiff<CR>
+let g:which_key_map.g.d = 'View git diff'
 " Fold file to show only changed hunks
-nnoremap <leader>cf <Cmd>SignifyFold<CR>
+nnoremap <leader>gf <Cmd>SignifyFold<CR>
+let g:which_key_map.g.f = 'Fold changes'
 " Show changes in hunk under cursor
-nnoremap <leader>ch <Cmd>SignifyHunkDiff<CR>
+nnoremap <leader>gh <Cmd>SignifyHunkDiff<CR>
+let g:which_key_map.g.h = 'Show hunk diff'
 " Undo hunk under cursor (reset to HEAD)
-nnoremap <leader>cu <Cmd>SignifyHunkUndo<CR>
+nnoremap <leader>gu <Cmd>SignifyHunkUndo<CR>
+let g:which_key_map.g.u = 'Undo this hunk'
 " Jump to next/previous hunk
-nmap <leader>cn <plug>(signify-next-hunk)
-nmap <leader>cp <plug>(signify-prev-hunk)
+nmap <leader>gn <plug>(signify-next-hunk)
+let g:which_key_map.g.n = 'Go to next hunk'
+nmap <leader>gp <plug>(signify-prev-hunk)
+let g:which_key_map.g.p = 'Go to previous hunk'
 " Same, but like unimpaired
 nmap ]c <plug>(signify-next-hunk)
 nmap [c <plug>(signify-prev-hunk)
@@ -272,11 +270,6 @@ vmap <S-M-Down>     <Plug>SchleppDown
 vmap <S-M-Up>       <Plug>SchleppUp
 vmap <S-M-Right>    <Plug>SchleppRight
 vmap D              <Plug>SchleppDup
-" Same, but with C-hjkl (for weird terminal/vim combinations)
-vmap <C-h>        <Plug>SchleppLeft
-vmap <C-j>        <Plug>SchleppDown
-vmap <C-k>        <Plug>SchleppUp
-vmap <C-l>        <Plug>SchleppRight
 
 " }}}
 

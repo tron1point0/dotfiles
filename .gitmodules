@@ -37,3 +37,9 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com/AstroNvim/AstroNvim
+[submodule "vim/pack/dist/start/vim-which-key"]
+	path = vim/pack/dist/start/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key.git
+[submodule "vim/pack/dist/start/vim-sensible"]
+	path = vim/pack/dist/start/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
