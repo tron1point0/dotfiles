@@ -30,7 +30,7 @@ nmap    <silent> /<BS>      <Cmd>nohlsearch<CR>
 nnoremap <leader>l <Cmd>call setqflist([])<CR><Cmd>ccl<CR>
 let g:which_key_map.l = 'Clear quickfix list'
 
-nnoremap <leader>c <cmd>bclose<CR>
+nnoremap <leader>c <cmd>bd<CR>
 let g:which_key_map.c = 'Close buffer'
 
 " Reselect text indented with > and < so it can repeat
@@ -87,16 +87,18 @@ set expandtab           " Insert spaces instead of tabs by default
 " {{{ --- Appearance ---
 
 " Text display
-set background=dark
-if $TERM=~"256color" || $TERM=~"true-color" || $TERM=~"alacritty" || $TERM=~"kitty"
+set background=dark     " Assume a dark background
+set colorcolumn=+0,+40  " 80 and 120 character gutters (based on textwidth)
+if has('termguicolors') && $TERM=~"256color"
     if $TERM=~"xterm" || $TERM=~"tmux"
         let g:one_allow_italics = 1
     endif
-    colorscheme one
     set termguicolors
-    " 80 and 120 character gutters (based on textwidth)
-    set colorcolumn=+1,+41
+    colorscheme one     " Colorscheme only really works with truecolor
+    " Dimmer right gutter
     highlight ColorColumn guibg=#2D2D2D
+else
+    colorscheme habamax " Not sure if this is available everywhere
 endif
 
 set number              " Enable line numbering
