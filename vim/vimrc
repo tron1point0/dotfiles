@@ -12,13 +12,7 @@ set packpath^=$XDG_CONFIG_HOME/vim
 let mapleader = " "
 let maplocalleader = " "
 nnoremap <silent> <leader>      <cmd>WhichKey '<Space>'<CR>
-nnoremap <silent> g             <cmd>WhichKey 'g'<CR>
-nnoremap <silent> [             <cmd>WhichKey '['<CR>
-nnoremap <silent> ]             <cmd>WhichKey ']'<CR>
 vnoremap <silent> <leader>      <cmd>WhichKeyVisual '<Space>'<CR>
-vnoremap <silent> g             <cmd>WhichKeyVisual 'g'<CR>
-vnoremap <silent> [             <cmd>WhichKeyVisual '['<CR>
-vnoremap <silent> ]             <cmd>WhichKeyVisual ']'<CR>
 
 set timeoutlen=300  " Reduce the timeout for which_key to match astrovim
 " Delay loading the which_key mapping until after vim has finished loading
