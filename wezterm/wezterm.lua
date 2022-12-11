@@ -1,5 +1,16 @@
 local wezterm = require 'wezterm'
 
+-- Pass an input sequence through to the terminal if tmux is the active
+-- program running in the pane, otherwise do nothing.
+local function if_tmux(text)
+  return wezterm.action_callback(function(_, pane)
+    if pane:get_foreground_process_info().name == 'tmux' then
+      pane:send_text(text)
+    end
+    -- TODO: Do what would have happened if it weren't tmux
+  end)
+end
+
 local config = {
   -- Options
   hide_tab_bar_if_only_one_tab = true,
@@ -31,6 +42,21 @@ local config = {
 
   -- Colors
   color_scheme = "Dark+",
+
+  -- Key bindings for tmux integration
+  keys = {
+    -- <D-[> --> <C-a>[
+    { key = '[', mods = 'CMD', action = if_tmux '\x01[' },
+    -- <D-]> --> <C-a>]
+    { key = ']', mods = 'CMD', action = if_tmux '\x01]' },
+    -- <D-t> --> <C-a>c
+    { key = 't', mods = 'CMD', action = if_tmux '\x01c' },
+    -- <D-Arrows> --> <C-a>Arrows
+    { key = 'UpArrow', mods = 'CMD', action = if_tmux '\x01\x1b[A' },
+    { key = 'DownArrow', mods = 'CMD', action = if_tmux '\x01\x1b[B' },
+    { key = 'RightArrow', mods = 'CMD', action = if_tmux '\x01\x1b[C' },
+    { key = 'LeftArrow', mods = 'CMD', action = if_tmux '\x01\x1b[D' },
+  }
 }
 
 -- Per-host overrides
