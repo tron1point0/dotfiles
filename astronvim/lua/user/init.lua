@@ -91,6 +91,9 @@ local config = {
   },
 
   polish = function()
+    -- Comments should be italic
+    vim.cmd.highlight('Comment', 'gui=italic')
+
     -- {{{ Bind the typos
 
     vim.api.nvim_create_user_command('Q', function()
