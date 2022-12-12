@@ -20,5 +20,6 @@ if status is-interactive
 
     # Ranger takes too long to type
     type -q ranger && abbr -ag rr 'ranger'
+    type -q lazygit && abbr -ag lg 'lazygit'
 end
 
