@@ -6,6 +6,8 @@ if status is-interactive
     type -q tmux &&         abbr -ag screen 'tmux attach'
     type -q axel &&         abbr -ag axel 'axel -a'
     type -q xdg-open &&     abbr -ag open 'xdg-open'
+    type -q ranger &&       abbr -ag rr 'ranger'
+    type -q lazygit &&      abbr -ag lg 'lazygit'
 
     # Everything below needs to be an alias for tab-completion to work right
 
@@ -17,9 +19,5 @@ if status is-interactive
     type -q fdfind && not type -q fd && alias fd='fdfind'
 
     type -q exa && alias ls='exa -F --group-directories-first'
-
-    # Ranger takes too long to type
-    type -q ranger && abbr -ag rr 'ranger'
-    type -q lazygit && abbr -ag lg 'lazygit'
 end
 
