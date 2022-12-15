@@ -3,7 +3,7 @@
 if status is-interactive && type -q brew
     for package in coreutils inetutils make
         set -l libexec_path "/usr/local/opt/$package/libexec"
-        [ -d "$libexec_path/gnubin" ] && fish_add_path -Pp "$libexec_path/gnubin"
+        [ -d "$libexec_path/gnubin" ] && fish_add_path -Pm "$libexec_path/gnubin"
         [ -d "$libexec_path/gnuman" ] && set -p MANPATH "$libexec_path/gnuman"
     end
 end
