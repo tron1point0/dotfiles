@@ -37,6 +37,8 @@ local config = {
 local overrides = {
   hadar = function()
     config.font_size = 12.0
+    config.freetype_load_target = "HorizontalLcd"
+    config.freetype_render_target = "HorizontalLcd"
   end,
 }
 
