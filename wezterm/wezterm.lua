@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local act = wezterm.action
 
 local config = {
   -- Options
@@ -31,6 +32,15 @@ local config = {
 
   -- Colors
   color_scheme = "Dark+",
+
+  keys = {
+    -- Switch tabs with Cmd-[]
+    { key = '[', mods = 'CMD', action = act.ActivateTabRelative(-1) },
+    { key = ']', mods = 'CMD', action = act.ActivateTabRelative(1) },
+    -- Split panes
+    { key = 'h', mods = 'CMD|SHIFT', action = wezterm.action.SplitPane { direction = 'Down' } },
+    { key = 'v', mods = 'CMD|SHIFT', action = wezterm.action.SplitPane { direction = 'Right' } },
+  },
 }
 
 -- Per-host overrides
