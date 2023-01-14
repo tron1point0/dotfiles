@@ -4,55 +4,44 @@ window:
 
 font:
   normal:
-    family: FiraCode Nerd Font
-    style: Regular
-  bold:
-    family: FiraCode Nerd Font
-    style: Bold
-  italic:
-    family: Menlo
-    style: Italic
-  bold_italic:
-    family: Menlo
-    style: Bold Italic
+    family: JetBrainsMono Nerd Font
   size: 14.0
-  offset:
-    x: 0
-    y: 1
 
 bell:
   animation: Ease
-  color: '0xffffff'
+  color: '#ffffff'
   duration: 150
 
 draw_bold_text_with_bright_colors: true
 
-# From https://github.com/eendroroy/alacritty-theme
-# Colors (Terminal.app)
+# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Dark%2B.yml
+# Colors (Dark+)
 colors:
-  # Default colors
-  primary:
-    background: '0x000000'
-    foreground: '0xb6b6b6'
-
-  # Normal colors
-  normal:
-    black:   '0x000000'
-    red:     '0x990000'
-    green:   '0x00a600'
-    yellow:  '0x999900'
-    blue:    '0x005fff'
-    magenta: '0xb200b2'
-    cyan:    '0x00a6b2'
-    white:   '0xbfbfbf'
-
-  # Bright colors
   bright:
-    black:   '0x666666'
-    red:     '0xe50000'
-    green:   '0x00d900'
-    yellow:  '0xe5e500'
-    blue:    '0x0087ff'
-    magenta: '0xe500e5'
-    cyan:    '0x00e5e5'
-    white:   '0xe5e5e5'
+    black:      '#666666'
+    blue:       '#3b8eea'
+    cyan:       '#29b8db'
+    green:      '#23d18b'
+    magenta:    '#d670d6'
+    red:        '#f14c4c'
+    white:      '#e5e5e5'
+    yellow:     '#f5f543'
+  cursor:
+    cursor:     '#ffffff'
+    text:       '#000000'
+  normal:
+    black:      '#000000'
+    blue:       '#2472c8'
+    cyan:       '#11a8cd'
+    green:      '#0dbc79'
+    magenta:    '#bc3fbc'
+    red:        '#cd3131'
+    white:      '#e5e5e5'
+    yellow:     '#e5e510'
+  primary:
+    background: '#1e1e1e'
+    foreground: '#cccccc'
+  selection:
+    background: '#3a3d41'
+    text:       '#e0e0e0'
+
