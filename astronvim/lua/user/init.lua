@@ -30,6 +30,7 @@ local config = {
       ["Konstruktionist/vim-fish"] = {},
       -- Disable jj/jk escape keys
       ["max397574/better-escape.nvim"] = { disable = true },
+      ["mfussenegger/nvim-dap-python"] = {},
     },
   },
 
