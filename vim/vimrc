@@ -87,6 +87,9 @@ set colorcolumn=+0,+40  " 80 and 120 character gutters (based on textwidth)
 if has('termguicolors') && $TERM=~"256color"
     if $TERM=~"xterm" || $TERM=~"tmux"
         let g:one_allow_italics = 1
+        " This is normally only set if TERM=xterm exactly
+        let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+        let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
     endif
     set termguicolors
     colorscheme one     " Colorscheme only really works with truecolor
