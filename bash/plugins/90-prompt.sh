@@ -33,7 +33,7 @@ function __update_prompt {
 \[\e[38;5;238m\]\[\e[48;5;238m${user_color}\] \
 \u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[22m\] \
 \[\e[38;5;33m\]\[\e[48;5;33m\] \
-\[\e[38;5;15m\]\A \[\e[0m\]"
+\[\e[38;5;15m\]\A \[\e[0m\e[38;5;33m\]\[\e[0m\] "
 
     if command -v __git_prompt >/dev/null ; then
         rightstatus=" $(__git_prompt)$rightstatus"
