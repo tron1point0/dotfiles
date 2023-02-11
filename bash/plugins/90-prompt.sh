@@ -11,6 +11,32 @@ function reset_term {
     echo -e "sgr0\ncnorm\nrmso" | tput -S
 }
 
+function __host_color {
+    local host="${1:-${HOSTNAME}}"
+    echo "$host" | md5sum | cut -f1 -d' ' | rev | cut -c-6
+}
+
+function __luminance {
+    local r=${1:0:2}
+    local g=${1:2:2}
+    local b=${1:4:2}
+    # Quick & dirty luminance calculation from
+    # https://stackoverflow.com/a/596241
+    echo $(( (0x$r * 3 + 0x$b + 0x$g * 4) >> 3 ))
+}
+
+function __textcolor {
+    if [ "$(__luminance "$1")" -gt 55 ] ; then
+        echo 000000
+    else
+        echo ffffff
+    fi
+}
+
+function __rgb_color {
+    echo "$(( 0x${1:0:2} ));$(( 0x${1:2:2} ));$(( 0x${1:4:2}))"
+}
+
 function __update_prompt {
     local ret=$?
 
@@ -29,11 +55,17 @@ function __update_prompt {
 
     local host_color='\e[38;5;7m'
     [[ -v SSH_TTY ]] && host_color='\e[1;38;5;15m'      # Bold if in SSH connection
+
+    local time_bg="$(__host_color)"
+    local time_fg="$(__textcolor "$time_bg")"
+    local time_bg_rgb="$(__rgb_color "$time_bg")"
+    local time_fg_rgb="$(__rgb_color "$time_fg")"
+
     local rightstatus=" \
 \[\e[38;5;238m\]\[\e[48;5;238m${user_color}\] \
 \u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[22m\] \
-\[\e[38;5;33m\]\[\e[48;5;33m\] \
-\[\e[38;5;15m\]\A \[\e[0m\e[38;5;33m\]\[\e[0m\] "
+\[\e[38;2;${time_bg_rgb}m\]\[\e[48;2;${time_bg_rgb}m\] \
+\[\e[38;2;${time_fg_rgb}m\]\A \[\e[0m\e[38;2;${time_bg_rgb}m\]\[\e[0m\] "
 
     if command -v __git_prompt >/dev/null ; then
         rightstatus=" $(__git_prompt)$rightstatus"
