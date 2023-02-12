@@ -35,7 +35,7 @@ function print-time -a host
     end
 
     set -l hostname_color '444444'
-    set -l bg_color (echo $host | md5sum | string sub -s27 -l6 | rev)
+    set -l bg_color (echo $host | sha1sum | string sub -l6 | rev)
     set -l fg_color (__textcolor $bg_color)
 
     set_color -b $hostname_color $bg_color ; echo -n ''
