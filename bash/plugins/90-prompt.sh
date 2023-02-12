@@ -22,6 +22,7 @@ function __luminance {
     local b=${1:4:2}
     # Quick & dirty luminance calculation from
     # https://stackoverflow.com/a/596241
+    # Value produced is 0-255 in decimal
     echo $(( (0x$r * 3 + 0x$b + 0x$g * 4) >> 3 ))
 }
 
