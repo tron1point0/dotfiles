@@ -13,7 +13,7 @@ function reset_term {
 
 function __host_color {
     local host="${1:-${HOSTNAME}}"
-    echo "$host" | sha1sum | cut -c-6
+    echo "$host" | sha1sum | cut -c-6 | rev
 }
 
 function __luminance {
