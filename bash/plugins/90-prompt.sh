@@ -53,8 +53,8 @@ function __update_prompt {
     [[ -v HAS_SUDO ]] && user_color='\e[38;5;7m'        # Grey with sudo
     [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'     # Red if rootish
 
-    local host_color='\e[38;5;7m'
-    [[ -v SSH_TTY ]] && host_color='\e[1;38;5;15m'      # Bold if in SSH connection
+    local ssh_icon=''
+    [[ -v SSH_TTY ]] && ssh_icon=' '
 
     local time_bg="$(__host_color)"
     local time_fg="$(__textcolor "$time_bg")"
@@ -63,7 +63,7 @@ function __update_prompt {
 
     local rightstatus=" \
 \[\e[38;5;238m\]\[\e[48;5;238m${user_color}\] \
-\u\[\e[38;5;240m\]@\[${host_color}\]\h\[\e[22m\] \
+\u\[\e[38;5;240m\]@\[\e[38;5;7m\]\h${ssh_icon}\[\e[22m\] \
 \[\e[38;2;${time_bg_rgb}m\]\[\e[48;2;${time_bg_rgb}m\] \
 \[\e[38;2;${time_fg_rgb}m\]\A \[\e[0m\e[38;2;${time_bg_rgb}m\]\[\e[0m\] "
 
