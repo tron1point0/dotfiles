@@ -37,7 +37,7 @@ style_root = 'bold fg:yellow'
 
 [hostname]
 ssh_only = false
-ssh_symbol = '🌏'
+ssh_symbol = ' '
 format = '[$hostname$ssh_symbol]($style)'
 style = 'fg:7 bg:238'      # Same as style_user for username
 
