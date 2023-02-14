@@ -5,7 +5,6 @@ local config = {
   -- Options
   hide_tab_bar_if_only_one_tab = true,
   use_fancy_tab_bar = false,
-  -- use_fancy_tab_bar = true,
   tab_bar_at_bottom = true,
   tab_max_width = 24,
   status_update_interval = 200, -- TODO: Reset to default
@@ -71,9 +70,7 @@ end
 
 --- {{{ Statusbar contents and colors
 wezterm.GLOBAL.username = (function()
-  local f = io.popen("whoami")
-  local value = f:read("*a")
-  f:close()
+  local _, value, _ = wezterm.run_child_process { 'whoami' }
   return value:gsub("%s", "")
 end)()
 
@@ -99,19 +96,26 @@ wezterm.on('update-status', function(window, pane)
     end
   end
 
+  local left_border = wezterm.nerdfonts.ple_lower_left_triangle
+  local right_border = wezterm.nerdfonts.ple_lower_right_triangle
+  if not config.tab_bar_at_bottom then
+    left_border = wezterm.nerdfonts.ple_upper_left_triangle
+    right_border = wezterm.nerdfonts.ple_upper_right_triangle
+  end
+
   window:set_left_status(wezterm.format {
     { Foreground = { Color = '#000000' } },
     { Background = { Color = '#5fd787' } },
     { Text = ' ' .. window:window_id() .. ':' .. tab_index .. '.' .. pane_index .. ' ' },
     'ResetAttributes',
     { Foreground = { Color = '#5fd787' } },
-    { Text = wezterm.nerdfonts.ple_lower_left_triangle }
+    { Text = left_border }
   })
 
   window:set_right_status(wezterm.format {
     'ResetAttributes',
     { Foreground = { Color = '#444444' } },
-    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    { Text = right_border },
     { Foreground = { AnsiColor = 'Silver' } },
     { Background = { Color = '#444444' } },
     { Text = ' ' .. username },
@@ -120,7 +124,7 @@ wezterm.on('update-status', function(window, pane)
     { Foreground = { AnsiColor = 'Silver' } },
     { Text = hostname .. ' ' },
     { Foreground = { Color = '#0087ff' } },
-    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    { Text = right_border },
     { Foreground = { Color = 'white' } },
     { Background = { Color = '#0087ff' } },
     { Text = ' ' .. time .. ' ' },
@@ -137,6 +141,17 @@ wezterm.on('format-tab-title', function(tab, _, _, cfg, _, max_width)
   local tab_index = (tab.tab_index + tab_offset) .. ''
   width_offset = width_offset + tab_index:len()
 
+  local left_border = wezterm.nerdfonts.ple_lower_left_triangle
+  local right_border = wezterm.nerdfonts.ple_lower_right_triangle
+  if not config.tab_bar_at_bottom then
+    left_border = wezterm.nerdfonts.ple_upper_left_triangle
+    right_border = wezterm.nerdfonts.ple_upper_right_triangle
+  end
+  if config.use_fancy_tab_bar then
+    left_border = ''
+    right_border = ''
+  end
+
   -- if cfg.show_tab_index_in_tab_bar then
   --   -- TODO
   -- end
@@ -144,25 +159,18 @@ wezterm.on('format-tab-title', function(tab, _, _, cfg, _, max_width)
   local title = tab.active_pane.title
   title = wezterm.truncate_right(title, max_width - width_offset)
 
-  -- TODO: Make the index separate and a darker color from the window title
-  -- TODO: Replace the : with an indicator of whether there is unseen output
-  -- (-,*,???)
-  -- It should look like this: `1-blah`, `1*blah`
-
-
   if tab.is_active then
     return {
       { Background = { Color = '#000000' } },
       { Foreground = { Color = '#333333' } },
-      { Text = wezterm.nerdfonts.ple_lower_left_triangle },
+      { Text = left_border },
       'ResetAttributes',
       { Text = ' ' },
       { Foreground = { Color = '#585858' } },
       { Text = tab_index },
       'ResetAttributes',
-      { Attribute = { Intensity = 'Bold' } },
-      { Foreground = { AnsiColor = 'Yellow' } },
-      { Text = ' ' },
+      { Foreground = { Color = '#ffaf00' } },
+      { Text = '*' },
       'ResetAttributes',
       { Foreground = { AnsiColor = 'Silver' } },
       { Text = title },
@@ -170,15 +178,29 @@ wezterm.on('format-tab-title', function(tab, _, _, cfg, _, max_width)
       'ResetAttributes',
       { Background = { Color = '#000000' } },
       { Foreground = { Color = '#333333' } },
-      { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+      { Text = right_border },
     }
   end
+
+  if tab.active_pane.has_unseen_output then
+    return {
+      { Text = '  ' },
+      { Foreground = { Color = '#585858' } },
+      { Text = tab_index },
+      { Foreground = { AnsiColor = 'Yellow' } },
+      { Text = '#' },
+      'ResetAttributes',
+      { Text = title },
+      { Text = '  ' },
+    }
+  end
+
+  -- TODO: Handle last active tab
 
   return {
     { Text = '  ' },
     { Text = tab_index },
-    { Foreground = { AnsiColor = 'Yellow' } },
-    { Text = '-' },
+    { Text = '.' },
     'ResetAttributes',
     { Text = title },
     { Text = '  ' },
