@@ -44,6 +44,9 @@ local config = {
     -- Split panes
     { key = 'h', mods = 'CMD|SHIFT', action = wezterm.action.SplitPane { direction = 'Down' } },
     { key = 'v', mods = 'CMD|SHIFT', action = wezterm.action.SplitPane { direction = 'Right' } },
+    -- For Linux hosts
+    { key = ',', mods = 'CMD', action = wezterm.action.SplitPane { direction = 'Down' } },
+    { key = "'", mods = 'CMD', action = wezterm.action.SplitPane { direction = 'Right' } },
   },
 }
 
