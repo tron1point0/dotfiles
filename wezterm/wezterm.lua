@@ -1,99 +1,6 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
-wezterm.GLOBAL.username = (function()
-  local f = io.popen("whoami")
-  local value = f:read("*a")
-  f:close()
-  return value:gsub("%s", "")
-end)()
-
-wezterm.on('update-status', function(window, pane)
-  local username = wezterm.GLOBAL.username
-  local hostname = wezterm.hostname()
-  local time = wezterm.strftime '%H:%M'
-
-  local tab_index = 0
-  for _, t in pairs(window:mux_window():tabs_with_info()) do
-    if t.is_active then
-      tab_index = t.index + 1 -- TODO: Get the offset from tab_and_split_indices_are_zero_based
-      break
-    end
-  end
-
-  local pane_index = 0
-  for _, p in pairs(pane:tab():panes_with_info()) do
-    if p.is_active then
-      pane_index = p.index + 1 -- TODO: Get the offset from tab_and_split_indices_are_zero_based
-      break
-    end
-  end
-
-  window:set_left_status(wezterm.format {
-    { Foreground = { Color = '#000000' } },
-    { Background = { Color = '#5fd787' } },
-    { Text = ' ' .. window:window_id() .. ':' .. tab_index .. '.' .. pane_index .. ' ' },
-    'ResetAttributes',
-    { Foreground = { Color = '#5fd787' } },
-    { Text = wezterm.nerdfonts.ple_lower_left_triangle }
-  })
-
-  window:set_right_status(wezterm.format {
-    'ResetAttributes',
-    { Foreground = { Color = '#444444' } },
-    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
-    { Foreground = { AnsiColor = 'Silver' } },
-    { Background = { Color = '#444444' } },
-    { Text = ' ' .. username },
-    { Foreground = { Color = '#6c6c6c' } },
-    { Text = '@' },
-    { Foreground = { AnsiColor = 'Silver' } },
-    { Text = hostname .. ' ' },
-    { Foreground = { Color = '#0087ff' } },
-    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
-    { Foreground = { Color = 'white' } },
-    { Background = { Color = '#0087ff' } },
-    { Text = ' ' .. time .. ' ' },
-  })
-end)
-
-wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
-  local title = tab.active_pane.title
-  if config.show_tab_index_in_tab_bar then
-    local offset = config.tab_and_split_indices_are_zero_based and 0 or 1
-    title = (tab.tab_index + offset) .. ':' .. title
-  end
-
-  -- TODO: Make the index separate and a darker color from the window title
-  -- TODO: Replace the : with an indicator of whether there is unseen output
-  -- (-,*,???)
-  -- It should look like this: `1-blah`, `1*blah`
-
-  -- One space on either side for the \/
-  -- One space on either side for padding
-  -- == 2 + 2 == 4
-  title = ' ' .. wezterm.truncate_right(title, max_width - 4) .. ' '
-
-  if tab.is_active then
-    return {
-      { Background = { Color = '#000000' } },
-      { Foreground = { Color = '#333333' } },
-      { Text = wezterm.nerdfonts.ple_lower_left_triangle },
-      'ResetAttributes',
-      { Foreground = { AnsiColor = 'Silver' } },
-      { Text = title },
-      'ResetAttributes',
-      { Background = { Color = '#000000' } },
-      { Foreground = { Color = '#333333' } },
-      { Text = wezterm.nerdfonts.ple_lower_right_triangle },
-    }
-  end
-
-  return {
-    { Text = ' ' .. title .. ' ' },
-  }
-end)
-
 local config = {
   -- Options
   hide_tab_bar_if_only_one_tab = true,
@@ -160,6 +67,123 @@ for host, fn in pairs(overrides) do
   end
 end
 
+-- }}}
+
+--- {{{ Statusbar contents and colors
+wezterm.GLOBAL.username = (function()
+  local f = io.popen("whoami")
+  local value = f:read("*a")
+  f:close()
+  return value:gsub("%s", "")
+end)()
+
+wezterm.on('update-status', function(window, pane)
+  local username = wezterm.GLOBAL.username
+  local hostname = wezterm.hostname()
+  local time = wezterm.strftime '%H:%M'
+
+  local offset = config.tab_and_split_indices_are_zero_based and 0 or 1
+  local tab_index = 0
+  for _, t in pairs(window:mux_window():tabs_with_info()) do
+    if t.is_active then
+      tab_index = t.index + offset
+      break
+    end
+  end
+
+  local pane_index = 0
+  for _, p in pairs(pane:tab():panes_with_info()) do
+    if p.is_active then
+      pane_index = p.index + offset
+      break
+    end
+  end
+
+  window:set_left_status(wezterm.format {
+    { Foreground = { Color = '#000000' } },
+    { Background = { Color = '#5fd787' } },
+    { Text = ' ' .. window:window_id() .. ':' .. tab_index .. '.' .. pane_index .. ' ' },
+    'ResetAttributes',
+    { Foreground = { Color = '#5fd787' } },
+    { Text = wezterm.nerdfonts.ple_lower_left_triangle }
+  })
+
+  window:set_right_status(wezterm.format {
+    'ResetAttributes',
+    { Foreground = { Color = '#444444' } },
+    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    { Foreground = { AnsiColor = 'Silver' } },
+    { Background = { Color = '#444444' } },
+    { Text = ' ' .. username },
+    { Foreground = { Color = '#6c6c6c' } },
+    { Text = '@' },
+    { Foreground = { AnsiColor = 'Silver' } },
+    { Text = hostname .. ' ' },
+    { Foreground = { Color = '#0087ff' } },
+    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    { Foreground = { Color = 'white' } },
+    { Background = { Color = '#0087ff' } },
+    { Text = ' ' .. time .. ' ' },
+  })
+end)
+
+wezterm.on('format-tab-title', function(tab, _, _, cfg, _, max_width)
+  -- One space on either side for the \/
+  -- One space on either side for padding
+  -- One space for the status indicator
+  -- == 2 + 2 + 1 == 5
+  local width_offset = 5
+  local tab_offset = cfg.tab_and_split_indices_are_zero_based and 0 or 1
+  local tab_index = (tab.tab_index + tab_offset) .. ''
+  width_offset = width_offset + tab_index:len()
+
+  -- if cfg.show_tab_index_in_tab_bar then
+  --   -- TODO
+  -- end
+
+  local title = tab.active_pane.title
+  title = wezterm.truncate_right(title, max_width - width_offset)
+
+  -- TODO: Make the index separate and a darker color from the window title
+  -- TODO: Replace the : with an indicator of whether there is unseen output
+  -- (-,*,???)
+  -- It should look like this: `1-blah`, `1*blah`
+
+
+  if tab.is_active then
+    return {
+      { Background = { Color = '#000000' } },
+      { Foreground = { Color = '#333333' } },
+      { Text = wezterm.nerdfonts.ple_lower_left_triangle },
+      'ResetAttributes',
+      { Text = ' ' },
+      { Foreground = { Color = '#585858' } },
+      { Text = tab_index },
+      'ResetAttributes',
+      { Attribute = { Intensity = 'Bold' } },
+      { Foreground = { AnsiColor = 'Yellow' } },
+      { Text = ' ' },
+      'ResetAttributes',
+      { Foreground = { AnsiColor = 'Silver' } },
+      { Text = title },
+      { Text = ' ' },
+      'ResetAttributes',
+      { Background = { Color = '#000000' } },
+      { Foreground = { Color = '#333333' } },
+      { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    }
+  end
+
+  return {
+    { Text = '  ' },
+    { Text = tab_index },
+    { Foreground = { AnsiColor = 'Yellow' } },
+    { Text = '-' },
+    'ResetAttributes',
+    { Text = title },
+    { Text = '  ' },
+  }
+end)
 -- }}}
 
 return config
