@@ -1,13 +1,48 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
+-- OneDark ref: https://raw.githubusercontent.com/joshdick/onedark.vim/master/img/color_reference.png
+local palette = {
+  dark = '#282c34',
+  dark_30 = '#3a404c', -- `dark`, but with a value of 30 instead of 20
+  light = '#abb2bf',
+  light_45 = '#676b72', -- `light`, but with a value of 45 instead of 75
+  red = '#e06875',
+  green = '#98c379',
+  yellow = '#e5c07b',
+  blue = '#61afef',
+  magenta = '#c678dd',
+  cyan = '#56b6c2',
+}
+
 local config = {
   -- Options
   hide_tab_bar_if_only_one_tab = true,
   use_fancy_tab_bar = false,
   tab_bar_at_bottom = true,
   tab_max_width = 24,
-  status_update_interval = 200, -- TODO: Reset to default
+  colors = {
+    tab_bar = {
+      background = palette.dark,
+      active_tab = {
+        fg_color = palette.light,
+        bg_color = '#000000',
+      },
+      inactive_tab = {
+        fg_color = palette.light_45,
+        bg_color = palette.dark,
+      },
+      new_tab = {
+        fg_color = palette.light_45,
+        bg_color = palette.dark,
+      },
+    },
+  },
+  window_frame = {
+    active_titlebar_bg = palette.dark,
+    inactive_titlebar_bg = palette.dark,
+  },
+
   use_resize_increments = true,
   window_background_opacity = 0.9,
   cursor_thickness = '0.1cell',
@@ -71,15 +106,21 @@ end
 
 -- }}}
 
---- {{{ Statusbar contents and colors
-wezterm.GLOBAL.username = (function()
+-- {{{ Statusbar contents and colors
+
+local username = (function()
   local _, value, _ = wezterm.run_child_process { 'whoami' }
   return value:gsub("%s", "")
 end)()
 
+local left_border = wezterm.nerdfonts.ple_lower_left_triangle
+local right_border = wezterm.nerdfonts.ple_lower_right_triangle
+if not config.tab_bar_at_bottom then
+  left_border = wezterm.nerdfonts.ple_upper_left_triangle
+  right_border = wezterm.nerdfonts.ple_upper_right_triangle
+end
+
 wezterm.on('update-status', function(window, pane)
-  local username = wezterm.GLOBAL.username
-  local hostname = wezterm.hostname()
   local time = wezterm.strftime '%H:%M'
 
   local offset = config.tab_and_split_indices_are_zero_based and 0 or 1
@@ -99,114 +140,112 @@ wezterm.on('update-status', function(window, pane)
     end
   end
 
-  local left_border = wezterm.nerdfonts.ple_lower_left_triangle
-  local right_border = wezterm.nerdfonts.ple_lower_right_triangle
-  if not config.tab_bar_at_bottom then
-    left_border = wezterm.nerdfonts.ple_upper_left_triangle
-    right_border = wezterm.nerdfonts.ple_upper_right_triangle
-  end
-
   window:set_left_status(wezterm.format {
-    { Foreground = { Color = '#000000' } },
-    { Background = { Color = '#5fd787' } },
+    { Foreground = { Color = palette.dark } },
+    { Background = { Color = palette.green } },
     { Text = ' ' .. window:window_id() .. ':' .. tab_index .. '.' .. pane_index .. ' ' },
     'ResetAttributes',
-    { Foreground = { Color = '#5fd787' } },
+    { Foreground = { Color = palette.green } },
     { Text = left_border }
   })
 
   window:set_right_status(wezterm.format {
     'ResetAttributes',
-    { Foreground = { Color = '#444444' } },
+    { Foreground = { Color = palette.dark_30 } },
     { Text = right_border },
-    { Foreground = { AnsiColor = 'Silver' } },
-    { Background = { Color = '#444444' } },
+    { Foreground = { Color = palette.light } },
+    { Background = { Color = palette.dark_30 } },
     { Text = ' ' .. username },
-    { Foreground = { Color = '#6c6c6c' } },
+    { Foreground = { AnsiColor = 'Grey' } },
     { Text = '@' },
-    { Foreground = { AnsiColor = 'Silver' } },
+    { Foreground = { Color = palette.light } },
     { Text = hostname .. ' ' },
-    { Foreground = { Color = '#0087ff' } },
+    { Foreground = { Color = palette.blue } },
     { Text = right_border },
-    { Foreground = { Color = 'white' } },
-    { Background = { Color = '#0087ff' } },
+    { Foreground = { Color = palette.dark } },
+    { Background = { Color = palette.blue } },
     { Text = ' ' .. time .. ' ' },
   })
 end)
 
-wezterm.on('format-tab-title', function(tab, _, _, cfg, _, max_width)
-  -- One space on either side for the \/
-  -- One space on either side for padding
-  -- One space for the status indicator
-  -- == 2 + 2 + 1 == 5
-  local width_offset = 5
-  local tab_offset = cfg.tab_and_split_indices_are_zero_based and 0 or 1
+wezterm.on('format-tab-title', function(tab, _, _, _, _, max_width)
+  local tab_offset = config.tab_and_split_indices_are_zero_based and 0 or 1
   local tab_index = (tab.tab_index + tab_offset) .. ''
-  width_offset = width_offset + tab_index:len()
 
-  local left_border = wezterm.nerdfonts.ple_lower_left_triangle
-  local right_border = wezterm.nerdfonts.ple_lower_right_triangle
-  if not config.tab_bar_at_bottom then
-    left_border = wezterm.nerdfonts.ple_upper_left_triangle
-    right_border = wezterm.nerdfonts.ple_upper_right_triangle
-  end
+  local tab_left_border = left_border
+  local tab_right_border = right_border
   if config.use_fancy_tab_bar then
-    left_border = ''
-    right_border = ''
+    tab_left_border = ' '
+    tab_right_border = ' '
   end
+  -- These must be the same lengths as `tab_left_border`
+  local tab_left_no_border = ' '
+  local tab_right_no_border = ' '
+
+  local tab_left_padding = ' '
+  local tab_right_padding = ' '
 
   -- if cfg.show_tab_index_in_tab_bar then
   --   -- TODO
   -- end
 
   local title = tab.active_pane.title
-  title = wezterm.truncate_right(title, max_width - width_offset)
+  if not config.use_fancy_tab_bar then
+    local width_offset = 0
+    for _, s in ipairs({
+      tab_left_no_border,
+      tab_left_padding,
+      tab_index,
+      '*',
+      tab_right_padding,
+      tab_right_no_border,
+    }) do
+      width_offset = width_offset + s:len()
+    end
+    title = wezterm.truncate_right(title, max_width - width_offset)
+  end
 
   if tab.is_active then
     return {
-      { Background = { Color = '#000000' } },
-      { Foreground = { Color = '#333333' } },
-      { Text = left_border },
-      'ResetAttributes',
-      { Text = ' ' },
-      { Foreground = { Color = '#585858' } },
+      { Foreground = { Color = palette.dark } },
+      { Text = tab_left_border },
+      { Text = tab_left_padding },
+      { Foreground = { Color = palette.dark_30 } },
       { Text = tab_index },
-      'ResetAttributes',
-      { Foreground = { Color = '#ffaf00' } },
+      { Foreground = { Color = palette.yellow } },
       { Text = '*' },
       'ResetAttributes',
-      { Foreground = { AnsiColor = 'Silver' } },
       { Text = title },
-      { Text = ' ' },
-      'ResetAttributes',
-      { Background = { Color = '#000000' } },
-      { Foreground = { Color = '#333333' } },
-      { Text = right_border },
+      { Text = tab_right_padding },
+      { Foreground = { Color = palette.dark } },
+      { Text = tab_right_border },
     }
   end
 
   if tab.active_pane.has_unseen_output then
     return {
-      { Text = '  ' },
-      { Foreground = { Color = '#585858' } },
+      { Text = tab_left_no_border },
+      { Text = tab_left_padding },
       { Text = tab_index },
-      { Foreground = { AnsiColor = 'Yellow' } },
+      { Foreground = { Color = palette.yellow } },
       { Text = '#' },
       'ResetAttributes',
       { Text = title },
-      { Text = '  ' },
+      { Text = tab_right_padding },
+      { Text = tab_right_no_border },
     }
   end
 
   -- TODO: Handle last active tab
 
   return {
-    { Text = '  ' },
+    { Text = tab_left_no_border },
+    { Text = tab_left_padding },
     { Text = tab_index },
     { Text = '.' },
-    'ResetAttributes',
     { Text = title },
-    { Text = '  ' },
+    { Text = tab_right_padding },
+    { Text = tab_right_no_border },
   }
 end)
 -- }}}
