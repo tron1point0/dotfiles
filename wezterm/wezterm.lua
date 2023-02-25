@@ -66,7 +66,7 @@ local ui_colors = {
 
 -- }}}
 
-local palette = ui_colors["Tmux Clone"]
+local palette = ui_colors["Dark+"]
 
 local config = {
   -- Options
