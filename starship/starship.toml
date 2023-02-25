@@ -6,7 +6,7 @@ format = """\
 ($status$cmd_duration
 )\
 [⎧](240)$directory$fill$all\
-[](fg:#616160)$username[@](fg:#7e7e7e bg:#616160)$hostname[ ](bg:#616160 fg:#396ec7)$time[](fg:#396ec7) $line_break\
+[](fg:#616160)$username[@](fg:#7e7e7e bg:#616160)$hostname[ ](bg:#616160 fg:blue)$time[](fg:blue) $line_break\
 [⎩](240)$jobs$character\
 """
 
@@ -45,7 +45,7 @@ style = 'fg:#cccccc bg:#616160'      # Same as style_user for username
 disabled = false
 format = '[ $time ]($style)'
 time_format = '%H:%M'
-style = 'fg:#cccccc bg:#396ec7'
+style = 'fg:#cccccc bg:blue'
 
 # }}}
 # {{{ --- Optional modules ---
