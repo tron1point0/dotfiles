@@ -169,7 +169,7 @@ wezterm.on('update-status', function(window, pane)
     { Text = hostname .. ' ' },
     { Foreground = { Color = palette.blue } },
     { Text = right_border },
-    { Foreground = { Color = palette.foreground } },
+    { Foreground = { Color = palette.white } },
     { Background = { Color = palette.blue } },
     { Text = ' ' .. time .. ' ' },
   })
