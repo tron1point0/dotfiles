@@ -6,7 +6,7 @@ format = """\
 ($status$cmd_duration
 )\
 [⎧](240)$directory$fill$all\
-[](fg:238)$username[@](fg:242 bg:238)$hostname[ ](bg:238 fg:33)$time[](fg:33) $line_break\
+[](fg:#616160)$username[@](fg:#7e7e7e bg:#616160)$hostname[ ](bg:#616160 fg:#396ec7)$time[](fg:#396ec7) $line_break\
 [⎩](240)$jobs$character\
 """
 
@@ -32,20 +32,20 @@ repo_root_style = 'bold 37'
 [username]
 show_always = true
 format = '[ $user]($style)'
-style_user = 'fg:7 bg:238'
+style_user = 'fg:#cccccc bg:#616160'
 style_root = 'bold fg:yellow'
 
 [hostname]
 ssh_only = false
 ssh_symbol = ' '
 format = '[$hostname$ssh_symbol]($style)'
-style = 'fg:7 bg:238'      # Same as style_user for username
+style = 'fg:#cccccc bg:#616160'      # Same as style_user for username
 
 [time]
 disabled = false
 format = '[ $time ]($style)'
 time_format = '%H:%M'
-style = 'bg:33 fg:15'
+style = 'fg:#cccccc bg:#396ec7'
 
 # }}}
 # {{{ --- Optional modules ---
