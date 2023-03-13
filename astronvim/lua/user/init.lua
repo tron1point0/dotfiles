@@ -2,15 +2,16 @@ local config = {
   options = {
     opt = {
       relativenumber = false, -- Reset to vim default
-      foldmethod = "marker", -- Reset to vim default
+      foldmethod = "marker",  -- Reset to vim default
       colorcolumn = "+0,+40", -- Highlight textwidth col and further out
-      textwidth = 80, -- Default unless set by filetype
-      tabstop = 4, -- Default unless set by filetype
-      shiftwidth = 0, -- Use tabstop vaule unless set by filetype
-      spell = true, -- Turn on spell checking
-      winminwidth = 10, -- Don't allow windows to become too small
-      list = true, -- Show nonprintable characters
-      listchars = { -- Use these characters for that
+      textwidth = 80,         -- Default unless set by filetype
+      tabstop = 4,            -- Default unless set by filetype
+      shiftwidth = 0,         -- Use tabstop vaule unless set by filetype
+      spell = true,           -- Turn on spell checking
+      winminwidth = 10,       -- Don't allow windows to become too small
+      list = true,            -- Show nonprintable characters
+      listchars = {
+        -- Use these characters for that
         conceal = '⁞',
         extends = '❯',
         nbsp = '…',
@@ -20,20 +21,16 @@ local config = {
       },
     },
   },
-
   plugins = {
-    init = {
-      ["tpope/vim-repeat"] = {},
-      ["tpope/vim-surround"] = {},
-      ["tpope/vim-unimpaired"] = {},
-      ["zirrostig/vim-schlepp"] = {},
-      ["Konstruktionist/vim-fish"] = {},
-      -- Disable jj/jk escape keys
-      ["max397574/better-escape.nvim"] = { disable = true },
-      ["mfussenegger/nvim-dap-python"] = {},
-    },
+    { "tpope/vim-repeat",             lazy = false },
+    { "tpope/vim-surround",           lazy = false },
+    { "tpope/vim-unimpaired",         lazy = false },
+    { "zirrostig/vim-schlepp",        lazy = false },
+    { "Konstruktionist/vim-fish",     lazy = false },
+    -- Disable jj/jk escape keys
+    { "max397574/better-escape.nvim", enabled = false },
+    "mfussenegger/nvim-dap-python",
   },
-
   mappings = {
     -- {{{ Normal mode mappings
     n = {
@@ -44,25 +41,22 @@ local config = {
       ["<M-Up>"] = { "<C-w>k", desc = "Move to widnow above" },
       ["<M-Right>"] = { "<C-w>l", desc = "Move to window right" },
       -- For buffer navigation
-      ["<M-]>"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
-      ["<M-[>"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
-      ["<M-w>"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
+      ["<M-]>"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
+      ["<M-[>"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
+      ["<M-w>"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
       -- Same, but for OSX
-      ["‘"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
-      ["“"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
-      ["∑"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
+      ["‘"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
+      ["“"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
+      ["∑"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
       -- Same, but for OSX in a gui
-      ["<D-]>"] = { "<cmd>BufferLineCycleNext<CR>", desc = "Show next buffer" },
-      ["<D-[>"] = { "<cmd>BufferLineCyclePrev<CR>", desc = "Show previous buffer" },
-      ["<D-w>"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Delete buffer" },
+      ["<D-]>"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
+      ["<D-[>"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
+      ["<D-w>"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
       -- Schlepp-like
       ["<S-M-Down>"] = { "<cmd>m +<CR>", desc = "Move line 1 down" },
       ["<S-M-Up>"] = { "<cmd>m -2<CR>", desc = "Move line 1 up" },
-      -- Unimpaired for changes
-      ["]c"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" },
-      ["[c"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" },
       -- Additional Telescope bindings
-      ["<leader>so"] = { "<cmd>Telescope vim_options<CR>", desc = "Search vim options" },
+      ["<leader>fO"] = { "<cmd>Telescope vim_options<CR>", desc = "Search vim options" },
     },
     -- }}}
     -- {{{ Visual mode mappings
@@ -90,7 +84,6 @@ local config = {
     }
     -- }}}
   },
-
   polish = function()
     -- Comments should be italic
     vim.cmd.highlight('Comment', 'gui=italic')
