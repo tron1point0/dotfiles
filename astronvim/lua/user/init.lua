@@ -38,7 +38,7 @@ local config = {
       -- Move between splits with M-arrows
       ["<M-Left>"] = { "<C-w>h", desc = "Move to window left" },
       ["<M-Down>"] = { "<C-w>j", desc = "Move to window below" },
-      ["<M-Up>"] = { "<C-w>k", desc = "Move to widnow above" },
+      ["<M-Up>"] = { "<C-w>k", desc = "Move to window above" },
       ["<M-Right>"] = { "<C-w>l", desc = "Move to window right" },
       -- For buffer navigation
       ["<M-]>"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
