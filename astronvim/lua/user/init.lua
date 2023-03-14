@@ -26,10 +26,10 @@ local config = {
     { "tpope/vim-surround",           lazy = false },
     { "tpope/vim-unimpaired",         lazy = false },
     { "zirrostig/vim-schlepp",        lazy = false },
-    { "Konstruktionist/vim-fish",     lazy = false },
     -- Disable jj/jk escape keys
     { "max397574/better-escape.nvim", enabled = false },
-    "mfussenegger/nvim-dap-python",
+    { "Konstruktionist/vim-fish",     ft = "fish" },
+    { "mfussenegger/nvim-dap-python", ft = "python" },
   },
   mappings = {
     -- {{{ Normal mode mappings
