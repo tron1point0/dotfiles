@@ -81,7 +81,7 @@ local config = {
   color_scheme = color_scheme,
   keys = {
     -- Switch tabs with Cmd-[]
-    { key = '[', mods = 'CMD',       action = act.ActivateTabRelative( -1) },
+    { key = '[', mods = 'CMD',       action = act.ActivateTabRelative(-1) },
     { key = ']', mods = 'CMD',       action = act.ActivateTabRelative(1) },
     -- Split panes
     { key = 'h', mods = 'CMD|SHIFT', action = wezterm.action.SplitPane { direction = 'Down' } },
@@ -116,9 +116,9 @@ end
 -- {{{ Statusbar contents and colors
 
 local username = (function()
-      local _, value, _ = wezterm.run_child_process { 'whoami' }
-      return value:gsub("%s", "")
-    end)()
+  local _, value, _ = wezterm.run_child_process { 'whoami' }
+  return value:gsub("%s", "")
+end)()
 
 local left_border = wezterm.nerdfonts.ple_lower_left_triangle
 local right_border = wezterm.nerdfonts.ple_lower_right_triangle
