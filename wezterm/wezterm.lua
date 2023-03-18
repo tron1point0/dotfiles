@@ -89,6 +89,8 @@ local config = {
     -- For Linux hosts
     { key = ',', mods = 'CMD',       action = wezterm.action.SplitPane { direction = 'Down' } },
     { key = "'", mods = 'CMD',       action = wezterm.action.SplitPane { direction = 'Right' } },
+    -- Emoji input
+    { key = '.', mods = 'CMD',       action = wezterm.action.CharSelect {} }
   },
 }
 
