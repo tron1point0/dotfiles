@@ -177,7 +177,7 @@ wezterm.on('update-status', function(window, pane)
   })
 end)
 
-wezterm.on('format-tab-title', function(tab, _, _, _, _, max_width)
+wezterm.on('format-tab-title', function(tab, _, _, _, hover, max_width)
   local tab_offset = config.tab_and_split_indices_are_zero_based and 0 or 1
   local tab_index = (tab.tab_index + tab_offset) .. ''
 
@@ -193,6 +193,17 @@ wezterm.on('format-tab-title', function(tab, _, _, _, _, max_width)
 
   local tab_left_padding = ' '
   local tab_right_padding = ' '
+
+  local tab_text_foreground = { Foreground = { Color = palette.grey[5] } }
+
+  local tab_left_format = { Text = '' }
+  local tab_left = { Text = tab_left_no_border }
+
+  local tab_indicator_format = { Text = '' }
+  local tab_indicator = { Text = '.' }
+
+  local tab_right_format = { Text = '' }
+  local tab_right = { Text = tab_right_no_border }
 
   -- if cfg.show_tab_index_in_tab_bar then
   --   -- TODO
@@ -214,47 +225,41 @@ wezterm.on('format-tab-title', function(tab, _, _, _, _, max_width)
     title = wezterm.truncate_right(title, max_width - width_offset)
   end
 
-  if tab.is_active then
-    return {
-      { Foreground = { Color = palette.grey[2] } },
-      { Text = tab_left_border },
-      { Text = tab_left_padding },
-      { Foreground = { Color = palette.grey[5] } },
-      { Text = tab_index },
-      { Foreground = { Color = palette.yellow } },
-      { Text = '*' },
-      'ResetAttributes',
-      { Text = title },
-      { Text = tab_right_padding },
-      { Foreground = { Color = palette.grey[2] } },
-      { Text = tab_right_border },
-    }
+  if tab.active_pane.has_unseen_output then
+    tab_indicator_format = { Foreground = { Color = palette.yellow } }
+    tab_indicator = { Text = '#' }
   end
 
-  if tab.active_pane.has_unseen_output then
-    return {
-      { Text = tab_left_no_border },
-      { Text = tab_left_padding },
-      { Text = tab_index },
-      { Foreground = { Color = palette.yellow } },
-      { Text = '#' },
-      'ResetAttributes',
-      { Text = title },
-      { Text = tab_right_padding },
-      { Text = tab_right_no_border },
-    }
+  if tab.is_active or hover then
+    tab_left_format = { Foreground = { Color = palette.grey[2] } }
+    tab_left = { Text = tab_left_border }
+
+    tab_right_format = { Foreground = { Color = palette.grey[2] } }
+    tab_right = { Text = tab_right_border }
+  end
+
+  if tab.is_active then
+    tab_text_foreground = { Foreground = { Color = palette.foreground } }
+    tab_indicator_format = { Foreground = { Color = palette.yellow } }
+    tab_indicator = { Text = '*' }
   end
 
   -- TODO: Handle last active tab
 
   return {
-    { Text = tab_left_no_border },
+    tab_left_format,
+    tab_left,
     { Text = tab_left_padding },
+    tab_text_foreground,
     { Text = tab_index },
-    { Text = '.' },
+    tab_indicator_format,
+    tab_indicator,
+    "ResetAttributes",
+    tab_text_foreground,
     { Text = title },
     { Text = tab_right_padding },
-    { Text = tab_right_no_border },
+    tab_right_format,
+    tab_right,
   }
 end)
 -- }}}
