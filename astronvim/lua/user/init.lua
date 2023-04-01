@@ -112,9 +112,6 @@ local config = {
       local size = vim.fn.has('linux') > 0 and 'h12' or 'h14'
       local fonts = {
         'JetBrainsMono Nerd Font',
-        'FiraCode Nerd Font',
-        'Fira Code',
-        'Liberation Mono',
         'Menlo',
       }
       vim.opt.guifont = table.concat(fonts, ',') .. ':' .. size
