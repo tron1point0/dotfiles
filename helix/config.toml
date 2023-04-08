@@ -6,10 +6,28 @@ color-modes = true
 cursorline = true
 rulers = [80,120]
 
+[keys.normal.space]
+"c" = ":buffer-close"
+"q" = ":quit"
+
+[keys.normal]
+"A-]" = ":buffer-next"
+"A-[" = ":buffer-previous"
+"A-w" = ":buffer-close"
+# Same, but for OSX
+"‘" = ":buffer-next"
+"“" = ":buffer-previous"
+"∑" = ":buffer-close"
+# For moving around between splits / windows
+"A-left" = "jump_view_left"
+"A-down" = "jump_view_down"
+"A-up" = "jump_view_up"
+"A-right" = "jump_view_right"
+
 #################################################################
 # Vim-like keybindings from https://github.com/LGUG2Z/helix-vim #
 #################################################################
-[keys.normal]
+# [keys.normal]
 # Quick iteration on config changes
 C-o = ":config-open"
 C-r = ":config-reload"
