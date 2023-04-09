@@ -55,6 +55,7 @@ local config = {
   },
   use_resize_increments = true,
   window_background_opacity = 0.9,
+  macos_window_background_blur = 30,
   cursor_thickness = '0.1cell',
   visual_bell = {
     fade_in_function = 'EaseIn',
