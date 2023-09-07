@@ -18,6 +18,7 @@ if status is-interactive
     # The ubuntu package installs fd as fdfind
     type -q fdfind && not type -q fd && alias fd='fdfind'
 
-    type -q exa && alias ls='exa -F --group-directories-first'
+    type -q exa && alias ls='exa -F --group --group-directories-first'
+    type -q eza && alias ls='eza -F --group --group-directories-first --time-style relative'
 end
 
