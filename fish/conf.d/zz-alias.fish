@@ -7,6 +7,7 @@ if status is-interactive
     type -q axel &&         abbr -ag axel 'axel -a'
     type -q xdg-open &&     abbr -ag open 'xdg-open'
     type -q ranger &&       abbr -ag rr 'ranger'
+    type -q yazi &&         abbr -ag rr 'yazi'
     type -q lazygit &&      abbr -ag lg 'lazygit'
 
     # Everything below needs to be an alias for tab-completion to work right
