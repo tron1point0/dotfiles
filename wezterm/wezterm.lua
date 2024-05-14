@@ -99,6 +99,9 @@ local overrides = {
     config.freetype_load_target = "HorizontalLcd"
     config.freetype_render_target = "HorizontalLcd"
   end,
+  caph = function()
+    config.font_size = 12.0
+  end
 }
 
 -- {{{ Apply per-host overrides
