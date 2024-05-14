@@ -55,7 +55,7 @@ function __update_prompt {
     [[ -w /etc/passwd ]] && user_color='\e[38;5;9m'     # Red if rootish
 
     local ssh_icon=''
-    [[ -v SSH_TTY ]] && ssh_icon=' '
+    [[ -v SSH_TTY ]] && ssh_icon=' 󰌘'
 
     local time_bg="$(__host_color)"
     local time_fg="$(__textcolor "$time_bg")"
