@@ -31,9 +31,6 @@
 [submodule "vim/pack/dist/start/vim-unimpaired"]
 	path = vim/pack/dist/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "nvim"]
-	path = nvim
-	url = https://github.com/AstroNvim/AstroNvim
 [submodule "vim/pack/dist/start/vim-which-key"]
 	path = vim/pack/dist/start/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key.git

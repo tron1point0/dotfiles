@@ -5,3 +5,4 @@ xmonad/*
 !xmonad/xmonad.hs
 !xmonad/xmobar.hs
 lazygit/state.yml
+nvim/lazy-lock.json
