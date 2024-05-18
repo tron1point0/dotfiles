@@ -9,5 +9,4 @@ return {
   { "zirrostig/vim-schlepp",        lazy = false },
   -- Disable jj/jk escape keys
   { "max397574/better-escape.nvim", enabled = false },
-  { "Konstruktionist/vim-fish",     ft = "fish" },
 }

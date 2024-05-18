@@ -42,17 +42,18 @@ return {
         ["<M-Up>"] = { "<C-w>k", desc = "Move to window above" },
         ["<M-Right>"] = { "<C-w>l", desc = "Move to window right" },
         -- For buffer navigation
-        ["<M-]>"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
-        ["<M-[>"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
-        ["<M-w>"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
+        -- Have to use the functions directly because :bnext ordering is weird
+        ["<M-]>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["<M-[>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["<M-w>"] = { function() require("astrocore.buffer").close() end, desc = "Close buffer" },
         -- Same, but for OSX
-        ["‘"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
-        ["“"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
-        ["∑"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
+        ["‘"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["“"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["∑"] = { function() require("astrocore.buffer").close() end, desc = "Close buffer" },
         -- Same, but for OSX in a gui
-        ["<D-]>"] = { "<cmd>bnext<cr>", desc = "Show next buffer" },
-        ["<D-[>"] = { "<cmd>bprev<cr>", desc = "Show previous buffer" },
-        ["<D-w>"] = { "<cmd>Bdelete<cr>", desc = "Delete buffer" },
+        ["<D-]>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["<D-[>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["<D-w>"] = { function() require("astrocore.buffer").close() end, desc = "Close buffer" },
         -- Schlepp-like
         ["<S-M-Down>"] = { "<cmd>m +<CR>", desc = "Move line 1 down" },
         ["<S-M-Up>"] = { "<cmd>m -2<CR>", desc = "Move line 1 up" },
