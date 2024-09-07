@@ -69,11 +69,6 @@ local config = {
     bottom = 0,
     left = 0,
   },
-  -- Fonts
-  font = wezterm.font_with_fallback {
-    'JetBrainsMono Nerd Font',
-    'Menlo'
-  },
   font_size = 14.0,
   -- Colors
   color_scheme = color_scheme,
