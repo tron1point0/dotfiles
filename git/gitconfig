@@ -1,5 +1,3 @@
-[color]
-    ui = true
 [alias]
     ls = ls-tree --name-only HEAD -t
     lol = log \
@@ -13,13 +11,24 @@
     unstage = restore --staged --
     staged = diff --cached
     numstat = log --pretty=tformat: --no-merges --numstat
+[branch]
+    sort = -committerdate       # Sort displayed branches by most recent
+[tag]
+    sort = version:refname      # Natural sort of tags
+[color]
+    ui = true
+[column]
+    ui = auto                   # Show lots of branches/tags with columns
 [core]
-    excludesfile = ~/.config/git/gitignore
-    pager = delta
+    pager = delta               # Use the nice commit format if it's available
+[init]
+    defaultBranch = master      # Keep the old default
 [interactive]
     diffFilter = delta --color-only --features=interactive
 [delta]
     features = decorations
+    # Map the default color-moved styles
+    map-styles = bold purple => syntax darkmagenta, bold cyan => syntax darkblue
 # `delta` configs from https://github.com/dandavison/delta#git-config-file
 [delta "interactive"]
     keep-plus-minus-markers = false
@@ -31,12 +40,28 @@
     hunk-header-line-number-style = green
     hunk-header-style = file line-number syntax
     line-numbers = true
+[diff]
+    algorithm = histogram       # Nicer figuring of which lines are different
+    colorMoved = plain          # Highlight moved lines differently from added
+    mnemonicPrefix = true       # Replace a/ and b/ with i/, w/, and c/
+    renames = true              # Detect if files were renamed
+[fetch]
+    prune = true                # Delete local branches when remote is gone
+    pruneTags = true            # Delete local tags when remote is gone
+    all = true                  # Delete local refs for all remotes
+[help]
+    autocorrect = prompt        # Did you really mean `git psuh`?
 [push]
     default = simple
+    autoSetupRemote = true      # Automatically do --set-upstream
+    followTags = true           # Automatically push local tags
 [pull]
     rebase = false
+[rerere]
+    enabled = true              # Reuse recorded resolutions when rebasing
+    autoupdate = true           # Automatically re-apply recorded resolutions
 [merge]
-    conflictStyle = diff3
+    conflictStyle = diff3       # Can use zdiff3 after v2.35
 [include]
     path = ~/.gitconfig.local
 
