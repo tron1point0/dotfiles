@@ -57,8 +57,6 @@ return {
         -- Schlepp-like
         ["<S-M-Down>"] = { "<cmd>m +<CR>", desc = "Move line 1 down" },
         ["<S-M-Up>"] = { "<cmd>m -2<CR>", desc = "Move line 1 up" },
-        -- Additional Telescope bindings
-        ["<Leader>fO"] = { "<cmd>Telescope vim_options<CR>", desc = "Search vim options" },
       },
       -- }}}
       -- {{{ Visual mode mappings
