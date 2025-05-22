@@ -15,6 +15,9 @@ end, {})
 
 -- }}}
 
+-- Force colorscheme for systems that don't do it automatically
+vim.cmd.colorscheme("astrotheme")
+
 -- {{{ Configure gui clients
 
 if vim.fn.has('gui') then
