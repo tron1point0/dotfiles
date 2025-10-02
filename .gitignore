@@ -7,3 +7,4 @@ xmonad/*
 lazygit/state.yml
 nvim/lazy-lock.json
 fish/fish_variables
+wezterm/local.lua

@@ -87,27 +87,14 @@ local config = {
   },
 }
 
--- Per-host overrides
-local overrides = {
-  hadar = function()
-    config.font_size = 12.0
-    config.freetype_load_target = "HorizontalLcd"
-    config.freetype_render_target = "HorizontalLcd"
-  end,
-  caph = function()
-    config.font_size = 12.0
-  end
-}
+-- {{{ Apply per-host overrides from local.lua
 
--- {{{ Apply per-host overrides
-
-local hostname = wezterm.hostname()
-for host, fn in pairs(overrides) do
-  if hostname == host then
-    fn()
-    break
+(function()
+  local has_local, local_config = pcall(require, 'local')
+  if has_local and type(local_config) == 'function' then
+    local_config(config, wezterm)
   end
-end
+end)()
 
 -- }}}
 
