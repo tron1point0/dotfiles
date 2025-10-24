@@ -67,6 +67,7 @@ return {
         ["<S-M-Up>"] = { "<Plug>SchleppUp", desc = "Move visual block up" },
         ["<S-M-Right>"] = { "<Plug>SchleppRight", desc = "Move visual block right" },
         ["D"] = { "<Plug>SchleppDup", desc = "Duplicate visual block" },
+        ["<D-c>"] = { "y", desc = "Copy" },
       },
       -- }}}
       -- {{{ Insert mode mappings
@@ -75,13 +76,15 @@ return {
         ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
         ["<M-Left>"] = { "<C-Left>", desc = "Move left 1 word" },
         ["<M-Right>"] = { "<C-Right>", desc = "Move right 1 word" },
+        ["<D-v>"] = { "<C-R>+", desc = "Paste" },
       },
       c = {
         -- Same, but for command mode
         ["<M-Backspace>"] = { "<C-w>", desc = "Delete word" },
         ["<M-Left>"] = { "<C-Left>", desc = "Move left 1 word" },
         ["<M-Right>"] = { "<C-Right>", desc = "Move right 1 word" },
-      }
+        ["<D-v>"] = { "<C-R>+", desc = "Paste" },
+      },
       -- }}}
     },
   },
