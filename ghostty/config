@@ -2,6 +2,7 @@ theme = Dark+
 background-opacity = 0.95
 background-blur = true
 macos-option-as-alt = true
+shell-integration-features = ssh-env
 
 keybind = super+[=previous_tab
 keybind = super+]=next_tab
