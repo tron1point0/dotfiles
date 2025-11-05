@@ -16,6 +16,5 @@ keybind = super+bracket_left=unbind
 # Don't override stuff
 keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
-# keybind = super+arrow_left=unbind
-# keybind = super+arrow_right=unbind
 
+config-file = ?local.conf
