@@ -1,0 +1,20 @@
+theme = Dark+
+background-opacity = 0.95
+background-blur = true
+macos-option-as-alt = true
+
+keybind = super+[=previous_tab
+keybind = super+]=next_tab
+keybind = super+s=new_split:auto
+
+# Because of dvorak
+keybind = super+equal=unbind
+keybind = super+bracket_right=unbind
+keybind = super+bracket_left=unbind
+
+# Don't override stuff
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
+# keybind = super+arrow_left=unbind
+# keybind = super+arrow_right=unbind
+
