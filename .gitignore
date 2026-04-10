@@ -9,3 +9,4 @@ nvim/lazy-lock.json
 fish/fish_variables
 fish/conf.d/local.fish
 wezterm/local.lua
+ghostty/local.conf
