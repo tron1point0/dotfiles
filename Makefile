@@ -60,7 +60,7 @@ $(eval $(call homelink,.bashrc           ,bash/bashrc           ))
 # $(eval $(call homelink,.bash_profile     ,bash/bash_profile     ))
 $(eval $(call homelink,.tmux.conf        ,tmux/tmux.conf        ))
 # $(eval $(call homelink,.yaourtrc         ,yaourt/yaourtrc       ))
-$(eval $(call homelink,.gitconfig        ,git/gitconfig         ))
+# $(eval $(call homelink,.gitconfig        ,git/gitconfig         ))
 
 # Dirs that go into $XDG_CONFIG_HOME
 $(foreach d,\
