@@ -63,6 +63,7 @@
 [merge]
     conflictStyle = diff3       # Can use zdiff3 after v2.35
 [include]
+    path = local.conf
     path = ~/.gitconfig.local
 
 # vim: set ft=gitconfig:

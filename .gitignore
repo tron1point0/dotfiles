@@ -10,3 +10,4 @@ fish/fish_variables
 fish/conf.d/local.fish
 wezterm/local.lua
 ghostty/local.conf
+git/local.conf
